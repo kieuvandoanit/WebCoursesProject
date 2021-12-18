@@ -2,7 +2,9 @@ const adminModel = require('../model/admin.model')
 
 module.exports ={
     homepage: async(req, res, next) =>{
+        let manager = await adminModel.getAllAcountManager();
         res.render("admin/accountManager",{
+            manager: manager,
             layout: "admin"
         })
     },
