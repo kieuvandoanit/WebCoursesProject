@@ -26,6 +26,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 require("./middlewares/config.mdw")(app);
+require("./middlewares/locals.mdw")(app);
 require("./middlewares/routes.mdw")(app);
 
 app.listen(port, () =>{
