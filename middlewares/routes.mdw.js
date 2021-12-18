@@ -10,4 +10,7 @@ module.exports = (app) =>{
     app.get('/admin',restrict.isAdmin, admin.homepage)
     app.get('/admin/createAccount', restrict.isAdmin, admin.createAcount)
     app.get('/admin/viewHistoryAction/:id', restrict.isAdmin, admin.viewHistoryAction)
+    app.get('/admin/listHopital',restrict.isAdmin, admin.listHopital)
+    app.get('/admin/addHopital', restrict.isAdmin, admin.addHopital)
+    app.get('/admin/updateHopital/:id',restrict.isAdmin,admin.updateHopital)
 }
