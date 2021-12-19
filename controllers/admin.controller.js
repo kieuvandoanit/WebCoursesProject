@@ -13,15 +13,53 @@ module.exports ={
             layout: "admin"
         })
     },
+    addAcountHandle: async(req, res, next) =>{
+        let username = req.body.username;
+        let password = req.body.password;
+        let result = await adminModel.createAccount(username, password);
+
+        if(result.rowCount >= 1){
+            res.redirect("/admin");
+        }else{
+            res.redirect("/admin/createAcount");
+        }
+    },
     viewHistoryAction: async(req, res, next) =>{
-        res.render("admin/historyAction",{
-            layout: "admin"
-        })
+        let userId = req.params.id;
+        let activeTime = await adminModel.getHistoryActive(userId);
+        let userInfo = await adminModel.getOneUser(userId);
+        if(activeTime !== 0 && userInfo !== 0){
+            res.render("admin/historyAction",{
+                userInfo: userInfo,
+                userID: userId,
+                activeTime: activeTime,
+                layout: "admin"
+            })
+        }else{
+            res.send("Không có thông tin")
+        } 
+    },
+    updateStatusHandle: async(req, res, next) =>{
+        let userID = req.params.id;
+        let status = req.body.status;
+
+        let result = await adminModel.updateStatusUser(userID, status);
+        if(result.rowCount === 1){
+            res.redirect('/admin')
+        }else{
+            res.redirect('/admin/viewHistoryAction/'+userID);
+        }
     },
     listHopital: async(req, res, next) =>{
-        res.render("admin/listHopital",{
-            layout: "admin"
-        })
+        let listHopital = await adminModel.getListHopital();
+        if(listHopital !== 0){
+            res.render("admin/listHopital",{
+                listHopital: listHopital,
+                layout: "admin"
+            }) 
+        }else{
+            res.send("Không có thông tin");
+        }
     },
     addHopital: async(req, res, next) =>{
         res.render("admin/addHopital",{

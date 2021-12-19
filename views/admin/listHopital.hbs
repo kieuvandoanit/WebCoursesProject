@@ -17,34 +17,22 @@
     <thead>
     <a href="/admin/addHopital" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới khu điều trị/cách ly</a>
         <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Tên</th>
             <th>Số lượng</th>
             <th>Địa chỉ</th>
             <th class="text-center">Action</th>
         </tr>
     </thead>
+            {{#each listHopital}}
             <tr>
-                <td>1</td>
-                <td>Bệnh viện chợ rẫy</td>
-                <td>3000/5000</td>
-                <td>Phường 24, Bình Thạnh, Hồ Chí Minh</td>
-                <td class="text-center"><a class='btn btn-warning btn-xs' href="/admin/updateHopital/123"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
+                <td>{{@index}}</td>
+                <td>{{this.hopitalName}}</td>
+                <td>{{this.current_Quantity}}/{{this.Capacity}}</td>
+                <td>{{this.ward}}, {{this.District}}, {{this.province}}</td>
+                <td class="text-center"><a class='btn btn-warning btn-xs' href="/admin/updateHopital/{{this.hopitalID}}"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Bệnh viện chợ rẫy</td>
-                <td>3000/5000</td>
-                <td>Phường 24, Bình Thạnh, Hồ Chí Minh</td>
-                <td class="text-center"><a class='btn btn-warning btn-xs' href="/admin/updateHopital/123"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Bệnh viện chợ rẫy</td>
-                <td>3000/5000</td>
-                <td>Phường 24, Bình Thạnh, Hồ Chí Minh</td>
-                <td class="text-center"><a class='btn btn-warning btn-xs' href="/admin/updateHopital/123"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
-            </tr>
+            {{/each}}
     </table>
     </div>
 </div>

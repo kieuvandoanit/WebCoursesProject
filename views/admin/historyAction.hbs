@@ -1,24 +1,45 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Login time</th>
-      <th scope="col">Logout time</th>
-      <th scope="col">UserID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>"2014-03-14 00:00:00"</td>
-      <td>"2014-03-14 00:00:00"</td>
-      <td>123</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>"2014-03-14 00:00:00"</td>
-      <td>"2014-03-14 00:00:00"</td>
-      <td>123</td>
-    </tr>
-  </tbody>
-</table>
+<style>
+#submitButton{
+  margin-top: 32px;
+}
+</style>
+<div class="row">
+  <div class="col-md-9">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Login time</th>
+          <th scope="col">Logout time</th>
+          <th scope="col">UserID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each activeTime}}
+        <tr>
+          <th scope="row">{{@index}}</th>
+          <td>{{this.timeLogin}}</td>
+          <td>{{this.timeLogout}}</td>
+          <td>{{this.userID}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-3">
+    <form method="post" action="/admin/updateStatus/{{userID}}">
+      <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="inlineFormCustomSelect">Update status</label>
+          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status">
+            <option value="1" {{selected 1 userInfo.active}}>Active</option>
+            <option value="2" {{selected 2 userInfo.active}}>Lock</option>
+          </select>
+        </div>
+        <div class="col-auto my-1">
+          <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
