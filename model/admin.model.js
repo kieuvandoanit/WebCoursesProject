@@ -46,5 +46,21 @@ module.exports ={
             return result.rows;
         }
         return 0;
+    },
+    async updateHopital(hopitalId, hopitalName, currentQuantity, capacity, province, district, ward){
+        result = await pool.query(`UPDATE public."Hopital" SET "hopitalName"='${hopitalName}', "current_Quantity"=${currentQuantity}, "Capacity"=${capacity}, province='${province}', ward='${ward}', "District"='${district}' WHERE "hopitalID"=${hopitalId}`);
+        if(result.rowCount >= 1){
+            return result.rowCount;
+        }
+        return 0;
+    },
+    async addHopital(hopitalName, currentQuantity, capacity, province, district, ward){
+        result = await pool.query(`INSERT INTO public."Hopital"(
+            "hopitalName", "current_Quantity", "Capacity", province, ward, "District")
+            VALUES ('${hopitalName}', ${currentQuantity}, ${capacity}, '${province}', '${district}', '${ward}')`);
+        if(result.rowCount >= 1){
+            return result.rowCount
+        }
+        return 0;
     }
 }

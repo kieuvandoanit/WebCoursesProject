@@ -81,6 +81,35 @@ module.exports ={
     },
     updateHopitalHandle: async(req, res, next) =>{
         let hopitalName = req.body.hopitalName;
-        let 
+        let currentQuantity = req.body.currentQuantity;
+        let capacity = req.body.capacity;
+        let province = req.body.province;
+        let district = req.body.district;
+        let ward = req.body.ward;
+        let hopitalID = req.params.id;
+        
+        let result = await adminModel.updateHopital(hopitalID,hopitalName, currentQuantity, capacity, province, district, ward);
+        // res.send(result)
+        if(result !== 0){
+            res.redirect("/admin/listHopital")
+        }else{
+            res.redirect("/admin/updateHopital/"+hopitalID);
+        }
+    },
+    addHopitalHandle: async(req, res, next) =>{
+        let hopitalName = req.body.hopitalName;
+        let currentQuantity = req.body.currentQuantity;
+        let capacity = req.body.capacity;
+        let province = req.body.province;
+        let district = req.body.district;
+        let ward = req.body.ward;
+
+        let result = await adminModel.addHopital(hopitalName, currentQuantity, capacity, province, district, ward);
+        if(result !== 0){
+            res.redirect("/admin/listHopital")
+        }else{
+            res.redirect("/admin/addHopital");
+        }
     }
+
 }
