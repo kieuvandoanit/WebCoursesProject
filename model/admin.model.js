@@ -39,5 +39,12 @@ module.exports ={
             return result.rows;
         }
         return 0;
+    },
+    async getHopitalInfo(hopitalID){
+        let result = await pool.query(`SELECT * FROM public."Hopital" WHERE "hopitalID" = ${hopitalID}`);
+        if(result.rowCount >= 0){
+            return result.rows;
+        }
+        return 0;
     }
 }

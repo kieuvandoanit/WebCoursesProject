@@ -67,8 +67,20 @@ module.exports ={
         })
     },
     updateHopital: async(req, res, next) =>{
-        res.render("admin/updateHopital",{
-            layout: "admin"
-        })
+        let hopitalID = req.params.id;
+        let info = await adminModel.getHopitalInfo(hopitalID);
+        if(info !== 0){
+            res.render("admin/updateHopital",{
+                info: info[0],
+                layout: "admin"
+            })
+        }else{
+            res.send("Không tìm thấy thông tin");
+        }
+        
+    },
+    updateHopitalHandle: async(req, res, next) =>{
+        let hopitalName = req.body.hopitalName;
+        let 
     }
 }

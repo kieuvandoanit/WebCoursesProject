@@ -15,4 +15,5 @@ module.exports = (app) =>{
     app.get('/admin/updateHopital/:id',admin.updateHopital)
     app.post('/admin/updateStatus/:id', admin.updateStatusHandle)
     app.post('/admin/createAcountHandle',admin.addAcountHandle)
+    app.post('/admin/updateHopitalHandle/:id',admin.updateHopitalHandle)
 }
