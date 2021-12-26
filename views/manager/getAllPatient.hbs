@@ -1,0 +1,38 @@
+<style>
+</style>
+
+<table class="table">
+  <a href="/manager/addPatient" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới Bệnh Nhân</a>
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th style="text-align:center" scope="col">Họ tên</th>
+      <th scope="col">CMND/CC</th>
+      <th scope="col">Năm sinh</th>
+      <th style="text-align:center" scope="col">Địa chỉ</th>
+      <th scope="col">Trạng thái</th>
+      <th scope="col">Nơi điều trị</th>
+      <th scope="col">Người liên quan</th>
+      <th scope="col">Lịch sử</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each patient}}
+    <tr>
+      <th scope="row">{{this.PatientID}}</th>
+      <td>{{this.PatientName}}</td>
+      <td>{{this.identityCard}}</td>
+      <td>{{this.DOB}}</td>
+      <td>{{this.ward}}, {{this.District}}, {{this.province}}</td>
+      <td style="text-align:center">{{this.Status}}</td>
+      <td style="text-align:center">{{this.hospitalID}}</td>
+      <td style="text-align:center">{{this.patient_ref}}</td>
+      
+      <td><a href="/manager/viewHistoryAction/{{this.userID}}" type="button" class="btn btn-outline-info">View</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<script>
+</script>

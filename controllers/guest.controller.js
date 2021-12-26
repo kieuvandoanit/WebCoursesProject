@@ -20,6 +20,9 @@ module.exports={
             if(String(permission) === "1"){
                 res.redirect('/admin');
             }
+            if(String(permission) === "2"){
+                res.redirect('/manager');
+            }
         }else{
             res.redirect('/');
         }

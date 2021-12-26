@@ -2,6 +2,7 @@ const restrict = require('../middlewares/user.mdw');
 const homepage = require('../controllers/homepage.controller');
 const guest = require('../controllers/guest.controller');
 const admin = require('../controllers/admin.controller');
+const manager = require('../controllers/manager.controller')
 
 
 module.exports = (app) =>{
@@ -17,4 +18,7 @@ module.exports = (app) =>{
     app.post('/admin/createAcountHandle',admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id',admin.updateHopitalHandle)
     app.post('/admin/addHopitalHandle',admin.addHopitalHandle)
+    app.get('/manager',manager.homepage)
+    app.get('/manager/addPatient', manager.addPatient)
+    app.post('/manager/addPatientHandle',manager.addPatientHandle)
 }
