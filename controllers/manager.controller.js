@@ -100,15 +100,14 @@ module.exports ={
         }
     },
     addPatientHandle: async(req, res, next) =>{
-        let PatientID = req.body.PatientID;
+        
         let PatientName = req.body.PatientName;
-        let NumberID = req.body.NumberID;
         let DOB = req.body.DOB;
         let province = req.body.province;
         let District = req.body.District;
         let ward = req.body.ward;
         let identityCard = req.body.identityCard;
-        let patient_ref = req.body.patient_ref;
+        let patient_ref = req.body.patient_ref;z
         let hospitalID =req.body.hospitalID;
         let Status = req.body.Status;
         let userID = req.body.userID;
@@ -116,14 +115,12 @@ module.exports ={
         //     alert('hello')
         //     patient_ref=-1
         // }
-        let result = await managerModel.addPatient(PatientName, NumberID, DOB, province, ward, District,Status,userID,hospitalID,patient_ref,identityCard);
+        let result = await managerModel.addPatient(PatientName, DOB, province, ward, District,Status,userID,hospitalID,patient_ref,identityCard);
         if(result !== 0){
             res.redirect("/manager")
         }else{
             res.redirect("/manager/addPatient");
         }
-        //res.send(patient_ref)
-        
     }
 
 }

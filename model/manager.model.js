@@ -55,19 +55,19 @@ module.exports ={
         }
         return 0;
     },
-    async addPatient(PatientName, NumberID, DOB, province, ward, District,Status,userID,hospitalID,patient_ref,identityCard){
+    async addPatient(PatientName, DOB, province, ward, District,Status,userID,hospitalID,patient_ref,identityCard){
         let query = ''
         
         if(patient_ref==-1)
         {
             query = `INSERT INTO public."Patient"(
-                "PatientName", "NumberID", "DOB", "province", "ward", "District","Status","userID","hospitalID","identityCard")
-                VALUES('${PatientName}', ${NumberID}, ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${identityCard}')`
+                "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","identityCard")
+                VALUES('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${identityCard}')`
         }
         else{
             query = `INSERT INTO public."Patient"(
-                "PatientName", "NumberID", "DOB", "province", "ward", "District","Status","userID","hospitalID","patient_ref","identityCard")
-                VALUES ('${PatientName}', ${NumberID}, ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${patient_ref}','${identityCard}')`
+                "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","patient_ref","identityCard")
+                VALUES ('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${patient_ref}','${identityCard}')`
         }
         console.log(patient_ref)
         result = await pool.query(query)

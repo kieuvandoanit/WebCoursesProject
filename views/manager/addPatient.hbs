@@ -33,20 +33,16 @@
     <input type="text" class="form-control" id="Status" name="Status" placeholder="Nhập Trạng thái Bệnh nhân">
   </div>
   <div class="form-group">
-    <label for="hospitalID">Nơi điều trị</label>
+    <label for="hospitalID">ID Nơi điều trị</label>
     <input type="text" class="form-control" id="hospitalID" name="hospitalID" placeholder="Nhập Trạng thái Bệnh nhân">
   </div>
   <div class="form-group">
-    <label for="patient_ref">ID người liên quan</label>
-    <input type="text" class="form-control" id="patient_ref" name="patient_ref" value="0" placeholder="Nhập Trạng thái Bệnh nhân">
+    <label for="patient_ref">ID Người liên quan</label>
+    <input type="text" class="form-control" id="patient_ref" name="patient_ref" value="-1" placeholder="Nhập Trạng thái Bệnh nhân">
   </div>
   <div class="form-group">
-    <label for="NumberID">NumberID</label>
-    <input type="text" class="form-control" id="NumberID" name="NumberID" placeholder="Nhập NumberID">
-  </div>
-  <div class="form-group">
-    <label for="userID">userID</label>
-    <input type="text" class="form-control" id="userID" name="userID" placeholder="Nhập userID">
+    {{!-- <label for="userID">userID</label> --}}
+    <input type="hidden" class="form-control" id="userID" name="userID" value="4" placeholder="Nhập userID">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

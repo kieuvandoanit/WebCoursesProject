@@ -18,7 +18,7 @@ module.exports = (app) =>{
     app.post('/admin/createAcountHandle',admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id',admin.updateHopitalHandle)
     app.post('/admin/addHopitalHandle',admin.addHopitalHandle)
-    app.get('/manager',manager.homepage)
-    app.get('/manager/addPatient', manager.addPatient)
-    app.post('/manager/addPatientHandle',manager.addPatientHandle)
+    app.get('/manager',restrict.isManager,manager.homepage)
+    app.get('/manager/addPatient',restrict.isManager, manager.addPatient)
+    app.post('/manager/addPatientHandle',restrict.isManager,manager.addPatientHandle)
 }
