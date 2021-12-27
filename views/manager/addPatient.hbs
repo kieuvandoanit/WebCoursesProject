@@ -1,9 +1,9 @@
 <h3 style="text-align: center;">Thêm Bệnh Nhân</h3>
 <form method="post" action="/manager/addPatientHandle">
-  <div class="form-group">
+  {{!-- <div class="form-group">
     <label for="PatientID">ID Bệnh Nhân</label>
     <input type="text" class="form-control" name="PatientID" id="PatientID" placeholder="Nhập ID Bệnh nhân">
-  </div>
+  </div> --}}
   <div class="form-group">
     <label for="Patientname">Họ và tên Bệnh nhân</label>
     <input type="text" class="form-control" name="PatientName" id="PatientName" placeholder="Nhập Họ và Tên bệnh nhân">
@@ -38,7 +38,7 @@
   </div>
   <div class="form-group">
     <label for="patient_ref">ID người liên quan</label>
-    <input type="text" class="form-control" id="patient_ref" name="patient_ref" placeholder="Nhập Trạng thái Bệnh nhân">
+    <input type="text" class="form-control" id="patient_ref" name="patient_ref" value="0" placeholder="Nhập Trạng thái Bệnh nhân">
   </div>
   <div class="form-group">
     <label for="NumberID">NumberID</label>

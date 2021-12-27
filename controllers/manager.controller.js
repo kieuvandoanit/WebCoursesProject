@@ -1,3 +1,4 @@
+const { query } = require('express');
 const managerModel = require('../model/manager.model')
 
 module.exports ={
@@ -111,13 +112,18 @@ module.exports ={
         let hospitalID =req.body.hospitalID;
         let Status = req.body.Status;
         let userID = req.body.userID;
-        
-        let result = await managerModel.addPatient(PatientID, PatientName, NumberID, DOB, province, ward, District,Status,userID,hospitalID,patient_ref,identityCard);
+        // if(patient_ref==-1){
+        //     alert('hello')
+        //     patient_ref=-1
+        // }
+        let result = await managerModel.addPatient(PatientName, NumberID, DOB, province, ward, District,Status,userID,hospitalID,patient_ref,identityCard);
         if(result !== 0){
             res.redirect("/manager")
         }else{
             res.redirect("/manager/addPatient");
         }
+        //res.send(patient_ref)
+        
     }
 
 }
