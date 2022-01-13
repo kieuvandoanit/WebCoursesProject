@@ -1,0 +1,31 @@
+<style>
+
+</style>
+<table class="table">
+    <a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới gói nhu yếu phẩm</a>
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th style="text-align:center" scope="col"> Tên gói sản phẩm</th>
+            <th scope="col"> Số sản phẩm tối đa</th>
+            <th scope="col"> Tối đa lượt mua (Lần) </th>
+            <th scope="col"> Giới hạn thời gian mua (/ngày)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each Package}}
+        <tr>
+            <th scope="row">{{this.productPackageID}}</th>
+            <td>{{this.package_Name}}</td>
+            <td>{{this.limited_ProductQuantity}}</td>
+            <td>{{this.limited_PackageQuantity}}</td>
+            <td>{{this.limited_Time}}</td>
+            <td><a href="/manager/viewPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
+            <td><a href="/manager/editPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+            <td><a href="/manager/DeletePackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script>
+</script>
