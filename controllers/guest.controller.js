@@ -23,6 +23,9 @@ module.exports={
             if(String(permission) === "2"){
                 res.redirect('/manager');
             }
+            if(String(permission) === "3"){
+                res.redirect(`/user/userInfo?userID=${userID}`)
+            }
         }else{
             res.redirect('/');
         }
