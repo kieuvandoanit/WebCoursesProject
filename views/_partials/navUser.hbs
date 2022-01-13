@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg nav-light" id="navbar" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="/user/userInfo?userID={{user.userID}}">
+    <i class="fa fa-home fa-lg"></i>
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/user/userInfo?userID={{user.userID}}">Thông Tin Người Dùng</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/userInfo?userID={{user.userID}}&info=notification">Thông Báo Nhắc Thanh
+          Toán</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          href="#">Lịch Sử </a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="/user/userInfo?userID={{user.userID}}&info=managedHistory">Lịch Sử Được Quản
+            Lý</a>
+          <a class="dropdown-item selected" href="/user/userInfo?userID={{user.userID}}&info=kitHistory">Lịch Sử Tiêu
+            Thụ Gói Nhu Yếu
+            Phẩm</a>
+          <a class="dropdown-item" href="/user/userInfo?userID={{user.userID}}&info=paymentHistory">Lịch Sử Thanh
+            Toán</a>
+        </ul>
+      </li>
+    </ul>
+    <form id="formLogout" method="POST" action="/account/logout"></form>
+    <ul class="navbar-nav ml-auto">
+      <a class="navbar-brand" href="/user/shoppingCart?userID={{user.userID}}">
+        <i class="fa fa-shopping-cart"></i>
+      </a>
+      {{#if isUser}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Xin chào, <b>{{isUser.username}}</b>!
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {{!-- <a class="dropdown-item" href="/user/profile/{{isUser.userID}}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Trang cá nhân
+          </a> --}}
+          {{!-- <div class="dropdown-divider"></div> --}}
+          <a class="dropdown-item" href="/user/userInfo?userID={{user.userID}}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Hồ Sơ Người Dùng
+          </a>
+          <a class="dropdown-item" href="/user/changePassword/{{user.userID}}">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            Thay Đổi Mật Khẩu
+          </a>
+          <a class="dropdown-item" href="/user/payment/{{user.userID}}">
+            <i class="fa fa-credit-card" aria-hidden="true"></i>
+            Nạp Tài Khoản
+          </a>
+          <a class="dropdown-item" href="/logout">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Đăng Xuất
+          </a>
+        </div>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="btn btn-success mr-sm-2" href="/login">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          Đăng Nhập
+        </a>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
+</nav>

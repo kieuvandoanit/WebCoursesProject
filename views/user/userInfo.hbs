@@ -1,0 +1,47 @@
+<h1 style="text-align: center;">Thông Tin Người Dùng</h1>
+<tbody>
+    <div class="row row-cols-1 row-cols-md-1 g-3">
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold">Thông Tin Người Dùng</h4>
+                    <p class="card-text"><strong>Tên Người Dùng</strong>: {{user.userName}}</p>
+                    {{#if patient}}
+                    <p class="card-text"><strong>Năm-Tháng-Ngày Sinh</strong>: {{patient.DOB}}</p>
+                    <p class="card-text"><strong>CMND</strong>: {{patient.NumberID}}</p>
+                    <p class="card-text"><strong>Địa Chỉ</strong>: {{patient.ward}}, {{patient.District}},
+                        {{patient.province}}</p>
+                    <p class="card-text"><strong>Tình Trạng</strong>: F{{patient.Status}}</p>
+                    {{else}}
+                    <p class="card-text"><strong>Năm-Tháng-Ngày Sinh</strong>: N/A</p>
+                    <p class="card-text"><strong>CMND</strong>: N/A</p>
+                    <p class="card-text"><strong>Địa Chỉ</strong>: N/A</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{#if hospital}}
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold">Thông Tin Bệnh Viện</h4>
+                    <p class="card-text"><strong>Tên Bệnh Viện</strong>: {{hospital.hopitalName}}</p>
+                    <p class="card-text"><strong>Địa Chỉ Bệnh Viện</strong>: {{hospital.ward}}, {{hospital.District}},
+                        {{hospital.province}}</p>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold">Thông Tin Tài Khoản</h4>
+                    <p class="card-text"><strong>Số Dư Tài Khoản</strong>: ...
+                    <p>
+                    <p class="card-text"><strong>Dư Nợ</strong>: ...</p>
+                    <a href="/user/payment?id={{user.userID}}" class="btn btn-primary">Thanh Toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</tbody>
