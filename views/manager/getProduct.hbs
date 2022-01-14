@@ -1,0 +1,28 @@
+<style>
+
+</style>
+<table class="table">
+    <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới sản phẩm</a>
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th style="text-align:center" scope="col"> Tên sản phẩm</th>
+            <th scope="col"> Giá cả</th>
+            <th scope="col"> Đơn vị</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each Product}}
+        <tr>
+            <th scope="row">{{this.ProductID}}</th>
+            <td>{{this.Product_name}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.Unit}}</td>
+            <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
+            <td><a href="/manager/editProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script>
+</script>
