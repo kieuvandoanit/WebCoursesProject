@@ -29,17 +29,10 @@ module.exports = {
     },
     viewHistoryAction: async(req, res, next) => {
         let userId = req.params.id;
-<<<<<<< HEAD
         let activeTime = await managerModel.getHistoryActive(userId);
         let userInfo = await managerModel.getOneUser(userId);
         if(activeTime !== 0 && userInfo !== 0){
             res.render("manager/historyAction",{
-=======
-        let activeTime = await adminModel.getHistoryActive(userId);
-        let userInfo = await adminModel.getOneUser(userId);
-        if (activeTime !== 0 && userInfo !== 0) {
-            res.render("manager/historyAction", {
->>>>>>> 32c820b9c9a73862973d5809a10f3bf8336137f0
                 userInfo: userInfo,
                 userID: userId,
                 activeTime: activeTime,
@@ -53,13 +46,9 @@ module.exports = {
         let userID = req.params.id;
         let status = req.body.status;
 
-<<<<<<< HEAD
         let result = await managerModel.updateStatusUser(userID, status);
         if(result.rowCount === 1){
-=======
-        let result = await adminModel.updateStatusUser(userID, status);
-        if (result.rowCount === 1) {
->>>>>>> 32c820b9c9a73862973d5809a10f3bf8336137f0
+
             res.redirect('/manager')
         } else {
             res.redirect('/manager/viewHistoryAction/' + userID);
