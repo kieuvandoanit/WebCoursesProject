@@ -25,8 +25,6 @@ module.exports = (app) => {
     app.get('/manager/addPatient', manager.addPatient)
     app.post('/manager/addPatientHandle',  manager.addPatientHandle)
     app.get('/manager/viewDetailPatient/:id', manager.viewDetailPatient)
-    app.get('/manager/getProduct',  manager.getProduct)
-    app.get('/manager/getPackage',  manager.getPackage)
     app.post('/manager', manager.findPatient)
     app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
     //Giang
