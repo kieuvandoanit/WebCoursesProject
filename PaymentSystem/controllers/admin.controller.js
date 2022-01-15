@@ -1,4 +1,5 @@
 const userModel = require('../model/user.model');
+const md5 = require('md5');
 
 module.exports={
     homepage: async(req, res, next) =>{
@@ -30,7 +31,7 @@ module.exports={
                 error: error
             });
         }
-        let result = await userModel.createUser(username, password);
+        let result = await userModel.createUser(username, md5(password));
         if(result.rowCount === 1){
             res.redirect('/admin');
         }else{
@@ -49,7 +50,7 @@ module.exports={
                 result: -1
             })
         }
-        let result = await userModel.createUser(username, password);
+        let result = await userModel.createUser(username, md5(password));
         if(result.rowCount === 1){
             res.json({ result : 1})
         }else{
