@@ -19,12 +19,19 @@ module.exports = (app) => {
     app.post('/admin/createAcountHandle', admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id', admin.updateHopitalHandle)
     app.post('/admin/addHopitalHandle', admin.addHopitalHandle)
-        // manager 
-    app.get('/manager', restrict.isManager, manager.homepage)
-    app.get('/manager/addPatient', restrict.isManager, manager.addPatient)
-    app.post('/manager/addPatientHandle', restrict.isManager, manager.addPatientHandle)
-    app.get('/manager/viewHistoryAction/:id', manager.viewHistoryAction)
+
+    // manager 
+    //Duy
+    app.get('/manager', manager.homepage)
+    app.get('/manager/addPatient', manager.addPatient)
+    app.post('/manager/addPatientHandle', manager.addPatientHandle)
+    app.get('/manager/viewDetailPatient/:id', manager.viewDetailPatient)
+    app.get('/manager/getProduct', manager.getProduct)
+    app.get('/manager/getPackage', manager.getPackage)
     app.post('/manager', manager.findPatient)
+    app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
+
+    //Giang
 
     app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
@@ -32,6 +39,7 @@ module.exports = (app) => {
     app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
     app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
     app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
+
 
     //User
 

@@ -2,7 +2,7 @@ const pool = require('../utils/database')
 
 module.exports = {
     async getAllPatient() {
-        let patients = await pool.query(`SELECT * FROM public."Patient"`);
+        let patients = await pool.query(`SELECT * FROM public."Patient" ORDER BY "PatientID" ASC`);
 
         if (patients.rowCount >= 1) {
             return patients.rows;
@@ -17,6 +17,14 @@ module.exports = {
         }
         return 0;
     },
+    async updatePatientStatus(patientID ,status) {
+        let patient = await pool.query(`UPDATE public."Patient" set "Status" = '${status}' WHERE "PatientID" = '${patientID}'`);
+
+        if (patient.rowCount >= 1) {
+            return patient.rows;
+        }
+        return 0;
+    },
     async getHistoryActive(userId) {
         let result = await pool.query(`SELECT * FROM public."History" WHERE "userID" = ${userId}`);
         if (result.rowCount >= 0) {
@@ -25,7 +33,14 @@ module.exports = {
         return 0;
     },
     async getOneUser(userID) {
-        let user = await pool.query(`SELECT * FROM public."User" WHERE "userID" = ${userID}`);
+        let user = await pool.query(`SELECT * FROM public."Patient" WHERE "userID" = ${userID}`);
+        if (user.rowCount = 1) {
+            return user.rows;
+        }
+        return 0;
+    },
+    async getUserRef(PatientID) {
+        let user = await pool.query(`SELECT * FROM public."Patient" WHERE "patient_ref" = ${PatientID}`);
         if (user.rowCount = 1) {
             return user.rows;
         }
