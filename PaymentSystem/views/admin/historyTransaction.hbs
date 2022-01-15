@@ -1,0 +1,32 @@
+<h2>Lịch sử giao dịch</h2>
+<form method="post" action="">
+  <div class="form-group">
+    <label for="username">Nhập số tài khoản</label>
+    <input type="text" class="form-control col-md-5" name="accountNumber" id="username" placeholder="Nhập số tài khoản"><br>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+  </div>
+</form>
+<a href="/historyTransaction" class="btn btn-success">Xem tất cả</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Số tài khoản</th>
+      <th scope="col">Thanh toán</th>
+      <th scope="col">Nội dung</th>
+      <th scope="col">Ngày thanh toán</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each transactions}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.accountNumber}}</td>
+      <td>{{currency this.totalPrice}}</td>
+      <td>{{this.paymentFor}}</td>
+      <td>{{this.paymentDate}}</td>
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>

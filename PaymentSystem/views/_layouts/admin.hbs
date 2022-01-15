@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  {{{_sections.css}}}
+</head>
+
+<body>
+  <div class="container">
+    {{> navAdmin}}
+    <div class="row" style="min-height:600px; padding-left: 12px;">
+        <div id="menu" class="col-md-3" style="background-color: rgb(230, 217, 202);">
+            <ul class="list_control">
+                <li class="control_item" style="margin-top: 10px;"><a href="/checkBalance">Kiểm tra số dư</a></li>
+                <li class="control_item"><a href="/createAccount">Tạo tài khoản</a></li>
+                <li class="control_item"><a href="/changePassword">Đổi mật khẩu</a></li>
+                <li class="control_item"><a href="/historyTransaction">Lịch sử giao dịch</a></li>
+            </ul>
+        </div>
+        <div id="content" class="col-md-9">
+          {{{body}}}
+        </div>
+    </div>
+    
+  </div>
+  {{!-- {{#if isAuth}} --}}
+  <style>
+    ul>li{
+      list-style: none;
+    }
+    ul{
+      padding: 0px;
+    }
+    a{
+      text-decoration: none;
+      color: black;
+      padding-left: 20px;
+    }
+    .control_item{
+      padding: 10px 0px;
+      background-color: #ffffff;
+      margin-bottom: 3px;
+    }
+    .control_item:hover{
+      background-color: #9c9797;
+    }
+    a:hover{
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+  
+ 
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://kit.fontawesome.com/3489b583c9.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-jXCJJT3KKcnNjZ3rfsabCj1EX4j2omR4xxm+H5CtywE=" crossorigin="anonymous"></script>
+  {{!-- <script src="/public/javascript/bootnavbar.js"></script> --}}
+  {{!-- <script>$('#navbar').bootnavbar();</script> --}}
+  {{{_sections.js}}}
+</body>
+
+</html>
