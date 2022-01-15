@@ -1,5 +1,6 @@
 const guestModel = require('../model/guest.model')
 const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 
 module.exports={
     login: async(req, res, next) =>{
@@ -7,7 +8,7 @@ module.exports={
     },
     loginHandle: async(req, res, next) =>{
         let username = req.body.userName;
-        let password = req.body.password;
+        let password = md5(req.body.password);
         let result = await guestModel.login(username, password);
         if(result !== 0){
             let userID = result.userID;
