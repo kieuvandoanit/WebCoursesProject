@@ -110,6 +110,21 @@ module.exports = {
     async DeletePackage(productPackageID) {
         let result = await pool.query(`UPDATE public."productPackage" SET "isDelete" = 1 WHERE "productPackageID" = ${productPackageID}`);
         return result;
+    },
+    // search by name or ID
+    async searchedProduct(text) {
+        let product = await pool.query(`SELECT * FROM public."Product" WHERE "Product_name" like '%${text}%' or "ProductID" = ${text}`);
+        if (product.rowCount >= 1) {
+            return product.rows;
+        }
+        return 0;
+    },
+    // search theo tên còn chưa load được
+    async searchedPackage(text) {
+        let Package = await pool.query(`SELECT * FROM public."productPackage" WHERE "package_Name" like '%${text}%' or "productPackageID" = ${text}`);
+        if (Package.rowCount >= 1) {
+            return Package.rows;
+        }
+        return 0;
     }
-
 }

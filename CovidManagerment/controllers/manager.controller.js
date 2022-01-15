@@ -11,7 +11,7 @@ module.exports = {
             layout: "manager"
         })
     },
-    findPatient:async(req,res,next)=>{
+    findPatient: async(req, res, next) => {
         // res.send('Hello')
         let patient = await managerModel.getPatient(req.body.patientName);
         res.render("manager/getPatient", {
@@ -21,10 +21,10 @@ module.exports = {
             layout: "manager"
         })
     },
-    updateStatus:async(req,res,next)=>{
+    updateStatus: async(req, res, next) => {
         // res.send('Hello')
         let patient = await managerModel.getPatient(req.body.patientName);
-        
+
         res.render("manager/getPatient", {
             title: "1712389_NguyenQuangDuy",
             patient: patient,
@@ -52,8 +52,8 @@ module.exports = {
         let userId = req.params.id;
         let activeTime = await managerModel.getHistoryActive(userId);
         let userInfo = await managerModel.getOneUser(userId);
-        if(activeTime !== 0 && userInfo !== 0){
-            res.render("manager/historyAction",{
+        if (activeTime !== 0 && userInfo !== 0) {
+            res.render("manager/historyAction", {
                 userInfo: userInfo,
                 userID: userId,
                 activeTime: activeTime,
@@ -68,7 +68,7 @@ module.exports = {
         let status = req.body.status;
 
         let result = await managerModel.updateStatusUser(userID, status);
-        if(result.rowCount === 1){
+        if (result.rowCount === 1) {
 
             res.redirect('/manager')
         } else {
@@ -184,6 +184,22 @@ module.exports = {
         } else {
             res.send("Lỗi");
         }
+    },
+    findProduct: async(req, res, next) => {
+        // res.send('Hello')
+        let Product = await managerModel.searchedProduct(req.body.productName);
+        res.render("manager/getSearchedProduct", {
+            Product: Product,
+            layout: "manager"
+        })
+    },
+    findPackage: async(req, res, next) => {
+        // res.send('Hello')
+        let Package = await managerModel.searchedPackage(req.body.packageName);
+        res.render("manager/getSearchedPackage", {
+            Package: Package,
+            layout: "manager"
+        })
     }
 
 
