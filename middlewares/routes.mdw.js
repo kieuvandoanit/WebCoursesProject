@@ -26,7 +26,8 @@ module.exports = (app) => {
     app.post('/manager/addPatientHandle', restrict.isManager, manager.addPatientHandle)
     app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
-
+    app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
+    app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
 
     //User
     app.get('/user/userInfo', user.accountMain)

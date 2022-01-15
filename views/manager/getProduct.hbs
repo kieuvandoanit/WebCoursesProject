@@ -9,6 +9,9 @@
             <th style="text-align:center" scope="col"> Tên sản phẩm</th>
             <th scope="col"> Giá cả</th>
             <th scope="col"> Đơn vị</th>
+            <th style="text-align:center" scope="col"> Chi tiết</th>
+            <th scope="col"> Chỉnh sửa</th>
+            <th scope="col"> Xóa</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +23,7 @@
             <td>{{this.Unit}}</td>
             <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
             <td><a href="/manager/editProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+            <td><a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
         </tr>
         {{/each}}
     </tbody>
