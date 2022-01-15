@@ -19,8 +19,8 @@ module.exports = (app) => {
     app.post('/admin/createAcountHandle', admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id', admin.updateHopitalHandle)
     app.post('/admin/addHopitalHandle', admin.addHopitalHandle)
-        // manager 
-
+    // manager 
+    //Duy
     app.get('/manager', manager.homepage)
     app.get('/manager/addPatient', manager.addPatient)
     app.post('/manager/addPatientHandle',  manager.addPatientHandle)
@@ -29,6 +29,13 @@ module.exports = (app) => {
     app.get('/manager/getPackage',  manager.getPackage)
     app.post('/manager', manager.findPatient)
     app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
+    //Giang
+    app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
+    app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
+    app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
+    app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
+
+
     //User
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)

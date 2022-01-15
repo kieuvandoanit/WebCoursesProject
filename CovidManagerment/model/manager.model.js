@@ -102,7 +102,7 @@ module.exports = {
         return 0;
     },
     async getAllProduct() {
-        let Product = await pool.query(`SELECT * FROM public."Product"`);
+        let Product = await pool.query(`SELECT * FROM public."Product" WHERE "isDelete" = 0`);
 
         if (Product.rowCount >= 1) {
             return Product.rows;
@@ -111,12 +111,20 @@ module.exports = {
         return 0;
     },
     async getAllPackage() {
-        let Package = await pool.query(`SELECT * FROM public."productPackage"`);
+        let Package = await pool.query(`SELECT * FROM public."productPackage" WHERE "isDelete" = 0`);
 
         if (Package.rowCount >= 1) {
             return Package.rows;
         }
         return 0;
+    },
+    async DeleteProduct(ProductID) {
+        let result = await pool.query(`UPDATE public."Product" SET "isDelete" = 1 WHERE "ProductID" = ${ProductID}`);
+        return result;
+    },
+    async DeletePackage(productPackageID) {
+        let result = await pool.query(`UPDATE public."productPackage" SET "isDelete" = 1 WHERE "productPackageID" = ${productPackageID}`);
+        return result;
     }
 
 }

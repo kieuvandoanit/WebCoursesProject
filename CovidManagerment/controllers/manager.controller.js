@@ -166,12 +166,30 @@ module.exports = {
     getPackage: async(req, res, next) => {
         let Package = await managerModel.getAllPackage();
         if (Package !== 0) {
-            res.render("/manager/getPackage", {
+            res.render("manager/getPackage", {
                 Package: Package,
                 layout: "manager"
             })
         } else {
             res.send("Không có thông tin");
+        }
+    },
+    DeleteProduct: async(req, res, next) => {
+        let ProductID = req.params.id;
+        let result = await managerModel.DeleteProduct(ProductID);
+        if (result.rowCount === 1) {
+            res.redirect('/manager/getProduct')
+        } else {
+            res.send("Lỗi");
+        }
+    },
+    DeletePackage: async(req, res, next) => {
+        let PackageID = req.params.id;
+        let result = await managerModel.DeletePackage(PackageID);
+        if (result.rowCount === 1) {
+            res.redirect('/manager/getPackage')
+        } else {
+            res.send("Lỗi");
         }
     }
 
