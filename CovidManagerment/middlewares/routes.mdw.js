@@ -24,10 +24,11 @@ module.exports = (app) => {
     app.get('/manager', manager.homepage)
     app.get('/manager/addPatient', manager.addPatient)
     app.post('/manager/addPatientHandle',  manager.addPatientHandle)
-    app.get('/manager/viewHistoryAction/:id', manager.viewHistoryAction)
+    app.get('/manager/viewDetailPatient/:id', manager.viewDetailPatient)
     app.get('/manager/getProduct',  manager.getProduct)
     app.get('/manager/getPackage',  manager.getPackage)
     app.post('/manager', manager.findPatient)
+    app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
     //User
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)

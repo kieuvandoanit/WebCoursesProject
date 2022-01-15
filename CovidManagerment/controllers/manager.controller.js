@@ -14,23 +14,29 @@ module.exports = {
     findPatient:async(req,res,next)=>{
         // res.send('Hello')
         let patient = await managerModel.getPatient(req.body.patientName);
-        res.render("manager/getPatient", {
+        res.render("manager/getAllPatient", {
             title: "1712389_NguyenQuangDuy",
             patient: patient,
 
             layout: "manager"
         })
     },
-    updateStatus:async(req,res,next)=>{
-        // res.send('Hello')
-        let patient = await managerModel.getPatient(req.body.patientName);
-        
-        res.render("manager/getPatient", {
-            title: "1712389_NguyenQuangDuy",
-            patient: patient,
-
-            layout: "manager"
-        })
+    updatePatientStatus:async(req,res,next)=>{
+        let userId = req.params.id;
+        let status = await managerModel.updatePatientStatus(1,req.body.status);
+        let userInfo = await managerModel.getOneUser(userId);
+        let userRef = await managerModel.getUserRef(1);
+        if(userRef !== 0 || userInfo !== 0){
+            res.render("manager/detailRefPatient",{
+                userInfo: userInfo,
+                userID: userId,
+                userRef: userRef,
+                layout: "manager",
+                
+            })
+        } else {
+            res.send("Không có thông tin")
+        }
     },
     createAcount: async(req, res, next) => {
         res.render("manager/createAccount", {
@@ -48,15 +54,16 @@ module.exports = {
             res.redirect("/manager/createAcount");
         }
     },
-    viewHistoryAction: async(req, res, next) => {
+    viewDetailPatient: async(req, res, next) => {
         let userId = req.params.id;
-        let activeTime = await managerModel.getHistoryActive(userId);
+        let PatientID = req.body.PatientID;
         let userInfo = await managerModel.getOneUser(userId);
-        if(activeTime !== 0 && userInfo !== 0){
-            res.render("manager/historyAction",{
+        let userRef = await managerModel.getUserRef(1);
+        if(userRef !== 0 || userInfo !== 0){
+            res.render("manager/detailRefPatient",{
                 userInfo: userInfo,
                 userID: userId,
-                activeTime: activeTime,
+                userRef: userRef,
                 layout: "manager"
             })
         } else {
