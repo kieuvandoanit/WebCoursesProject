@@ -32,8 +32,9 @@ module.exports = (app) => {
     app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
     app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
     app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
-        // check
-        //User
+
+    //User
+
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
