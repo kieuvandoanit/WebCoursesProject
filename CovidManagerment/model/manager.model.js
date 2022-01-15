@@ -2,7 +2,15 @@ const pool = require('../utils/database')
 
 module.exports = {
     async getAllPatient() {
-        let patient = await pool.query(`SELECT * FROM public."Patient"`);
+        let patients = await pool.query(`SELECT * FROM public."Patient"`);
+
+        if (patients.rowCount >= 1) {
+            return patients.rows;
+        }
+        return 0;
+    },
+    async getPatient(pName) {
+        let patient = await pool.query(`SELECT * FROM public."Patient" WHERE "PatientName" like '%${pName}%'`);
 
         if (patient.rowCount >= 1) {
             return patient.rows;
@@ -55,21 +63,25 @@ module.exports = {
         }
         return 0;
     },
-    async addPatient(PatientName, DOB, province, ward, District, Status, userID, hospitalID, patient_ref, identityCard) {
+    async addPatient(PatientName, DOB, province, ward, District, Status, userID, hospitalID, patient_ref, identityCard, username) {
         let query = ''
 
         if (patient_ref == -1) {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","identityCard")
                 VALUES('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${identityCard}')`
+            query2 = `INSERT INTO public."User"(
+                "userName", "password", "permission", "active") VALUES('${username}','123456', '3', '2')`
         } else {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","patient_ref","identityCard")
                 VALUES ('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${patient_ref}','${identityCard}')`
+            query2 = `INSERT INTO public."User"("userName", "password", "permission", "active") VALUES('${username}','123456', '3', '2')`
         }
         console.log(patient_ref)
         result = await pool.query(query)
-        if (result.rowCount >= 1) {
+        result2 = await pool.query(query2)
+        if (result.rowCount >= 1 && result2.rowCount >= 1) {
             return result.rowCount
         }
         return 0;

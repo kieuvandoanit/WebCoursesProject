@@ -11,6 +11,27 @@ module.exports = {
             layout: "manager"
         })
     },
+    findPatient:async(req,res,next)=>{
+        // res.send('Hello')
+        let patient = await managerModel.getPatient(req.body.patientName);
+        res.render("manager/getPatient", {
+            title: "1712389_NguyenQuangDuy",
+            patient: patient,
+
+            layout: "manager"
+        })
+    },
+    updateStatus:async(req,res,next)=>{
+        // res.send('Hello')
+        let patient = await managerModel.getPatient(req.body.patientName);
+        
+        res.render("manager/getPatient", {
+            title: "1712389_NguyenQuangDuy",
+            patient: patient,
+
+            layout: "manager"
+        })
+    },
     createAcount: async(req, res, next) => {
         res.render("manager/createAccount", {
             layout: "manager"
@@ -109,15 +130,15 @@ module.exports = {
         let ward = req.body.ward;
         let identityCard = req.body.identityCard;
         let patient_ref = req.body.patient_ref;
-        z
         let hospitalID = req.body.hospitalID;
         let Status = req.body.Status;
         let userID = req.body.userID;
+        let userName = req.body.username;
         // if(patient_ref==-1){
         //     alert('hello')
         //     patient_ref=-1
         // }
-        let result = await managerModel.addPatient(PatientName, DOB, province, ward, District, Status, userID, hospitalID, patient_ref, identityCard);
+        let result = await managerModel.addPatient(PatientName, DOB, province, ward, District, Status, userID, hospitalID, patient_ref, identityCard, userName);
         if (result !== 0) {
             res.redirect("/manager")
         } else {

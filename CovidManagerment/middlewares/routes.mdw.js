@@ -21,12 +21,13 @@ module.exports = (app) => {
     app.post('/admin/addHopitalHandle', admin.addHopitalHandle)
         // manager 
 
-    app.get('/manager', restrict.isManager, manager.homepage)
-    app.get('/manager/addPatient', restrict.isManager, manager.addPatient)
-    app.post('/manager/addPatientHandle', restrict.isManager, manager.addPatientHandle)
+    app.get('/manager', manager.homepage)
+    app.get('/manager/addPatient', manager.addPatient)
+    app.post('/manager/addPatientHandle',  manager.addPatientHandle)
     app.get('/manager/viewHistoryAction/:id', manager.viewHistoryAction)
-    app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
-    app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
+    app.get('/manager/getProduct',  manager.getProduct)
+    app.get('/manager/getPackage',  manager.getPackage)
+    app.post('/manager', manager.findPatient)
     //User
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)
