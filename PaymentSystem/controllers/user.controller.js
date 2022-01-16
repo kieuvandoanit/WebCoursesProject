@@ -180,5 +180,9 @@ module.exports={
                 error: "Nạp tiền vào tài khoản thất bại!"
             });
         }
+    },
+    apiDebt: async(req, res, next) => {
+        let result = await userModel.getDebt();
+        res.json(result.rows);
     }
 }
