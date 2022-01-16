@@ -4,9 +4,9 @@
         <div class="col">
             <div class="card h-100 shadow-sm p-3 bg-white rounded">
                 <div class="card-body">
-                    <h4 class="card-title font-weight-bold">Thông Tin Người Dùng</h4>
-                    <p class="card-text"><strong>Tên Người Dùng</strong>: {{user.userName}}</p>
                     {{#if patient}}
+                    <h2 class="card-title font-weight-bold" style="text-align: center;">{{patient.PatientName}}</h2>
+                                       
                     <p class="card-text"><strong>Năm-Tháng-Ngày Sinh</strong>: {{patient.DOB}}</p>
                     <p class="card-text"><strong>CMND</strong>: {{patient.NumberID}}</p>
                     <p class="card-text"><strong>Địa Chỉ</strong>: {{patient.ward}}, {{patient.District}},
@@ -32,16 +32,5 @@
             </div>
         </div>
         {{/if}}
-        <div class="col">
-            <div class="card h-100 shadow-sm p-3 bg-white rounded">
-                <div class="card-body">
-                    <h4 class="card-title font-weight-bold">Thông Tin Tài Khoản</h4>
-                    <p class="card-text"><strong>Số Dư Tài Khoản</strong>: ...
-                    <p>
-                    <p class="card-text"><strong>Dư Nợ</strong>: ...</p>
-                    <a href="/user/payment?id={{user.userID}}" class="btn btn-primary">Thanh Toán</a>
-                </div>
-            </div>
-        </div>
     </div>
 </tbody>
