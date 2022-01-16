@@ -27,7 +27,7 @@ module.exports={
         }else{
             let result = await pool.query(`INSERT INTO public."Notification"(
                 info, "userID", "userName")
-                VALUES ('Mời bạn tiến hành thanh toán số dư nợ.', ${userID}), '${userName}';`)
+                VALUES ('Mời bạn tiến hành thanh toán số dư nợ.', ${userID}, '${username}');`)
         }
         if(result.rowCount === 1){
             return 1;

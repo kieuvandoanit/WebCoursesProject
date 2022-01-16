@@ -10,8 +10,8 @@ const pool = new Pool({
     // password: "giang1712404",
     // database: "covidSystem",
 
-    password: "123456",
-    database: "ProjectCovid",
+    password: "doan1999",
+    database: "test1",
 
     //password: "123456",
     //database: "ProjectCovid",
