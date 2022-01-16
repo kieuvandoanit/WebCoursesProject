@@ -1,0 +1,17 @@
+<h1 style="text-align: center;">Thông Tin Sản Phẩm</h1>
+<tbody>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+        {{#each product}}
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Tên Sản Phẩm: {{this.Product_name}}</h5>
+                    <p class="card-text">Thuộc: {{this.package_Name}}</p>
+                    <p class="card-text">Giá Tiền: {{this.price}}</p>
+                    <p class="card-text">Đơn Vị: {{this.Unit}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</tbody>
