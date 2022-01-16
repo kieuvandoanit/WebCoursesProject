@@ -10,6 +10,7 @@ module.exports = {
             hospital;
         if (patient) {
             hospital = await userModel.getHospital(patient.hopitalID);
+            patientManagement = await userModel.getHistoryPatient(userID);
             patient.DOB = patient.DOB.toISOString().split('T')[0];
         }
         if (!info) {
@@ -24,6 +25,7 @@ module.exports = {
             res.render("user/managedHistory", {
                 user: user,
                 patient: patient,
+                patientManagement: patientManagement,
                 layout: "user"
             })
         } else if (info === "kitHistory") {
