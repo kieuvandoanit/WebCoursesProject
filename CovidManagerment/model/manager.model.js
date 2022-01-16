@@ -99,13 +99,12 @@ module.exports = {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","identityCard")
                 VALUES('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${identityCard}')`
-            query2 = `INSERT INTO public."User"(
-                "userName", "password", "permission", "active") VALUES('${username}','123456', '3', '2')`
+            query2 = `INSERT INTO public."User"("userID", "userName", "password", "permission", "active") VALUES('${userID}','${username}','123456', '3', '2')`
         } else {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","patient_ref","identityCard")
                 VALUES ('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${patient_ref}','${identityCard}')`
-            query2 = `INSERT INTO public."User"("userName", "password", "permission", "active") VALUES('${username}','123456', '3', '2')`
+            query2 = `INSERT INTO public."User"("userID","userName", "password", "permission", "active") VALUES('${userID}','${username}','123456', '3', '2')`
         }
         console.log(patient_ref)
         result = await pool.query(query)

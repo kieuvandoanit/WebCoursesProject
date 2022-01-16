@@ -29,6 +29,7 @@ module.exports = {
         let status = await managerModel.updatePatientStatus(patientId[0].PatientID,patientIdStatus);
         let userInfo = await managerModel.getOneUser(userId);
         let userRef = await managerModel.getUserRef(patientId[0].PatientID);
+        
         let listFirst = await managerModel.listRefPatientID(patientId[0].PatientID);
         
         //Lấy Danh sách những bệnh nhân có liên quan
@@ -56,20 +57,20 @@ module.exports = {
             {
                 for(i=0; i<listFirst.length;i++)
                 {
-                    await managerModel.updatePatientStatus(listFirst[0].PatientID,'F1');
+                    await managerModel.updatePatientStatus(listFirst[i].PatientID,'F1');
                 }
             }
             if(listSecond.length != 0){
                 for(j=0; j<listFirst.length;j++)
                 {
-                    await managerModel.updatePatientStatus(listSecond[0].PatientID,'F2');
+                    await managerModel.updatePatientStatus(listSecond[j].PatientID,'F2');
                 }
             }
 
             if(listThird.length != 0){
-                for(j=0; j<listSecond.length;j++)
+                for(k=0; k<listSecond.length;k++)
                 {
-                    await managerModel.updatePatientStatus(listThird[0].PatientID,'F3');
+                    await managerModel.updatePatientStatus(listThird[k].PatientID,'F3');
                 }
             }
         }
@@ -77,13 +78,40 @@ module.exports = {
         {   if(listFirst.length != 0){
                 for(i=0; i<listFirst.length;i++)
                 {
-                    await managerModel.updatePatientStatus(listFirst[0].PatientID,'F2');
+                    await managerModel.updatePatientStatus(listFirst[i].PatientID,'F2');
                 }
             }
             if(listSecond.length != 0){
                 for(j=0; j<listFirst.length;j++)
                 {
-                    await managerModel.updatePatientStatus(listSecond[0].PatientID,'F3');
+                    await managerModel.updatePatientStatus(listSecond[j].PatientID,'F3');
+                }
+            }
+            if(listThird.length != 0){
+                for(k=0; k<listSecond.length;k++)
+                {
+                    await managerModel.updatePatientStatus(listThird[k].PatientID,'F4');
+                }
+            }
+        }
+
+        if(patientIdStatus === 'F2')
+        {   if(listFirst.length != 0){
+                for(i=0; i<listFirst.length;i++)
+                {
+                    await managerModel.updatePatientStatus(listFirst[i].PatientID,'F3');
+                }
+            }
+            if(listSecond.length != 0){
+                for(j=0; j<listFirst.length;j++)
+                {
+                    await managerModel.updatePatientStatus(listSecond[j].PatientID,'F4');
+                }
+            }
+            if(listThird.length != 0){
+                for(k=0; k<listSecond.length;k++)
+                {
+                    await managerModel.updatePatientStatus(listThird[k].PatientID,'F5');
                 }
             }
         }
