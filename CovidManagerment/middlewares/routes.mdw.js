@@ -30,13 +30,13 @@ module.exports = (app) => {
     app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
 
     //Giang
-
-    app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
-    app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
-    app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
-    app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
-    app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
-    app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
+    // restrict.isManager
+    app.get('/manager/getProduct', manager.getProduct)
+    app.get('/manager/getPackage', manager.getPackage)
+    app.get('/manager/deleteProduct/:id', manager.DeleteProduct)
+    app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
+    app.post('/manager/getProduct', manager.findProduct)
+    app.post('/manager/getPackage', manager.findPackage)
 
 
     //User
