@@ -5,11 +5,13 @@ const admin = require('../controllers/admin.controller');
 const manager = require('../controllers/manager.controller');
 const user = require('../controllers/user.controller');
 const product = require('../controllers/product.controller');
+const paymentInfo = require('../controllers/paymentInfo.controller');
 
 
 module.exports = (app) => {
     app.get('/', guest.login)
     app.post('/', guest.loginHandle)
+    app.get('/logout', guest.logout)
     app.get('/admin', admin.homepage)
     app.get('/admin/createAccount', admin.createAcount)
     app.get('/admin/viewHistoryAction/:id', admin.viewHistoryAction)
@@ -22,13 +24,15 @@ module.exports = (app) => {
     app.post('/admin/addHopitalHandle', admin.addHopitalHandle)
 
     // manager 
-    //Duy
     app.get('/manager', manager.homepage)
     app.get('/manager/addPatient', manager.addPatient)
     app.post('/manager/addPatientHandle', manager.addPatientHandle)
     app.get('/manager/viewDetailPatient/:id', manager.viewDetailPatient)
     app.post('/manager', manager.findPatient)
     app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
+    app.get('/manager/payment', paymentInfo.homepage);
+    app.get('/manager/payment/change', paymentInfo.changeLimit);
+    app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
 
     //Giang
 

@@ -19,7 +19,21 @@ module.exports = {
     },
     async updatePatientStatus(patientID ,status) {
         let patient = await pool.query(`UPDATE public."Patient" set "Status" = '${status}' WHERE "PatientID" = '${patientID}'`);
-
+        if (patient.rowCount >= 1) {
+            return patient.rows;
+        }
+        return 0;
+    },
+    async getPatientID(userID) {
+        let patient = await pool.query(`SELECT "PatientID" FROM public."Patient" WHERE "userID" = '${userID}'`);
+        if (patient.rowCount >= 1) {
+            return patient.rows;
+        }
+        return 0;
+    },
+    async listRefPatientID(patientID) {
+        let patient = await pool.query(`SELECT "PatientID" FROM public."Patient" WHERE "patient_ref" = '${patientID}'`);
+        
         if (patient.rowCount >= 1) {
             return patient.rows;
         }
