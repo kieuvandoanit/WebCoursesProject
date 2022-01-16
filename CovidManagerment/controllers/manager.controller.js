@@ -1,4 +1,5 @@
 const { query } = require('express');
+const { getAllRefPatient } = require('../model/manager.model');
 const managerModel = require('../model/manager.model')
 
 module.exports = {
@@ -23,9 +24,70 @@ module.exports = {
     },
     updatePatientStatus:async(req,res,next)=>{
         let userId = req.params.id;
-        let status = await managerModel.updatePatientStatus(1,req.body.status);
+        let patientIdStatus = req.body.status;
+        let patientId = await managerModel.getPatientID(userId);
+        let status = await managerModel.updatePatientStatus(patientId[0].PatientID,patientIdStatus);
         let userInfo = await managerModel.getOneUser(userId);
-        let userRef = await managerModel.getUserRef(1);
+        let userRef = await managerModel.getUserRef(patientId[0].PatientID);
+        let listFirst = await managerModel.listRefPatientID(patientId[0].PatientID);
+        
+        //Lấy Danh sách những bệnh nhân có liên quan
+        let listSecond = [], listThird = [];
+        let a = 0;
+        for(i = 0; i < listFirst.length; i++){
+            a = await managerModel.listRefPatientID(listFirst[i].PatientID)
+            for(j=0; j< a.length;j++){
+                listSecond.push(a[j])
+            }
+        }
+        let b = 0;
+        for(i = 0; i < listSecond.length; i++){
+            b = await managerModel.listRefPatientID(listSecond[i].PatientID)
+            
+            for(j=0; j< b.length;j++){
+                listThird.push(b[j])
+            }
+        }
+
+        //Update Trạng thái những bệnh nhân có liên quan
+        if(patientIdStatus === 'F0')
+        {   
+            if(listFirst.length != 0)
+            {
+                for(i=0; i<listFirst.length;i++)
+                {
+                    await managerModel.updatePatientStatus(listFirst[0].PatientID,'F1');
+                }
+            }
+            if(listSecond.length != 0){
+                for(j=0; j<listFirst.length;j++)
+                {
+                    await managerModel.updatePatientStatus(listSecond[0].PatientID,'F2');
+                }
+            }
+
+            if(listThird.length != 0){
+                for(j=0; j<listSecond.length;j++)
+                {
+                    await managerModel.updatePatientStatus(listThird[0].PatientID,'F3');
+                }
+            }
+        }
+        if(patientIdStatus === 'F1')
+        {   if(listFirst.length != 0){
+                for(i=0; i<listFirst.length;i++)
+                {
+                    await managerModel.updatePatientStatus(listFirst[0].PatientID,'F2');
+                }
+            }
+            if(listSecond.length != 0){
+                for(j=0; j<listFirst.length;j++)
+                {
+                    await managerModel.updatePatientStatus(listSecond[0].PatientID,'F3');
+                }
+            }
+        }
+        
         if(userRef !== 0 || userInfo !== 0){
             res.render("manager/detailRefPatient",{
                 userInfo: userInfo,
@@ -56,9 +118,9 @@ module.exports = {
     },
     viewDetailPatient: async(req, res, next) => {
         let userId = req.params.id;
-        let PatientID = req.body.PatientID;
+        let patientId = await managerModel.getPatientID(userId);
         let userInfo = await managerModel.getOneUser(userId);
-        let userRef = await managerModel.getUserRef(1);
+        let userRef = await managerModel.getUserRef(patientId[0].PatientID);
         if(userRef !== 0 || userInfo !== 0){
             res.render("manager/detailRefPatient",{
                 userInfo: userInfo,
