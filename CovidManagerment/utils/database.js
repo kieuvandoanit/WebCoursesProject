@@ -5,13 +5,16 @@ const pool = new Pool({
 
     //     password: "giang1712404",
     //     database: "covidSystem",
-    password: "postgres",
-    database: "WebProject_covidManagement",
+    // password: "postgres",
+    // database: "WebProject_covidManagement",
     // password: "giang1712404",
     // database: "covidSystem",
+
+    password: "doan1999",
+    database: "test1",
+
     //password: "123456",
     //database: "ProjectCovid",
-
     host: "localhost",
     port: 5432
 });

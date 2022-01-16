@@ -29,5 +29,9 @@ module.exports={
         }else{
             res.redirect('/');
         }
+    },
+    logout: async(req, res, next) => {
+        req.session.destroy();
+        res.redirect('/');
     }
 }
