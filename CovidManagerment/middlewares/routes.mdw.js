@@ -40,8 +40,9 @@ module.exports = (app) => {
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
     app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
     app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
-    app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
-    app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
+
+    // app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
+    // app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
 
 
     //User

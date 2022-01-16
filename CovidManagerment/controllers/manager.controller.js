@@ -254,6 +254,4 @@ module.exports = {
             res.send("Lỗi");
         }
     }
-
-
 }
