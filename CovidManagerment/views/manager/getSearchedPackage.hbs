@@ -1,0 +1,54 @@
+<style>
+</style>
+
+<div class="row">
+<div class="col-md">
+  <form method = "post" action="">
+    {{!-- /manager/findPatient --}}
+    <div class="input-group">
+      <div class="form-outline">
+        <input id="search-input" type="text" name="packageName" id="form1" class="form-control" />
+      </div>
+      <button id="search-button" type="submit" class="btn btn-success">Search</button>
+    </div>
+  </form>
+</div>
+ <div class="col-md-1">
+    <a href="/manager/getPackage" class="btn btn-primary btn-xs pull-right"> Clear</a>
+</div>
+<div class="col-md-6">
+    <a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới gói nhu yếu phẩm</a>
+</div>
+</div>
+
+<table class="table">
+    {{!-- <a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới gói nhu yếu phẩm</a> --}}
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th style="text-align:center" scope="col"> Tên gói sản phẩm</th>
+            <th scope="col"> Số sản phẩm tối đa</th>
+            <th scope="col"> Tối đa lượt mua (Lần) </th>
+            <th scope="col"> Giới hạn thời gian mua (/ngày)</th>
+            <th scope="col"> Chi tiết</th>
+            <th scope="col"> Chỉnh sửa </th>
+            <th scope="col"> Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each Package}}
+        <tr>
+            <th scope="row">{{this.productPackageID}}</th>
+            <td>{{this.package_Name}}</td>
+            <td>{{this.limited_ProductQuantity}}</td>
+            <td>{{this.limited_PackageQuantity}}</td>
+            <td>{{this.limited_Time}}</td>
+            <td><a href="/manager/viewPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
+            <td><a href="/manager/editPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+            <td><a href="/manager/DeletePackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script>
+</script>

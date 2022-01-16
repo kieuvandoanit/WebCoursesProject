@@ -1,5 +1,6 @@
 const guestModel = require('../model/guest.model');
 const userModel = require('../model/user.model');
+const md5 = require('md5');
 
 module.exports={
     checkBalance: async(req, res, next) =>{
@@ -38,36 +39,59 @@ module.exports={
         }
     },
     changePasswordHandle: async(req, res, next) =>{
-        let oldPassword = req.body.oldPassword;
+        let oldPassword = md5(req.body.oldPassword);
         let newPassword = req.body.newPassword;
         let newPasswordAgain = req.body.newPasswordAgain;
 
         if(newPasswordAgain !== newPassword){
-            let error = "Nhập mật khẩu mới không khớp!"
-            res.render('changePassword',{
-                layout: 'admin',
-                error: error
-            })
+            let error = "Nhập mật khẩu mới không khớp!";
+            if(req.session.user.permission === 1){
+                res.render('changePassword',{
+                    layout: 'admin',
+                    error: error
+                });
+            }else{
+                res.render('changePassword',{
+                    layout: 'user',
+                    error: error
+                })
+            }
+            
         }
 
         let userID = req.session.user.userID;
         //kiem tra mat khau cu dung ko
         let check = await userModel.beforeChangePassword(userID, oldPassword);
         if(check.rowCount === 1){
-            let result = await userModel.changePassword(userID, newPassword);
+            let result = await userModel.changePassword(userID, md5(newPassword));
             if(result.rowCount === 1){
                 let success = 'Thay đổi mật khẩu thành công!';
-                res.render('changePassword',{
-                    layout: 'admin',
-                    success: success
-                });
+                
+                if(req.session.user.permission === 1){
+                    res.render('changePassword',{
+                        layout: 'admin',
+                        success: success
+                    });
+                }else{
+                    res.render('changePassword',{
+                        layout: 'user',
+                        success: success
+                    });
+                }
             }
         }else{
             let error = 'Mật khẩu hiện tại không đúng';
-            res.render('changePassword',{
-                layout: 'admin',
-                error: error
-            })
+            if(req.session.user.permission === 1){
+                res.render('changePassword',{
+                    layout: 'admin',
+                    error: error
+                });
+            }else{
+                res.render('changePassword',{
+                    layout: 'user',
+                    error: error
+                })
+            }
         }
     },
 

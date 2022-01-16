@@ -1,14 +1,34 @@
 <style>
-
 </style>
+
+<div class="row">
+<div class="col-md">
+  <form method = "post" action="">
+    {{!-- /manager/findPatient --}}
+    <div class="input-group">
+      <div class="form-outline">
+        <input id="search-input" type="text" name="productName" id="form1" class="form-control" />
+      </div>
+      <button id="search-button" type="submit" class="btn btn-success">Search</button>
+    </div>
+  </form>
+</div>
+<div class="col-md-6">
+  <a href="/manager/addPatient" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới Bệnh Nhân</a>
+</div>
+</div>
+
 <table class="table">
-    <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới sản phẩm</a>
+    {{!-- <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới sản phẩm</a> --}}
     <thead class="thead-light">
         <tr>
             <th scope="col">ID</th>
             <th style="text-align:center" scope="col"> Tên sản phẩm</th>
             <th scope="col"> Giá cả</th>
             <th scope="col"> Đơn vị</th>
+            <th style="text-align:center" scope="col"> Chi tiết</th>
+            <th scope="col"> Chỉnh sửa</th>
+            <th scope="col"> Xóa</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +40,7 @@
             <td>{{this.Unit}}</td>
             <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
             <td><a href="/manager/editProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+            <td><a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
         </tr>
         {{/each}}
     </tbody>
