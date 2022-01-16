@@ -26,5 +26,16 @@ module.exports = {
         } else {
             return 0;
         }
+    },
+    
+    async getHistoryPatient(userID){
+        let patientManagement = await pool.query(`select pt."PatientName", hp."hopitalID", hp."status", hp."fromDate", hp."endDate"
+        from public."Patient" as pt, public."historyPatient" as hp
+        where pt."PatientID" = hp."patientID" and pt."userID"=${userID}`);
+        if (patientManagement.rowCount >= 1) {
+            return patientManagement.rows;
+        } else {
+            return 0;
+        }
     }
 }

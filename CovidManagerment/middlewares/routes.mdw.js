@@ -4,11 +4,14 @@ const guest = require('../controllers/guest.controller');
 const admin = require('../controllers/admin.controller');
 const manager = require('../controllers/manager.controller');
 const user = require('../controllers/user.controller');
+const product = require('../controllers/product.controller');
+const paymentInfo = require('../controllers/paymentInfo.controller');
 
 
 module.exports = (app) => {
     app.get('/', guest.login)
     app.post('/', guest.loginHandle)
+    app.get('/logout', guest.logout)
     app.get('/admin', admin.homepage)
     app.get('/admin/createAccount', admin.createAcount)
     app.get('/admin/viewHistoryAction/:id', admin.viewHistoryAction)
@@ -19,24 +22,36 @@ module.exports = (app) => {
     app.post('/admin/createAcountHandle', admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id', admin.updateHopitalHandle)
     app.post('/admin/addHopitalHandle', admin.addHopitalHandle)
+
     // manager 
-    //Duy
     app.get('/manager', manager.homepage)
     app.get('/manager/addPatient', manager.addPatient)
-    app.post('/manager/addPatientHandle',  manager.addPatientHandle)
+    app.post('/manager/addPatientHandle', manager.addPatientHandle)
     app.get('/manager/viewDetailPatient/:id', manager.viewDetailPatient)
     app.post('/manager', manager.findPatient)
     app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
+    app.get('/manager/payment', paymentInfo.homepage);
+    app.get('/manager/payment/change', paymentInfo.changeLimit);
+    app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
+
     //Giang
+
     app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
     app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
     app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
+    app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
+    app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
 
 
     //User
+
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
+
+
+    //product
+    app.get('/package', product.getProductPackage)
 
 }
