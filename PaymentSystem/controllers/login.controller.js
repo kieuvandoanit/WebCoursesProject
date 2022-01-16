@@ -39,7 +39,7 @@ module.exports={
 
         let username = req.body.username;
         let password = req.body.password;
-        let result = await guestModel.login(username, password);
+        let result = await guestModel.login(username, md5(password));
         if(result !== 0){
             let userID = result.userID;
             let username = result.userName;
@@ -52,7 +52,7 @@ module.exports={
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
             res.json({accessToken});   
         }else{
-            res.sendStatus(401)
+            res.json({error: 1}).sendStatus(401)
         }
     }
 }

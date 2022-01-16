@@ -56,7 +56,7 @@ module.exports ={
     },
     async addHopital(hopitalName, currentQuantity, capacity, province, district, ward){
         result = await pool.query(`INSERT INTO public."Hopital"(
-            "hopitalName", "current_Quantity", "Capacity", province, ward, "District")
+            "hopitalName", "current_Quantity", "Capacity", province, "District", ward)
             VALUES ('${hopitalName}', ${currentQuantity}, ${capacity}, '${province}', '${district}', '${ward}')`);
         if(result.rowCount >= 1){
             return result.rowCount
