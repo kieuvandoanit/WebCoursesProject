@@ -52,6 +52,11 @@ module.exports = (app) => {
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
 
+    app.get('/payment/login', paymentInfo.login);
+    app.post('/payment/login', paymentInfo.loginHandle);
+    app.get('/user/payment', paymentInfo.userPayment);
+    app.get('/user/payment/addOrder', paymentInfo.addOrder);
+
 
     //product
     app.get('/package', product.getProductPackage)
