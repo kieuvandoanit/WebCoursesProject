@@ -15,12 +15,18 @@
     </tr>
   </thead>
   <tbody>
+    {{#each listUser}}
     <tr>
-      <th scope="row">1</th>
-      <td style="text-align:center">user1</td>
-      <td>10092</td>
-      <td>100.000VNĐ</td>
-      <td style="text-align:center"><a href="" class="badge badge-danger">Thông báo</a></td>
+      <th scope="row">{{@index}}</th>
+      <td style="text-align:center">{{this.userName}}</td>
+      <td>{{this.accountNumber}}</td>
+      <td>{{this.accountBalance}}</td>
+      <td style="text-align:center">
+          {{#unless this.status}}
+          <a href="/manager/notification/{{this.userName}}" class="badge badge-danger">Thông báo</a>
+          {{/unless}}
+        </td>
     </tr>
+    {{/each}}
   </tbody>
 </table>

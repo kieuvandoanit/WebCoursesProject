@@ -33,6 +33,7 @@ module.exports = (app) => {
     app.get('/manager/payment', paymentInfo.homepage);
     app.get('/manager/payment/change', paymentInfo.changeLimit);
     app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
+    app.get('/manager/notification/:username', paymentInfo.notification);
 
     //Giang
 
