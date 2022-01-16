@@ -20,14 +20,12 @@ module.exports={
         // kiem tra co record do chua
         let check = await pool.query(`SELECT "notificationID", info FROM public."Notification" WHERE "userID" = ${userID}`);
         // co rui thi update
+        let result= 0;
         if(check.rowCount >= 1){
-            let result = await pool.query(`UPDATE public."Notification"
-            SET info='Mời bạn tiến hành thanh toán số dư nợ.', 
-            WHERE "userID"=${userID}`)
+            result = await pool.query(`UPDATE public."Notification" SET info='Mời bạn tiến hành thanh toán số dư nợ.' WHERE "userID"=${userID}`);
         }else{
-            let result = await pool.query(`INSERT INTO public."Notification"(
-                info, "userID", "userName")
-                VALUES ('Mời bạn tiến hành thanh toán số dư nợ.', ${userID}, '${username}');`)
+            result = await pool.query(`INSERT INTO public."Notification"(info, "userID", "userName")
+                VALUES ('Mời bạn tiến hành thanh toán số dư nợ.', ${userID}, '${username}');`);
         }
         if(result.rowCount === 1){
             return 1;

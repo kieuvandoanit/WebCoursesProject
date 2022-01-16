@@ -47,7 +47,7 @@ module.exports = {
         let user = await paymentInfoModel.getUserByUsername(username);
         let userID = user.userID;
         //add thong bao
-        let result = await paymentInfoModel.addNotification(userID, username);
+        await paymentInfoModel.addNotification(userID, username);
         res.redirect('/manager/payment');
     }
 }
