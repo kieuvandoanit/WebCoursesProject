@@ -13,4 +13,15 @@ module.exports = {
             layout: "product"
         })
     },
+
+    getProductDetails: async(req, res, next) => {
+        let product = await productModel.getProductDetails(req.query.productID),
+            userID = req.query.userID,
+            user = await userModel.getUser(userID);
+        res.render("product/packageDetails", {
+            product: product,
+            user: user,
+            layout: "user"
+        })
+    }
 }

@@ -9,6 +9,7 @@
                     <p class="card-text">Giới hạn sản phẩm mỗi người: {{this.limited_ProductQuantity}}</p>
                     <p class="card-text">Giới hạn gói mỗi người: {{this.limited_PackageQuantity}}</p>
                     <p class="card-text">Thời gian cho lần đặt tiếp theo: {{this.limited_Time}}</p>
+                    <a href="/productDetails?productID={{this.productPackageID}}&userID={{lookup ../user 'userID'}}" class="btn btn-primary">Chi Tiết</a>
                     <a href="#" class="btn btn-primary">Thêm vào giỏ</a>
                 </div>
             </div>

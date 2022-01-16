@@ -49,5 +49,6 @@ module.exports = (app) => {
 
     //product
     app.get('/package', product.getProductPackage)
-
+    //app.post('/package', product.addProductPackage)
+    app.get('/productDetails', product.getProductDetails)
 }
