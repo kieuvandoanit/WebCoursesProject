@@ -5,8 +5,8 @@ const pool = new Pool({
 
     //     password: "giang1712404",
     //     database: "covidSystem",
-    password: "12345",
-    database: "ProjectCovid",
+    password: "postgres",
+    database: "WebProject_covidManagement",
     host: "localhost",
     port: 5432
 });

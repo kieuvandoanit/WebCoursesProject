@@ -1,0 +1,19 @@
+<h1 style="text-align: center;">Mua Nhu Yếu Phẩm</h1>
+<tbody>
+    <div class="row row-cols-1 row-cols-md-1 g-4">
+        {{#each package}}
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card" style="width: 19rem;">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{this.package_Name}}</h5>
+                    <p class="card-text">Giới hạn sản phẩm mỗi người: {{this.limited_ProductQuantity}}</p>
+                    <p class="card-text">Giới hạn gói mỗi người: {{this.limited_PackageQuantity}}</p>
+                    <p class="card-text">Thời gian cho lần đặt tiếp theo: {{this.limited_Time}}</p>
+                    <a href="#" class="btn btn-primary">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</tbody>
+

@@ -4,6 +4,7 @@ const guest = require('../controllers/guest.controller');
 const admin = require('../controllers/admin.controller');
 const manager = require('../controllers/manager.controller');
 const user = require('../controllers/user.controller');
+const product = require('../controllers/product.controller');
 
 
 module.exports = (app) => {
@@ -31,5 +32,9 @@ module.exports = (app) => {
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
+
+
+    //product
+    app.get('/package', product.getProductPackage)
 
 }
