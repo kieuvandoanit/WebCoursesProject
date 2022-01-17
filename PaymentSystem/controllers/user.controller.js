@@ -123,8 +123,9 @@ module.exports={
         let totalPrice = req.body.totalPrice;
         let accountBalance = req.accountBalance;
         let paymentFor = req.body.paymentFor;
+        let limit = req.body.limit;
         //Kiem tra so tien con du > totalPrice
-        if(accountBalance < totalPrice){
+        if((accountBalance + limit) < totalPrice){
             res.json({
                 result: -1
             });
@@ -180,5 +181,9 @@ module.exports={
                 error: "Nạp tiền vào tài khoản thất bại!"
             });
         }
+    },
+    apiDebt: async(req, res, next) => {
+        let result = await userModel.getDebt();
+        res.json(result.rows);
     }
 }

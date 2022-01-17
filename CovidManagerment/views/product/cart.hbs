@@ -1,0 +1,72 @@
+<h1 style="text-align: center;">Giỏ Hàng</h1>
+<tbody>
+    {{#if cartInfo}}
+    <div class="row row-cols-1 row-cols-md-1 g-3">
+        {{#each cartInfo}}
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{packageName}}</h5>
+                    <p class="card-text">Số Lượng: {{quantity}}</p>
+
+                    <!--
+<div class="col-md">
+    {{!-- /manager/findPatient --}}
+    <div class="input-group">
+        <button id="search-button" type="submit" class="btn btn-light">-</button>
+      <div class="form-outline">
+        <input id="search-input" type="text" name="productName" id="form1" class="form-control" style="width:50px" />
+      </div>
+      <button id="add-button" type="submit" class="btn btn-light">+</button>
+    </div>
+</div>
+-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Đơn Vị</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each product}}
+                            <tr>
+                                <th scope="row">{{@index}}</th>
+                                <td>{{Product_name}}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="input-group">
+                                                <button class="btn btn-light btn-sm"
+                                                    onclick="updateCart({{productPackageID}}, {{ProductID}}, 'des')">-</button>
+                                                    <label id="{{productPackageID}}{{ProductID}}quantity" class="col-sm-2 col-form-label col-form-label-sm" style="width:50px; text-align: center;">{{quantity}}</label>
+                                                <button class="btn btn-light btn-sm"
+                                                    onclick="updateCart({{productPackageID}}, {{ProductID}}, 'inc')">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{price}} VNĐ</td>
+                                <td>{{Unit}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-outline-dark" onclick="removePackage({{this.packageID}})">Xóa</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="row py-3">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Đặt mua</button>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <h3 style="text-align: center;">Chưa Có Gói Nhu Yếu Phẩm</h3>
+    {{/if}}
+</tbody>

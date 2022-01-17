@@ -29,6 +29,22 @@ module.exports = {
         let status = await managerModel.updatePatientStatus(patientId[0].PatientID, patientIdStatus);
         let userInfo = await managerModel.getOneUser(userId);
         let userRef = await managerModel.getUserRef(patientId[0].PatientID);
+        let hospitalID = await managerModel.getHopital(patientId[0].PatientID);
+        //Ngày hiện tại
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+        let second = date.getSeconds();
+        let timenow = `${year}-${month}-${day} ${hour}:${minutes}:${second}`;
+
+        //Them lich sư thay doi trạng thái
+        await managerModel.addStatusHistoryPatient(patientIdStatus, patientId[0].PatientID, hospitalID[0].hospitalID, timenow, timenow);
+
+        //console.log(hospitalID[0].hospitalID);
+
         let listFirst = await managerModel.listRefPatientID(patientId[0].PatientID);
 
         //Lấy Danh sách những bệnh nhân có liên quan
@@ -49,35 +65,81 @@ module.exports = {
                 listThird.push(b[j])
             }
         }
+        // console.log(listFirst)
+        // console.log(listSecond)
+        // console.log(listThird)
 
         //Update Trạng thái những bệnh nhân có liên quan
+
         if (patientIdStatus === 'F0') {
             if (listFirst.length != 0) {
                 for (i = 0; i < listFirst.length; i++) {
-                    await managerModel.updatePatientStatus(listFirst[0].PatientID, 'F1');
+                    let hospitalID = await managerModel.getHopital(listFirst[i].PatientID);
+                    await managerModel.updatePatientStatus(listFirst[i].PatientID, 'F1');
+                    await managerModel.addStatusHistoryPatient('F1', listFirst[i].PatientID, hospitalID[0].hospitalID, timenow, timenow);
                 }
             }
             if (listSecond.length != 0) {
                 for (j = 0; j < listFirst.length; j++) {
-                    await managerModel.updatePatientStatus(listSecond[0].PatientID, 'F2');
+                    let hospitalID = await managerModel.getHopital(listFirst[j].PatientID);
+                    await managerModel.updatePatientStatus(listSecond[j].PatientID, 'F2');
+                    await managerModel.addStatusHistoryPatient('F2', listFirst[j].PatientID, hospitalID[0].hospitalID, timenow, timenow);
                 }
             }
 
             if (listThird.length != 0) {
-                for (j = 0; j < listSecond.length; j++) {
-                    await managerModel.updatePatientStatus(listThird[0].PatientID, 'F3');
+                for (k = 0; k < listSecond.length; k++) {
+                    let hospitalID = await managerModel.getHopital(listFirst[k].PatientID);
+                    await managerModel.updatePatientStatus(listThird[k].PatientID, 'F3');
+                    await managerModel.addStatusHistoryPatient('F3', listFirst[k].PatientID, hospitalID[0].hospitalID, timenow, timenow);
                 }
             }
         }
+
         if (patientIdStatus === 'F1') {
             if (listFirst.length != 0) {
                 for (i = 0; i < listFirst.length; i++) {
-                    await managerModel.updatePatientStatus(listFirst[0].PatientID, 'F2');
+                    let hospitalID = await managerModel.getHopital(listFirst[i].PatientID);
+                    await managerModel.updatePatientStatus(listFirst[i].PatientID, 'F2');
+                    await managerModel.addStatusHistoryPatient('F2', listFirst[i].PatientID, hospitalID[0].hospitalID, timenow, timenow);
                 }
             }
             if (listSecond.length != 0) {
                 for (j = 0; j < listFirst.length; j++) {
-                    await managerModel.updatePatientStatus(listSecond[0].PatientID, 'F3');
+                    let hospitalID = await managerModel.getHopital(listFirst[j].PatientID);
+                    await managerModel.updatePatientStatus(listSecond[j].PatientID, 'F3');
+                    await managerModel.addStatusHistoryPatient('F3', listFirst[j].PatientID, hospitalID[0].hospitalID, timenow, timenow);
+                }
+            }
+            if (listThird.length != 0) {
+                for (k = 0; k < listSecond.length; k++) {
+                    let hospitalID = await managerModel.getHopital(listFirst[k].PatientID);
+                    await managerModel.updatePatientStatus(listThird[k].PatientID, 'F4');
+                    await managerModel.addStatusHistoryPatient('F4', listFirst[k].PatientID, hospitalID[0].hospitalID, timenow, timenow);
+                }
+            }
+        }
+
+        if (patientIdStatus === 'F2') {
+            if (listFirst.length != 0) {
+                for (i = 0; i < listFirst.length; i++) {
+                    let hospitalID = await managerModel.getHopital(listFirst[i].PatientID);
+                    await managerModel.updatePatientStatus(listFirst[i].PatientID, 'F3');
+                    await managerModel.addStatusHistoryPatient('F3', listFirst[i].PatientID, hospitalID[0].hospitalID, timenow, timenow);
+                }
+            }
+            if (listSecond.length != 0) {
+                for (j = 0; j < listFirst.length; j++) {
+                    let hospitalID = await managerModel.getHopital(listFirst[j].PatientID);
+                    await managerModel.updatePatientStatus(listSecond[j].PatientID, 'F4');
+                    await managerModel.addStatusHistoryPatient('F4', listFirst[j].PatientID, hospitalID[0].hospitalID, timenow, timenow);
+                }
+            }
+            if (listThird.length != 0) {
+                for (k = 0; k < listSecond.length; k++) {
+                    let hospitalID = await managerModel.getHopital(listFirst[k].PatientID);
+                    await managerModel.updatePatientStatus(listThird[k].PatientID, 'F5');
+                    await managerModel.addStatusHistoryPatient('F5', listFirst[k].PatientID, hospitalID[0].hospitalID, timenow, timenow);
                 }
             }
         }
@@ -206,6 +268,67 @@ module.exports = {
             res.redirect("/manager")
         } else {
             res.redirect("/manager/addPatient");
+        }
+    },
+    peopleEachState: async(req, res, next) => {
+        let numberOfPerState = await managerModel.getNumberPerState();
+        let F0 = numberOfPerState[0].count;
+        let F1 = numberOfPerState[1].count;
+        let F2 = numberOfPerState[2].count;
+        let F3 = numberOfPerState[3].count;
+        let F4 = numberOfPerState[4].count;
+        let sum = 0;
+        sum = sum + parseInt(F0) + parseInt(F1) + parseInt(F2) + parseInt(F3) + parseInt(F4)
+            //console.log(numberOfF0);
+        if (numberOfPerState !== 0) {
+            res.render("manager/peopleEachState", {
+                F0: F0,
+                F1: F1,
+                F2: F2,
+                F3: F3,
+                F4: F4,
+                sum: sum,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
+    statisticsChangeStatus: async(req, res, next) => {
+        let numberOfChangeState = await managerModel.getNumberChangeState();
+        let F0 = numberOfChangeState[0].count;
+        let F1 = numberOfChangeState[1].count;
+        let F2 = numberOfChangeState[2].count;
+        let F3 = numberOfChangeState[3].count;
+        let F4 = numberOfChangeState[4].count;
+        let Fine = numberOfChangeState[5].count;
+        let sum = 0;
+        sum = sum + parseInt(F0) + parseInt(F1) + parseInt(F2) + parseInt(F3) + parseInt(F4) + parseInt(Fine)
+            //console.log(numberOfF0);
+        if (numberOfChangeState !== 0) {
+            res.render("manager/peopleChangeState", {
+                F0: F0,
+                F1: F1,
+                F2: F2,
+                F3: F3,
+                F4: F4,
+                Fine: Fine,
+                sum: sum,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
+    sortByYOB: async(req, res, next) => {
+        let patient = await managerModel.sortByYOB();
+        if (patient !== 0) {
+            res.render("manager/sortByYOB", {
+                patient: patient,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
         }
     },
     getProduct: async(req, res, next) => {
@@ -402,5 +525,5 @@ module.exports = {
         } else {
             res.redirect("/manager/addPackage/");
         }
-    },
+    }
 }

@@ -47,6 +47,11 @@ module.exports={
             "userID", "totalPrice", "paymentDate", "paymentFor")
             VALUES (${userID}, ${totalPrice}, '${paymentDate}', '${paymentFor}')`);
         return result;
+    },
+    async getDebt(){
+        let result = await pool.query(`SELECT "userName", "accountBalance", "accountNumber"
+        FROM public."User" WHERE "accountBalance" < 0`);
+        return result;
     }
 
 }

@@ -33,6 +33,10 @@ module.exports = (app) => {
     app.get('/manager/payment', paymentInfo.homepage);
     app.get('/manager/payment/change', paymentInfo.changeLimit);
     app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
+    app.get('/manager/notification/:username', paymentInfo.notification);
+    app.get('/manager/peopleEachState', manager.peopleEachState);
+    app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
+    app.get('/manager/sortByYOB', manager.sortByYOB);
 
     //Giang
     // restrict.isManager
@@ -60,8 +64,17 @@ module.exports = (app) => {
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
 
+    app.get('/payment/login', paymentInfo.login);
+    app.post('/payment/login', paymentInfo.loginHandle);
+    app.get('/user/payment', paymentInfo.userPayment);
+    app.get('/user/payment/addOrder', paymentInfo.addOrder);
+
 
     //product
     app.get('/package', product.getProductPackage)
-
+    app.get('/productDetails', product.getProductDetails)
+    app.get('/cart', product.sessionProduct)
+    app.post('/cart', product.addToCart)
+    app.post('/cartUpdate', product.cartUpdate)
+    app.post('/removeFromCart', product.removeFromCart)
 }
