@@ -115,7 +115,7 @@ module.exports = {
                 if (req.session.cartInfo[index].packageID === packageID) {
                     for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
                         if (req.session.cartInfo[index].product[index2].ProductID === productID) {
-                            if (req.session.cartInfo[index].product[index2].quantity > 0) {
+                            if (req.session.cartInfo[index].product[index2].quantity > 1) {
                                 req.session.cartInfo[index].product[index2].quantity -= 1;
                                 res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
                                 return;

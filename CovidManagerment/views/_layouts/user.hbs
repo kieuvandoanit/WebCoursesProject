@@ -39,11 +39,10 @@
 
         function updateCart(packageID, productID, method) {
             $.post(`/cartUpdate`, { packageID: packageID, productID: productID, method: method }, (data, status) => {
-                console.log(`${productID}quantity`)
-                console.log(data.quantity)
-                $(`#${productID}quantity`).html(data.quantity)
+                $(`#${packageID}${productID}quantity`).html(data.quantity)
             })
         }
+
     </script>
     {{!--
     <script src="/public/javascript/bootnavbar.js"></script> --}}
