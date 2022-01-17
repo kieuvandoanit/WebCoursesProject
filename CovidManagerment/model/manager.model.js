@@ -145,6 +145,36 @@ module.exports = {
         }
         return 0;
     },
+    async getNumberChangeState() {
+        let a = []
+        let numberOfF0 = await pool.query(`SELECT count("historyPatientID") FROM public."historyPatient" WHERE "status" = 'F0'`);
+        let numberOfF1 = await pool.query(`SELECT count("historyPatientID") FROM public."historyPatient" WHERE "status" = 'F1'`);
+        let numberOfF2 = await pool.query(`SELECT count("historyPatientID") FROM public."historyPatient" WHERE "status" = 'F2'`);
+        let numberOfF3 = await pool.query(`SELECT count("historyPatientID") FROM public."historyPatient" WHERE "status" = 'F3'`);
+        let numberOfF4 = await pool.query(`SELECT count("historyPatientID") FROM public."historyPatient" WHERE "status" = 'F4'`);
+        let numberOfFine = await pool.query(`SELECT count("historyPatientID") FROM public."historyPatient" WHERE "status" = 'Khỏi bệnh'`);
+        a.push(numberOfF0.rows[0])
+        a.push(numberOfF1.rows[0])
+        a.push(numberOfF2.rows[0])
+        a.push(numberOfF3.rows[0])
+        a.push(numberOfF4.rows[0])
+        a.push(numberOfFine.rows[0])
+
+        //console.log(a)
+        if (a.length >= 1) {
+            return a;
+        }
+        return 0;
+    },
+    async sortByYOB() {
+        let sort = await pool.query(`select * from "Patient" order by "DOB" asc`);
+
+        if (sort.rowCount >= 1) {
+            return sort.rows;
+            // console.log(Product)
+        }
+        return 0;
+    },
     async getAllProduct() {
         let Product = await pool.query(`SELECT * FROM public."Product" WHERE "isDelete" = 0`);
 
