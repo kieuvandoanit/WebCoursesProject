@@ -33,6 +33,7 @@ module.exports = (app) => {
     app.get('/manager/payment', paymentInfo.homepage);
     app.get('/manager/payment/change', paymentInfo.changeLimit);
     app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
+    app.get('/manager/notification/:username', paymentInfo.notification);
 
     //Giang
 
@@ -40,8 +41,10 @@ module.exports = (app) => {
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
     app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
     app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
-    //app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
-    //app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
+
+
+    // app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
+    // app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
 
 
     //User
@@ -49,6 +52,11 @@ module.exports = (app) => {
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
+
+    app.get('/payment/login', paymentInfo.login);
+    app.post('/payment/login', paymentInfo.loginHandle);
+    app.get('/user/payment', paymentInfo.userPayment);
+    app.get('/user/payment/addOrder', paymentInfo.addOrder);
 
 
     //product

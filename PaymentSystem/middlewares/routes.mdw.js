@@ -30,6 +30,7 @@ module.exports = (app) =>{
     app.post('/api/login', account.apiLogin);
     app.post('/api/createAccount', admin.apiCreateAccount);
     app.post('/api/payment',verifyToken, user.apiPayment);
+    app.get('/api/getDebt', verifyToken, user.apiDebt);
 
 
 }

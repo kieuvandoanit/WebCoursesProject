@@ -9,6 +9,7 @@ module.exports = {
         }
         return 0;
     },
+    //Tim kiêm benh nhân có tên như pName
     async getPatient(pName) {
         let patient = await pool.query(`SELECT * FROM public."Patient" WHERE "PatientName" like '%${pName}%'`);
 
@@ -17,6 +18,7 @@ module.exports = {
         }
         return 0;
     },
+    //Câp nhật trạng thái bênh nhân có mã patientID
     async updatePatientStatus(patientID ,status) {
         let patient = await pool.query(`UPDATE public."Patient" set "Status" = '${status}' WHERE "PatientID" = '${patientID}'`);
         if (patient.rowCount >= 1) {
@@ -31,6 +33,7 @@ module.exports = {
         }
         return 0;
     },
+    //Danh sách nhưng bệnh nhân có liên quan đến bệnh nhân có mã patientID
     async listRefPatientID(patientID) {
         let patient = await pool.query(`SELECT "PatientID" FROM public."Patient" WHERE "patient_ref" = '${patientID}'`);
         
@@ -71,8 +74,17 @@ module.exports = {
 
         return result;
     },
-    async getListHopital() {
-        let result = await pool.query(`SELECT * FROM public."Hopital" ORDER BY "hopitalID" ASC `);
+    //Lay mã bênh viện có mã bênh nhân là patientID
+    async getHopital(patientID) {
+        let result = await pool.query(`SELECT "hospitalID" FROM public."Patient" WHERE "PatientID" = ${patientID} `);
+        if (result.rowCount >= 0) {
+            return result.rows;
+        }
+        return 0;
+    },
+    //Thêm lịch sử thay đổi trạng thái
+    async addStatusHistoryPatient(status ,patientID, hospitalID, fromDate, endDate) {
+        let result = await pool.query(`INSERT INTO public."historyPatient"("status","patientID","hopitalID","fromDate","endDate") VALUES ('${status}','${patientID}','${hospitalID}','${fromDate}','${endDate}')`);
         if (result.rowCount >= 0) {
             return result.rows;
         }
@@ -99,15 +111,14 @@ module.exports = {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","identityCard")
                 VALUES('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${identityCard}')`
-            query2 = `INSERT INTO public."User"(
-                "userName", "password", "permission", "active") VALUES('${username}','123456', '3', '2')`
+            query2 = `INSERT INTO public."User"("userID", "userName", "password", "permission", "active") VALUES('${userID}','${username}','123456', '3', '2')`
         } else {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","patient_ref","identityCard")
                 VALUES ('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${patient_ref}','${identityCard}')`
-            query2 = `INSERT INTO public."User"("userName", "password", "permission", "active") VALUES('${username}','123456', '3', '2')`
+            query2 = `INSERT INTO public."User"("userID","userName", "password", "permission", "active") VALUES('${userID}','${username}','123456', '3', '2')`
         }
-        console.log(patient_ref)
+        //console.log(patient_ref)
         result = await pool.query(query)
         result2 = await pool.query(query2)
         if (result.rowCount >= 1 && result2.rowCount >= 1) {
