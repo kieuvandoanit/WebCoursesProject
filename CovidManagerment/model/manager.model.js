@@ -1,3 +1,4 @@
+const { peopleEachState } = require('../controllers/manager.controller');
 const pool = require('../utils/database')
 
 module.exports = {
@@ -123,6 +124,24 @@ module.exports = {
         result2 = await pool.query(query2)
         if (result.rowCount >= 1 && result2.rowCount >= 1) {
             return result.rowCount
+        }
+        return 0;
+    },
+    async getNumberPerState() {
+        let a = []
+        let numberOfF0 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F0'`);
+        let numberOfF1 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F1'`);
+        let numberOfF2 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F2'`);
+        let numberOfF3 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F3'`);
+        let numberOfF4 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F4'`);
+        a.push(numberOfF0.rows[0])
+        a.push(numberOfF1.rows[0])
+        a.push(numberOfF2.rows[0])
+        a.push(numberOfF3.rows[0])
+        a.push(numberOfF4.rows[0])
+        //console.log(a)
+        if (a.length >= 1) {
+            return a;
         }
         return 0;
     },
