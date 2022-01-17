@@ -38,8 +38,7 @@ CREATE TABLE IF NOT EXISTS public."Order"
     "patientID" integer NOT NULL,
     "TotalPrice" integer NOT NULL,
     "oderDate" timestamp without time zone NOT NULL,
-    "statusPayment" integer NOT NULL,
-    "productPackageID" integer NOT NULL,
+    "statusPayment" character varying(200) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT "Order_pkey" PRIMARY KEY ("orderID")
 );
 
