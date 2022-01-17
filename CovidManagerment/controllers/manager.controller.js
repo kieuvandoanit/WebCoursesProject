@@ -64,9 +64,10 @@ module.exports = {
                 listThird.push(b[j])
             }
         }
-        console.log(listFirst)
-        console.log(listSecond)
-        console.log(listThird)
+        // console.log(listFirst)
+        // console.log(listSecond)
+        // console.log(listThird)
+
         //Update Trạng thái những bệnh nhân có liên quan
         if(patientIdStatus === 'F0')
         {   
@@ -296,6 +297,43 @@ module.exports = {
                 F3: F3,
                 F4: F4,
                 sum:sum,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
+    statisticsChangeStatus: async(req, res, next)=>{
+        let numberOfChangeState = await managerModel.getNumberChangeState();
+        let F0 = numberOfChangeState[0].count;
+        let F1 = numberOfChangeState[1].count;
+        let F2 = numberOfChangeState[2].count;
+        let F3 = numberOfChangeState[3].count;
+        let F4 = numberOfChangeState[4].count;
+        let Fine = numberOfChangeState[5].count;
+        let sum = 0;
+        sum = sum + parseInt(F0) + parseInt(F1) + parseInt(F2) + parseInt(F3) + parseInt(F4) + parseInt(Fine)
+        //console.log(numberOfF0);
+        if (numberOfChangeState !== 0) {
+            res.render("manager/peopleChangeState", {
+                F0: F0,
+                F1: F1,
+                F2: F2,
+                F3: F3,
+                F4: F4,
+                Fine: Fine,
+                sum:sum,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
+    sortByYOB: async(req, res, next) => {
+        let patient = await managerModel.sortByYOB();
+        if (patient !== 0) {
+            res.render("manager/sortByYOB", {
+                patient: patient,
                 layout: "manager"
             })
         } else {

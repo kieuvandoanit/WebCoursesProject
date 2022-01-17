@@ -35,8 +35,12 @@ module.exports = (app) => {
     app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
     app.get('/manager/notification/:username', paymentInfo.notification);
     app.get('/manager/peopleEachState', manager.peopleEachState);
-    //Giang
+    app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
+    app.get('/manager/sortByYOB', manager.sortByYOB);
 
+    
+
+    //Giang
     app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
     app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
