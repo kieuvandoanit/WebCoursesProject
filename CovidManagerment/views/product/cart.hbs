@@ -1,34 +1,50 @@
-<div class="row">
-<div class="col-md">
-  <form method = "post" action="">
-    {{!-- /manager/findPatient --}}
-    <div class="input-group">
-        <button id="search-button" type="submit" class="btn btn-success">-</button>
-      <div class="form-outline">
-        <input id="search-input" type="text" name="productName" id="form1" class="form-control" />
-      </div>
-      <button id="add-button" type="submit" class="btn btn-success">+</button>
-    </div>
-  </form>
-</div>
-
-<h1 style="text-align: center;">Giỏ hàng</h1>
+<h1 style="text-align: center;">Giỏ Hàng</h1>
 <tbody>
+    {{#if cartInfo}}
     <div class="row row-cols-1 row-cols-md-1 g-3">
-        {{#each package}}
+        {{#each cartInfo}}
         <div class="col">
             <div class="card h-100 shadow-sm p-3 bg-white rounded">
                 <div class="card-body">
-                    <h5 class="card-title font-weight-bold">{{this.package_Name}}</h5>
-                    <p class="card-text">Giới hạn sản phẩm mỗi gói: {{this.limited_ProductQuantity}}</p>
-                    <p class="card-text">Giới hạn gói mỗi người: {{this.limited_PackageQuantity}}</p>
-                    <p class="card-text">Thời gian cho lần đặt tiếp theo: {{this.limited_Time}}</p>
-                    <a href="/productDetails?productID={{this.productPackageID}}&userID={{lookup ../user 'userID'}}" class="btn btn-primary">Chi Tiết</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ</a>
+                    <h5 class="card-title font-weight-bold">{{packageName}}</h5>
+                    <p class="card-text">Số lượng: {{quantity}}</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Đơn Vị</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each product}}
+                            <tr>
+                                <th scope="row">{{@index}}{{1}}</th>
+                                <td>{{Product_name}}</td>
+                                <td>2</td>
+                                <td>{{price}} VNĐ</td>
+                                <td>{{Unit}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-outline-dark">Xóa</button>
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
+    <div class="row py-3">
+      <div class="col-auto mr-auto ">
+        <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Đặt mua</button>
+      </div>
+    </div>
+    {{else}}
+    <h3 style="text-align: center;">Chưa Có Gói Nhu Yếu Phẩm</h3>
+    {{/if}}
 </tbody>
-

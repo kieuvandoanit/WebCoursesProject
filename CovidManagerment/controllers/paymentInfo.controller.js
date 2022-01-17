@@ -90,12 +90,103 @@ module.exports = {
         })
     },
     addOrder: async(req, res, next) => {
+        let totalPrice = 50000;
+        let paymentFor= "Noi dung thanh toan";
+        let limit = 100000;
+
+
+        let token = req.session.userPayment.token;
+
+
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+        let second = date.getSeconds();
+        let orderDate = `${year}-${month}-${day} ${hour}:${minutes}:${second}`;
+
+
+        let order = [
+            {
+                packageID: 123,
+                quantity: 1,
+                product:[
+                    {
+                        productID: 1,
+                        quantity: 1,
+                        price: 1000,
+                        unit: 'KG'
+                    },
+                    {
+                        productID: 2,
+                        quantity: 1,
+                        price: 1400,
+                        unit: 'KG'
+                    }
+                ]
+            },
+            {
+                packageID: 1232,
+                quantity: 1,
+                product:[
+                    {
+                        productID: 3,
+                        quantity: 1,
+                        price: 1000,
+                        unit: 'KG'
+                    },
+                    {
+                        productID: 4,
+                        quantity: 1,
+                        price: 1400,
+                        unit: 'KG'
+                    }
+                ]
+            }
+        ]
         //kiem tra tk co du de thanh toan khong
+        let checkPayment = axios.post('http://localhost:3001/api/payment',{
+                totalPrice: totalPrice,
+                paymentFor: paymentFor,
+                limit: limit
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if(checkPayment.data.result === 1){
+            let statusPayment = "Đã thanh toán";
+            //add order
+            let addOrder = await paymentInfoModel.addOrder(patientID, totalPrice, orderDate, statusPayment);
+            if(addOrder.rowCount === 1){
+                //get orderID moi them
 
-        //add order
+                //add orderPackage
+                let addOrderDetail = await paymentInfoModel.addOrderDetail(orderID, packageID, quantity);
+                if(addOrderDetail.rowCount === 1){
+                    //get order detail id
 
-        //add orderPackage
+                    // add productDetail
+                    let addOrderPackageDetail = await paymentInfoModel.addOrderPackageDetail(orderDetailID, productID, quantity, price, unit);
+                    
+                }
+            }
+            
 
-        // add productDetail
+            
+
+
+        }else if(checkPayment.data.result === -1){
+            // Tai khoan khong du de thuc hien giao dich. Vui long nap tien
+            // Chuyen den man hinh nap tien
+
+        }else{
+            // Qua trinh thanh toan bi loi. Vui long thuc hien lai
+
+
+        }
+        
+
+        
     }
 }

@@ -24,6 +24,38 @@ module.exports = {
             layout: "user"
         })
     },
+    
+    sessionProduct: async (req, res, next) => {
+        let userID = req.query.userID,
+            cartInfo = [],
+            user = await userModel.getUser(userID);
+        if (req.session.cart)
+        {
+            for (let index = 0; index < req.session.cart.length; index++) {
+                if (req.session.cart[index].userID === userID) {
+                    cartInfo.push(req.session.cart[index]);
+                }
+            }
+            for (let index = 0; index < cartInfo.length; index++) {
+                let package = await productModel.getSpecificPackage(cartInfo[index].packageID),
+                    product = await productModel.getProductDetails(cartInfo[index].packageID);
+                cartInfo[index].packageName = package.package_Name
+                cartInfo[index].product = product
+            }
+             res.render("product/cart", {
+                 user: user,
+                 cartInfo: cartInfo,
+                 layout: "user"
+             })
+        } else {
+            res.render("product/cart", {
+                user: user,
+                cartInfo: cartInfo,
+                layout: "user"
+            })
+        }
+        
+    },
 
     addToCart: async (req, res, next) => {
         let packageID = req.body.packageID,
