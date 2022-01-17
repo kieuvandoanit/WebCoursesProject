@@ -8,30 +8,32 @@
                                        
                     <p class="card-text"><strong>Năm-Tháng-Ngày Sinh</strong>: {{patient.DOB}}</p>
                     <p class="card-text"><strong>Địa Chỉ</strong>: {{patient.ward}}, {{patient.District}},{{patient.province}}</p>
-                    <p class="card-text"><strong>Tình Trạng</strong>: F{{patient.Status}}</p>
+                    <p class="card-text"><strong>Tình trạng hiện tại</strong>: {{patient.Status}}</p>
                 </div>
             </div>
         </div>
     </div>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">Trạng thái</th>
-      <th scope="col">Nơi điều trị</th>
-      <th scope="col">Từ ngày</th>
-      <th scope="col">Tới ngày</th>
+    <div class="py-3">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Nơi điều trị</th>
+            <th scope="col">Từ ngày</th>
+            <th scope="col">Tới ngày</th>
 
-    </tr>
-  </thead>
-  <tbody>
-      {{#each patientManagement}}
-    <tr>
-      <td style="text-align:center">{{this.status}}</td>
-      <td style="text-align:center">{{this.hopitalID}}</td>
-      <td style="text-align:center">{{this.fromDate}}</td>
-      <td style="text-align:center">{{this.endDate}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+          </tr>
+        </thead>
+        <tbody>
+            {{#each patientManagement}}
+          <tr>
+            <td style="text-align:center">{{this.status}}</td>
+            <td style="text-align:center">{{this.hopitalID}}</td>
+            <td style="text-align:center">{{this.fromDate}}</td>
+            <td style="text-align:center">{{this.endDate}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
 </tbody>

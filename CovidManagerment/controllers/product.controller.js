@@ -23,5 +23,33 @@ module.exports = {
             user: user,
             layout: "user"
         })
+    },
+
+    addToCart: async (req, res, next) => {
+        let packageID = req.body.packageID,
+            userID = req.body.userID,
+            quantity = 1;
+        if (!req.session.cart) {
+            req.session.cart = [];
+            req.session.cart.push({
+                userID: userID,
+                quantity: quantity,
+                packageID: packageID
+            })
+            res.status(200).send();
+        } else {
+            for (let index = 0; index < req.session.cart.length; index++) {
+                if (packageID === req.session.cart[index].packageID) {
+                    req.session.cart[index].quantity += 1;
+                    res.status(200).send();
+                }
+            }
+            req.session.cart.push({
+                userID: userID,
+                quantity: quantity,
+                packageID: packageID                
+            })
+            res.status(200).send();
+        }
     }
 }

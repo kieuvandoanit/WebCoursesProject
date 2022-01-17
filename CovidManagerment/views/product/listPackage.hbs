@@ -1,3 +1,11 @@
+<div class="form-group row">
+    <div class="input-group py-2">
+        <form class="form-inline py-2">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</div>
 <h1 style="text-align: center;">Mua Nhu Yếu Phẩm</h1>
 <tbody>
     <div class="row row-cols-1 row-cols-md-1 g-4">
@@ -9,8 +17,12 @@
                     <p class="card-text">Giới hạn sản phẩm mỗi người: {{this.limited_ProductQuantity}}</p>
                     <p class="card-text">Giới hạn gói mỗi người: {{this.limited_PackageQuantity}}</p>
                     <p class="card-text">Thời gian cho lần đặt tiếp theo: {{this.limited_Time}}</p>
-                    <a href="/productDetails?productID={{this.productPackageID}}&userID={{lookup ../user 'userID'}}" class="btn btn-primary">Chi Tiết</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ</a>
+                    <input type="hidden" id="userID" name="userID" value="{{lookup ../user 'userID'}}">
+                    <input type="hidden" id="productID" name="packageID" value="{{this.productPackageID}}">
+                    <a href="/productDetails?productID={{this.productPackageID}}&userID={{lookup ../user 'userID'}}"
+                        class="btn btn-secondary">Chi Tiết</a>
+                    <button class="btn btn-outline-success" onclick="addToCart({{this.productPackageID}})">Thêm vào
+                        giỏ</button>
                 </div>
             </div>
         </div>
@@ -18,3 +30,25 @@
     </div>
 </tbody>
 
+<script>
+    function addToCart(packageID) {
+        const userID = $("#userID").val();
+        $.post(`/cart`, { packageID: packageID, userID: userID }, function (data, status) {
+            location.reload()
+        })
+    }  
+</script>
+<!--
+<div class="col-md">
+  <form method = "post" action="">
+    {{!-- /manager/findPatient --}}
+    <div class="input-group">
+        <button id="search-button" type="submit" class="btn btn-light">-</button>
+      <div class="form-outline">
+        <input id="search-input" type="text" name="productName" id="form1" class="form-control" style="width:50px" />
+      </div>
+      <button id="add-button" type="submit" class="btn btn-light">+</button>
+    </div>
+  </form>
+</div>
+-->

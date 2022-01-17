@@ -1,0 +1,34 @@
+<div class="row">
+<div class="col-md">
+  <form method = "post" action="">
+    {{!-- /manager/findPatient --}}
+    <div class="input-group">
+        <button id="search-button" type="submit" class="btn btn-success">-</button>
+      <div class="form-outline">
+        <input id="search-input" type="text" name="productName" id="form1" class="form-control" />
+      </div>
+      <button id="add-button" type="submit" class="btn btn-success">+</button>
+    </div>
+  </form>
+</div>
+
+<h1 style="text-align: center;">Giỏ hàng</h1>
+<tbody>
+    <div class="row row-cols-1 row-cols-md-1 g-3">
+        {{#each package}}
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{this.package_Name}}</h5>
+                    <p class="card-text">Giới hạn sản phẩm mỗi gói: {{this.limited_ProductQuantity}}</p>
+                    <p class="card-text">Giới hạn gói mỗi người: {{this.limited_PackageQuantity}}</p>
+                    <p class="card-text">Thời gian cho lần đặt tiếp theo: {{this.limited_Time}}</p>
+                    <a href="/productDetails?productID={{this.productPackageID}}&userID={{lookup ../user 'userID'}}" class="btn btn-primary">Chi Tiết</a>
+                    <a href="#" class="btn btn-primary">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</tbody>
+

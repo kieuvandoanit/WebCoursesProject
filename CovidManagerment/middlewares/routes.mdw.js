@@ -40,8 +40,8 @@ module.exports = (app) => {
     app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
     app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
     app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
-    app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
-    app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
+    //app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
+    //app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
 
 
     //User
@@ -55,4 +55,5 @@ module.exports = (app) => {
     app.get('/package', product.getProductPackage)
     //app.post('/package', product.addProductPackage)
     app.get('/productDetails', product.getProductDetails)
+    app.post('/cart', product.addToCart)
 }
