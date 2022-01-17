@@ -13,36 +13,10 @@
     </div>
   </form>
 </div>
-<div class="col-md">
-    <a href="/manager/getProductByPriceASC" class="btn btn-info btn-xs pull-left"><b></b> Sắp xếp giá tăng dần</a>
-  {{!-- <div class="dropdown open">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-          Sắp xếp
-        </button>
-    <div class="dropdown-menu" aria-labelledby="triggerId">
-      <button class="dropdown-item" href="/manager/getProductByPriceASC">Giá sản phẩm tăng dần</button>
-      <button class="dropdown-item" href="/manager/getProductByPriceDESC">Giá sản phẩm giảm dần</button>    </div>
-  </div> --}}
+ <div class="col-md">
+    <a href="/manager/getProduct" class="btn btn-primary btn-xs pull-right"> Clear</a>
 </div>
-<div class="col-md">
-   <a href="/manager/filterProductByCategory" class="btn btn-info btn-xs pull-left"><b></b> Lọc theo danh mục</a>
-  {{!-- <div class="dropdown open">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-          Lọc
-        </button>
-    <div class="dropdown-menu" aria-labelledby="triggerId">
-      <button class="dropdown-item" href="#">Rau củ</button>
-      <button class="dropdown-item" href="#">Thịt</button> 
-      <button class="dropdown-item" href="#">Cá</button> 
-      <button class="dropdown-item" href="#">Hoa quả</button> 
-      <button class="dropdown-item" href="#">Đồ gia dụng</button> 
-      <button class="dropdown-item" href="#">Nước uống</button> 
-    </div>
-  </div> --}}
-</div>
-<div class="col-md-4">
+<div class="col-md-6">
   <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới</a>
 </div>
 </div>
@@ -52,9 +26,7 @@
     <thead class="thead-light">
         <tr>
             <th scope="col">ID</th>
-            {{!-- <th scope="col">Hình ảnh</th> --}}
             <th style="text-align:center" scope="col"> Tên sản phẩm</th>
-            <th style="text-align:center" scope="col"> Danh mục </th>
             <th scope="col"> Giá cả</th>
             <th scope="col"> Đơn vị</th>
             {{!-- <th style="text-align:center" scope="col"> Chi tiết</th> --}}
@@ -66,9 +38,7 @@
         {{#each Product}}
         <tr>
             <th scope="row">{{this.ProductID}}</th>
-            {{!-- <td>{{this.Product_name}}</td> --}}
             <td>{{this.Product_name}}</td>
-            <td>{{this.Category}}</td>
             <td>{{this.price}}</td>
             <td>{{this.Unit}}</td>
             {{!-- <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td> --}}

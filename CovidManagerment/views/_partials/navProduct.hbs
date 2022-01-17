@@ -2,32 +2,11 @@
   <a class="navbar-brand" href="/package?userID={{user.userID}}">
     <i class="fa fa-home fa-lg"></i>
   </a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success " type="submit">Search</button>
+  </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/package?userID={{user.userID}}">Nhu yếu phẩm</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/user/userInfo?userID={{user.userID}}">Thông Tin Người Dùng</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/user/userInfo?userID={{user.userID}}&info=notification">Thông Báo Nhắc Thanh
-          Toán</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-          href="#">Lịch Sử </a>
-        <ul class="dropdown-menu">
-          <a class="dropdown-item" href="/user/userInfo?userID={{user.userID}}&info=managedHistory">Lịch Sử Được Quản
-            Lý</a>
-          <a class="dropdown-item selected" href="/user/userInfo?userID={{user.userID}}&info=kitHistory">Lịch Sử Tiêu
-            Thụ Gói Nhu Yếu
-            Phẩm</a>
-          <a class="dropdown-item" href="/user/userInfo?userID={{user.userID}}&info=paymentHistory">Lịch Sử Thanh
-            Toán</a>
-        </ul>
-      </li>
-    </ul>
     <form id="formLogout" method="POST" action="/account/logout"></form>
     <ul class="navbar-nav ml-auto">
       <a class="navbar-brand" href="/user/shoppingCart?userID={{user.userID}}">
