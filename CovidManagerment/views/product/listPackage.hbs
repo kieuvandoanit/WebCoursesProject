@@ -29,26 +29,3 @@
         {{/each}}
     </div>
 </tbody>
-
-<script>
-    function addToCart(packageID) {
-        const userID = $("#userID").val();
-        $.post(`/cart`, { packageID: packageID, userID: userID }, function (data, status) {
-            location.reload()
-        })
-    }  
-</script>
-<!--
-<div class="col-md">
-  <form method = "post" action="">
-    {{!-- /manager/findPatient --}}
-    <div class="input-group">
-        <button id="search-button" type="submit" class="btn btn-light">-</button>
-      <div class="form-outline">
-        <input id="search-input" type="text" name="productName" id="form1" class="form-control" style="width:50px" />
-      </div>
-      <button id="add-button" type="submit" class="btn btn-light">+</button>
-    </div>
-  </form>
-</div>
--->

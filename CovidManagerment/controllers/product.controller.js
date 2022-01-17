@@ -3,7 +3,7 @@ const productModel = require('../model/product.model'),
     pool = require('../utils/database');
 
 module.exports = {
-    getProductPackage: async(req, res, next) => {
+    getProductPackage: async (req, res, next) => {
         let package = await productModel.getProductPackage(),
             userID = req.query.userID,
             user = await userModel.getUser(userID);
@@ -14,7 +14,7 @@ module.exports = {
         })
     },
 
-    getProductDetails: async(req, res, next) => {
+    getProductDetails: async (req, res, next) => {
         let product = await productModel.getProductDetails(req.query.productID),
             userID = req.query.userID,
             user = await userModel.getUser(userID);
@@ -24,33 +24,36 @@ module.exports = {
             layout: "user"
         })
     },
-    
+
     sessionProduct: async (req, res, next) => {
         let userID = req.query.userID,
-            cartInfo = [],
             user = await userModel.getUser(userID);
         if (req.session.cart)
         {
+            req.session.cartInfo = [];
             for (let index = 0; index < req.session.cart.length; index++) {
                 if (req.session.cart[index].userID === userID) {
-                    cartInfo.push(req.session.cart[index]);
+                    req.session.cartInfo.push(req.session.cart[index]);
                 }
             }
-            for (let index = 0; index < cartInfo.length; index++) {
-                let package = await productModel.getSpecificPackage(cartInfo[index].packageID),
-                    product = await productModel.getProductDetails(cartInfo[index].packageID);
-                cartInfo[index].packageName = package.package_Name
-                cartInfo[index].product = product
+            for (let index = 0; index < req.session.cartInfo.length; index++) {
+                let package = await productModel.getSpecificPackage(req.session.cartInfo[index].packageID),
+                    product = await productModel.getProductDetails(req.session.cartInfo[index].packageID);
+                req.session.cartInfo[index].packageName = package.package_Name
+                req.session.cartInfo[index].product = product
+                for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
+                    req.session.cartInfo[index].product[index2].quantity = product[index2].number * req.session.cartInfo[index].quantity
+                }
             }
              res.render("product/cart", {
-                 user: user,
-                 cartInfo: cartInfo,
-                 layout: "user"
+                user: user,
+                cartInfo: req.session.cartInfo,
+                layout: "user"
              })
         } else {
             res.render("product/cart", {
                 user: user,
-                cartInfo: cartInfo,
+                cartInfo: req.session.cartInfo,
                 layout: "user"
             })
         }
@@ -79,9 +82,60 @@ module.exports = {
             req.session.cart.push({
                 userID: userID,
                 quantity: quantity,
-                packageID: packageID                
+                packageID: packageID
             })
             res.status(200).send();
+        }
+    },
+
+    cartUpdate: async(req, res, next) => {
+        let packageID = req.body.packageID,
+            productID = parseInt(req.body.productID),
+            method = req.body.method;
+        if (method === 'inc') {
+            for (let index = 0; index < req.session.cartInfo.length; index++) {
+                if (req.session.cartInfo[index].packageID === packageID) {
+                    for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
+                        if (req.session.cartInfo[index].product[index2].ProductID === productID) {
+                            if (req.session.cartInfo[index].product[index2].quantity >= 0) {
+                                req.session.cartInfo[index].product[index2].quantity += 1;
+                                res.status(200).send({quantity: req.session.cartInfo[index].product[index2].quantity})
+                                return;
+                            } else { 
+                                res.status(200).send({quantity: 0})
+                                return;
+                            }        
+                        }
+                    }
+                }
+            }
+        } else if (method === 'des') {
+            for (let index = 0; index < req.session.cartInfo.length; index++) {
+                if (req.session.cartInfo[index].packageID === packageID) {
+                    for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
+                        if (req.session.cartInfo[index].product[index2].ProductID === productID) {
+                            if (req.session.cartInfo[index].product[index2].quantity > 0) {
+                                req.session.cartInfo[index].product[index2].quantity -= 1;
+                                res.status(200).send({quantity: req.session.cartInfo[index].product[index2].quantity})
+                                return;
+                            } else{ 
+                                res.status(200).send({quantity: 0})
+                                return;
+                            }                            
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    removeFromCart: async(req, res, next) => {
+        let packageID = req.body.packageID;
+        for (let index = 0; index < req.session.cart.length; index++) {
+            if (req.session.cart[index].packageID === packageID) {
+                req.session.cart.splice(index, 1)
+                res.status(200).send();
+            }
         }
     }
 }

@@ -30,6 +30,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha256-jXCJJT3KKcnNjZ3rfsabCj1EX4j2omR4xxm+H5CtywE=" crossorigin="anonymous"></script>
+    <script>
+        function removePackage(packageID) {
+            $.post(`/removeFromCart`, { packageID: packageID }, function(data, status) {
+                location.reload()      
+            })
+        }
+
+        function updateCart(packageID, productID, method) {
+            $.post(`/cartUpdate`, { packageID: packageID, productID: productID, method: method }, (data, status) => {
+                console.log(`${productID}quantity`)
+                console.log(data.quantity)
+                $(`#${productID}quantity`).html(data.quantity)
+            })
+        }
+    </script>
     {{!--
     <script src="/public/javascript/bootnavbar.js"></script> --}}
     {{!--
