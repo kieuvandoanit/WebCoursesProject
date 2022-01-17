@@ -34,7 +34,7 @@ module.exports = (app) => {
     app.get('/manager/payment/change', paymentInfo.changeLimit);
     app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
     app.get('/manager/notification/:username', paymentInfo.notification);
-
+    app.get('/manager/peopleEachState', manager.peopleEachState);
     //Giang
 
     app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
