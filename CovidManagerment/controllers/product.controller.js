@@ -88,23 +88,24 @@ module.exports = {
         }
     },
 
-    cartUpdate: async(req, res, next) => {
+    cartUpdate: async (req, res, next) => {
         let packageID = req.body.packageID,
             productID = parseInt(req.body.productID),
-            method = req.body.method;
+            method = req.body.method,
+            product = await productModel.getSpecificPackage(packageID);
         if (method === 'inc') {
             for (let index = 0; index < req.session.cartInfo.length; index++) {
                 if (req.session.cartInfo[index].packageID === packageID) {
                     for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
                         if (req.session.cartInfo[index].product[index2].ProductID === productID) {
-                            if (req.session.cartInfo[index].product[index2].quantity >= 0) {
+                            if (req.session.cartInfo[index].product[index2].quantity < product.limited_ProductQuantity) {
                                 req.session.cartInfo[index].product[index2].quantity += 1;
-                                res.status(200).send({quantity: req.session.cartInfo[index].product[index2].quantity})
+                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
                                 return;
-                            } else { 
-                                res.status(200).send({quantity: 0})
+                            } else {
+                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
                                 return;
-                            }        
+                            }
                         }
                     }
                 }
@@ -116,12 +117,12 @@ module.exports = {
                         if (req.session.cartInfo[index].product[index2].ProductID === productID) {
                             if (req.session.cartInfo[index].product[index2].quantity > 0) {
                                 req.session.cartInfo[index].product[index2].quantity -= 1;
-                                res.status(200).send({quantity: req.session.cartInfo[index].product[index2].quantity})
+                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
                                 return;
-                            } else{ 
-                                res.status(200).send({quantity: 0})
+                            } else {
+                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
                                 return;
-                            }                            
+                            }
                         }
                     }
                 }
