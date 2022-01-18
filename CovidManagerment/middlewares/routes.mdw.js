@@ -38,20 +38,27 @@ module.exports = (app) => {
     app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
     app.get('/manager/sortByYOB', manager.sortByYOB);
 
-    
-
     //Giang
-    app.get('/manager/getProduct', restrict.isManager, manager.getProduct)
-    app.get('/manager/getPackage', restrict.isManager, manager.getPackage)
-    app.get('/manager/deleteProduct/:id', restrict.isManager, manager.DeleteProduct)
-    app.get('/manager/DeletePackageAction/:id', restrict.isManager, manager.DeletePackage)
-
-
-    // app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
-    // app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
-
-
-    //User
+    // restrict.isManager
+    app.get('/manager/getProduct', manager.getProduct)
+    app.get('/manager/getPackage', manager.getPackage)
+    app.get('/manager/deleteProduct/:id', manager.DeleteProduct)
+    app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
+    app.post('/manager/getProduct', manager.findProduct)
+    app.post('/manager/getPackage', manager.findPackage)
+    app.get('/manager/getProductByPriceASC', manager.orderProductByPriceASC)
+    app.get('/manager/addProduct', manager.addProduct)
+    app.post('/manager/addProductHandle', manager.addProductHandle)
+    app.get('/manager/filterProductByCategory', manager.FilterProductByCategory)
+    app.post('/manager/editProductAction/:id', manager.editProductAction)
+        // app.post('/manager/editProductAction/:id', manager.editProductAction)
+    app.get('/manager/editProduct/:id', manager.updateProduct)
+    app.get('/manager/viewPackageAction/:id', manager.DetailPackage)
+    app.post('/manager/editPackageAction/:id', manager.editPackageAction)
+    app.get('/manager/DeleteProductFromPackage/:id', manager.DeleteProductFromPackage)
+    app.get('/manager/addPackage', manager.addPackage)
+    app.post('/manager/addPackageHandle', manager.addPackageHandle)
+        //User
 
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/changePassword/:id', user.updatePassword)
