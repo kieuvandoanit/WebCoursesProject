@@ -1,4 +1,4 @@
-/*const { addProductHandle } = require('../controllers/manager.controller');
+const { addProductHandle } = require('../controllers/manager.controller');
 const { peopleEachState } = require('../controllers/manager.controller');
 const pool = require('../utils/database')
 
@@ -20,12 +20,8 @@ module.exports = {
         }
         return 0;
     },
-<<<<<<< HEAD
-    async updatePatientStatus(patientID, status) {
-=======
     //Câp nhật trạng thái bênh nhân có mã patientID
     async updatePatientStatus(patientID ,status) {
->>>>>>> 58dac956ad8e081596614c894941474fbd65fb0f
         let patient = await pool.query(`UPDATE public."Patient" set "Status" = '${status}' WHERE "PatientID" = '${patientID}'`);
         if (patient.rowCount >= 1) {
             return patient.rows;
@@ -344,10 +340,4 @@ module.exports = {
         }
         return 0;
     }
-
-
-
-
-
-
-}*/
+}
