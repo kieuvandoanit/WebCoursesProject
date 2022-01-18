@@ -1,5 +1,6 @@
 const paymentInfoModel = require('../model/paymentInfo.model');
 const axios = require('axios');
+const https = require('https');
 const jwt = require('jsonwebtoken')
 module.exports = {
     homepage: async(req, res, next) => {
@@ -188,5 +189,17 @@ module.exports = {
         
 
         
+    },
+
+    userCart: async (req, res, next) => {
+        res.send(req.session.cartInfo)
+    },
+
+    test: async (req, res, next) => {
+        const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+        let test = await axios.get('https://localhost:3443/', { httpsAgent: agent });
+        res.send(test.data)
     }
 }

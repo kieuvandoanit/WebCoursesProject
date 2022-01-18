@@ -41,7 +41,7 @@ module.exports = (app) => {
     app.get('/manager/sortByStatus', manager.sortByStatus);
     app.post('/manager/sortByStatus', manager.findPatient)
 
-    //Giang
+
     // restrict.isManager
     app.get('/manager/getProduct', manager.getProduct)
     app.get('/manager/getPackage', manager.getPackage)
@@ -72,7 +72,7 @@ module.exports = (app) => {
     app.get('/user/payment', paymentInfo.userPayment);
     app.get('/user/payment/addOrder', paymentInfo.addOrder);
 
-
+    app.get('/user/cart', paymentInfo.userCart);
     //product
     app.get('/package', product.getProductPackage)
     app.post('/package', product.searchPackage)
