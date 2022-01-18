@@ -65,6 +65,7 @@ module.exports = (app) => {
 
     //product
     app.get('/package', product.getProductPackage)
+    app.post('/package', product.searchPackage)
     app.get('/productDetails', product.getProductDetails)
     app.get('/cart', product.sessionProduct)
     app.post('/cart', product.addToCart)

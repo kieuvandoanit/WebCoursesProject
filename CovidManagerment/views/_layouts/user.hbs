@@ -43,6 +43,10 @@
             })
         }
 
+        function placeOrder(userID) {
+            $.post(`/placeOrder`, { userID: userID }, (data, status) => {
+            })
+        }
     </script>
     {{!--
     <script src="/public/javascript/bootnavbar.js"></script> --}}

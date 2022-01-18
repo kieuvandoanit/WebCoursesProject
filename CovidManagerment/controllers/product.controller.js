@@ -28,8 +28,7 @@ module.exports = {
     sessionProduct: async (req, res, next) => {
         let userID = req.query.userID,
             user = await userModel.getUser(userID);
-        if (req.session.cart)
-        {
+        if (req.session.cart) {
             req.session.cartInfo = [];
             for (let index = 0; index < req.session.cart.length; index++) {
                 if (req.session.cart[index].userID === userID) {
@@ -45,11 +44,12 @@ module.exports = {
                     req.session.cartInfo[index].product[index2].quantity = product[index2].number * req.session.cartInfo[index].quantity
                 }
             }
-             res.render("product/cart", {
+            console.log(req.session.cartInfo)
+            res.render("product/cart", {
                 user: user,
                 cartInfo: req.session.cartInfo,
                 layout: "user"
-             })
+            })
         } else {
             res.render("product/cart", {
                 user: user,
@@ -57,7 +57,7 @@ module.exports = {
                 layout: "user"
             })
         }
-        
+
     },
 
     addToCart: async (req, res, next) => {
@@ -98,7 +98,10 @@ module.exports = {
                 if (req.session.cartInfo[index].packageID === packageID) {
                     for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
                         if (req.session.cartInfo[index].product[index2].ProductID === productID) {
-                            if (req.session.cartInfo[index].product[index2].quantity < product.limited_ProductQuantity) {
+                            limit = req.session.cartInfo[index].quantity * product.limited_ProductQuantity;
+                            console.log(limit)
+                            console.log(req.session.cartInfo[index])
+                            if (req.session.cartInfo[index].product[index2].quantity < limit) {
                                 req.session.cartInfo[index].product[index2].quantity += 1;
                                 res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
                                 return;
@@ -130,7 +133,7 @@ module.exports = {
         }
     },
 
-    removeFromCart: async(req, res, next) => {
+    removeFromCart: async (req, res, next) => {
         let packageID = req.body.packageID;
         for (let index = 0; index < req.session.cart.length; index++) {
             if (req.session.cart[index].packageID === packageID) {
@@ -138,5 +141,19 @@ module.exports = {
                 res.status(200).send();
             }
         }
+    },
+
+    searchPackage: async (req, res, next) => {
+        let packageName = req.body.packageName,
+            package = await productModel.searchPackage(packageName),
+            userID = req.body.userID;
+            user = await userModel.getUser(userID);
+        res.render("product/listPackage", {
+            packageName: packageName,
+            user: user,
+            package: package,
+            layout: "product"
+        })
+        return;
     }
 }
