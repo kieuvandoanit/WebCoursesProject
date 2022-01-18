@@ -277,9 +277,12 @@ module.exports = {
         let F2 = numberOfPerState[2].count;
         let F3 = numberOfPerState[3].count;
         let F4 = numberOfPerState[4].count;
+        let Fine = numberOfPerState[5].count;
         let sum = 0;
-        sum = sum + parseInt(F0) + parseInt(F1) + parseInt(F2) + parseInt(F3) + parseInt(F4)
-            //console.log(numberOfF0);
+
+        sum = sum + parseInt(F0) + parseInt(F1) + parseInt(F2) + parseInt(F3) + parseInt(F4) + parseInt(Fine)
+        //console.log(numberOfF0);
+
         if (numberOfPerState !== 0) {
             res.render("manager/peopleEachState", {
                 F0: F0,
@@ -287,7 +290,9 @@ module.exports = {
                 F2: F2,
                 F3: F3,
                 F4: F4,
-                sum: sum,
+                Fine:Fine,
+                sum:sum,
+
                 layout: "manager"
             })
         } else {
@@ -324,6 +329,17 @@ module.exports = {
         let patient = await managerModel.sortByYOB();
         if (patient !== 0) {
             res.render("manager/sortByYOB", {
+                patient: patient,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
+    sortByStatus: async(req, res, next) => {
+        let patient = await managerModel.sortByStatus();
+        if (patient !== 0) {
+            res.render("manager/sortByStatus", {
                 patient: patient,
                 layout: "manager"
             })
