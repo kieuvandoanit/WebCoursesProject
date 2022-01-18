@@ -366,5 +366,35 @@ module.exports = {
             return Image.rows;
         }
         return 0;
+    },
+    async getHospital(){
+        let result = await pool.query(`select "hopitalName", "hopitalID" from public."Hopital"`);
+        return result;
+    },
+    async getHospitalNow(patientID){
+        let result = await pool.query(`SELECT "PatientName", "DOB", province, ward, "District", "Status", "userID", "hospitalID", patient_ref, "identityCard"
+        FROM public."Patient" WHERE "PatientID" = ${patientID}`);
+        if(result.rowCount === 1){
+            return result.rows[0]
+        }
+        return 0; 
+    },
+    async updateHopitalPatient(hopital, patientID){
+        let result = await pool.query(`UPDATE public."Patient" SET "hospitalID"=${hopital} WHERE "PatientID"= ${patientID}`);
+        if(result.rowCount === 1){
+            return 1;
+        }
+        return 0;
+    },
+    async getHopital1(hopital){
+        let result = await pool.query(`SELECT * FROM public."Hopital" WHERE "hopitalID" = ${hopital}`);
+        if(result.rowCount === 1){
+            return result.rows[0];
+        }
+        return 0;
+    },
+    async updateHospitalQuantity(hopital, number){
+        let result = await pool.query(`UPDATE public."Hopital" SET  "current_Quantity"=${number} WHERE "hopitalID"=${hopital}`)
+        return result;
     }
 }

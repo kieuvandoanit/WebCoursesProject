@@ -64,6 +64,8 @@ module.exports = (app) => {
     app.get('/manager/DeleteProductFromPackage/:id', manager.DeleteProductFromPackage)
     app.get('/manager/addPackage', manager.addPackage)
     app.post('/manager/addPackageHandle', manager.addPackageHandle)
+    app.get('/manager/changeHospital/:patientID', manager.changeHospital)
+    app.post('/manager/changeHospital/:patientID',manager.changeHospitalHandle)
         //User
 
     app.get('/user/userInfo', user.accountMain)

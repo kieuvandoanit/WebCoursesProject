@@ -27,7 +27,7 @@ module.exports = (app) => {
                 return "danger";
             },
             selected: (a, b)=>{
-                output: 'selected'
+                output = 'selected'
                 if(a === b){
                     return output;
                 }
