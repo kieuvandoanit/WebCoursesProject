@@ -7,20 +7,13 @@
             <div class="card h-100 shadow-sm p-3 bg-white rounded">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">{{packageName}}</h5>
-                    <p class="card-text">Số Lượng: {{quantity}}</p>
-
-                    <!--
-<div class="col-md">
-    {{!-- /manager/findPatient --}}
-    <div class="input-group">
-        <button id="search-button" type="submit" class="btn btn-light">-</button>
-      <div class="form-outline">
-        <input id="search-input" type="text" name="productName" id="form1" class="form-control" style="width:50px" />
-      </div>
-      <button id="add-button" type="submit" class="btn btn-light">+</button>
-    </div>
-</div>
--->
+                    <p class="card-text">Số Lượng: <button class="btn btn-light"
+                                                    onclick="updateCart({{packageID}}, 0, 'des')">-</button>
+                                                <label id="{{packageID}}quantity"
+                                                    class="col-sm-2 col-form-label col-form-label-sm"
+                                                    style="width:50px; text-align: center;">{{quantity}}</label>
+                                                <button class="btn btn-light"
+                                                    onclick="updateCart({{packageID}}, 0, 'inc')">+</button></p>
                     <table class="table">
                         <thead>
                             <tr>
@@ -40,10 +33,12 @@
                                     <div class="row">
                                         <div class="col-md">
                                             <div class="input-group">
-                                                <button class="btn btn-light btn-sm"
+                                                <button class="btn btn-light"
                                                     onclick="updateCart({{productPackageID}}, {{ProductID}}, 'des')">-</button>
-                                                    <label id="{{productPackageID}}{{ProductID}}quantity" class="col-sm-2 col-form-label col-form-label-sm" style="width:50px; text-align: center;">{{quantity}}</label>
-                                                <button class="btn btn-light btn-sm"
+                                                <label id="{{productPackageID}}{{ProductID}}quantity"
+                                                    class="col-sm-2 col-form-label col-form-label-sm"
+                                                    style="width:50px; text-align: center;">{{quantity}}</label>
+                                                <button class="btn btn-light"
                                                     onclick="updateCart({{productPackageID}}, {{ProductID}}, 'inc')">+</button>
                                             </div>
                                         </div>
@@ -62,7 +57,7 @@
         {{/each}}
         <div class="row py-3">
             <div class="col-auto">
-                <a href="/user/cart" class="btn btn-primary">Đặt mua</a>
+                <button class="btn btn-primary" onclick="placeOrder({{cartInfo.userID}})">Đặt mua</button>
             </div>
         </div>
     </div>

@@ -35,5 +35,12 @@ module.exports = {
         }
     },
 
-    
+    async searchPackage(packageName) {
+        let package = await pool.query(`SELECT * FROM "productPackage" WHERE "package_Name" LIKE '%${packageName}%'`);
+
+        if (package.rowCount >= 1) {
+            return package.rows;
+        }
+        return 0;
+    }
 }

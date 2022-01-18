@@ -10,6 +10,7 @@
       <th style="text-align:center" scope="col">Số ca F2</th>
       <th style="text-align:center" scope="col">Số ca F3</th>
       <th style="text-align:center" scope="col">Số ca F4</th>
+      <th style="text-align:center" scope="col">Số ca Khỏi bệnh</th>
       <th style="text-align:center" scope="col">Tổng số ca</th>
       
       <th scope="col"></th>
@@ -25,6 +26,7 @@
       <td id = "F2" style="text-align:center" value="{{F2}}">{{F2}}</td>
       <td id = "F3" style="text-align:center" value="{{F3}}">{{F3}}</td>
       <td id = "F4" style="text-align:center" value="{{F4}}">{{F4}}</td>
+      <td id = "Fine" style="text-align:center" value="{{Fine}}">{{Fine}}</td>
       <td style="text-align:center">{{sum}}</td>
       <td><a href="/manager" type="button" class="btn btn-outline-info">Chi tiết</a></td>
     </tr>
@@ -46,13 +48,15 @@ let F1 = document.getElementById('F1').getAttribute('value');
 let F2 = document.getElementById('F2').getAttribute('value');
 let F3 = document.getElementById('F3').getAttribute('value');
 let F4 = document.getElementById('F4').getAttribute('value');
+let Fine = document.getElementById('Fine').getAttribute('value');
+
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['F0', 'F1', 'F2', 'F3', 'F4'],
+        labels: ['F0', 'F1', 'F2', 'F3', 'F4','Khỏi bệnh'],
         datasets: [{
             label: 'Số Ca',
-            data: [F0, F1, F2, F3, F4],
+            data: [F0, F1, F2, F3, F4, Fine],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

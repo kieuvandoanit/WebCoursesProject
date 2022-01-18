@@ -6,7 +6,6 @@ module.exports={
     loginHandle: async(req, res, next) =>{
         let username = req.body.username;
         let password = req.body.password;
-
         let result = await guestModel.login(username, password);
         // res.send(result);
         if(result !== 0){
