@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="py-3">
-      <table class="table">
+      <table class="table" style="text-align:center">
         <thead class="thead-light">
           <tr>
             <th scope="col">Trạng thái</th>
@@ -27,10 +27,10 @@
         <tbody>
             {{#each patientManagement}}
           <tr>
-            <td style="text-align:center">{{this.status}}</td>
-            <td style="text-align:center">{{this.hopitalID}}</td>
-            <td style="text-align:center">{{this.fromDate}}</td>
-            <td style="text-align:center">{{this.endDate}}</td>
+            <td>{{this.status}}</td>
+            <td>{{this.hopitalID}}</td>
+            <td>{{this.fromDate}}</td>
+            <td>{{this.endDate}}</td>
           </tr>
           {{/each}}
         </tbody>

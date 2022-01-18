@@ -13,8 +13,19 @@
     </div>
   </form>
 </div>
+{{!-- <div class="col-md-2">
+ <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Sắp xếp
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="/manager/addPackage"> Số sản phẩm tăng dần </a></li>
+    <li><a class="dropdown-item" href="#"> Số sản phẩm giảm dần </a></li>
+  </ul>
+ </div>
+</div> --}}
 <div class="col-md-6">
-    <a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới gói nhu yếu phẩm</a>
+    <a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới </a>
 </div>
 </div>
 
@@ -26,7 +37,7 @@
             <th style="text-align:center" scope="col"> Tên gói sản phẩm</th>
             <th scope="col"> Số sản phẩm tối đa</th>
             <th scope="col"> Tối đa lượt mua (Lần) </th>
-            <th scope="col"> Giới hạn thời gian mua (/ngày)</th>
+            <th scope="col"> Giới hạn thời gian mua (Ngày)</th>
             <th scope="col"> Chi tiết</th>
             <th scope="col"> Chỉnh sửa </th>
             <th scope="col"> Xóa</th>
@@ -41,7 +52,7 @@
             <td>{{this.limited_PackageQuantity}}</td>
             <td>{{this.limited_Time}}</td>
             <td><a href="/manager/viewPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
-            <td><a href="/manager/editPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+            <td><a href="/manager/viewPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
             <td><a href="/manager/DeletePackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
         </tr>
         {{/each}}
