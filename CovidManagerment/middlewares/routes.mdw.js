@@ -37,6 +37,9 @@ module.exports = (app) => {
     app.get('/manager/peopleEachState', manager.peopleEachState);
     app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
     app.get('/manager/sortByYOB', manager.sortByYOB);
+    app.post('/manager/sortByYOB', manager.findPatient)
+    app.get('/manager/sortByStatus', manager.sortByStatus);
+    app.post('/manager/sortByStatus', manager.findPatient)
 
     
 

@@ -134,11 +134,13 @@ module.exports = {
         let numberOfF2 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F2'`);
         let numberOfF3 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F3'`);
         let numberOfF4 = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'F4'`);
+        let numberOfFine = await pool.query(`SELECT count("PatientID") FROM public."Patient" WHERE "Status" = 'Khỏi bệnh'`);
         a.push(numberOfF0.rows[0])
         a.push(numberOfF1.rows[0])
         a.push(numberOfF2.rows[0])
         a.push(numberOfF3.rows[0])
         a.push(numberOfF4.rows[0])
+        a.push(numberOfFine.rows[0])
         //console.log(a)
         if (a.length >= 1) {
             return a;
@@ -168,6 +170,15 @@ module.exports = {
     },
     async sortByYOB() {
         let sort = await pool.query(`select * from "Patient" order by "DOB" asc`);
+
+        if (sort.rowCount >= 1) {
+            return sort.rows;
+            // console.log(Product)
+        }
+        return 0;
+    },
+    async sortByStatus() {
+        let sort = await pool.query(`select * from "Patient" order by "Status" asc`);
 
         if (sort.rowCount >= 1) {
             return sort.rows;
