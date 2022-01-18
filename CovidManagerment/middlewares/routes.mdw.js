@@ -50,6 +50,7 @@ module.exports = (app) => {
     // app.post('/manager/getProduct', restrict.isManager, manager.findProduct)
     // app.post('/manager/getPackage', restrict.isManager, manager.findPackage)
 
+    app.get('/api/test', paymentInfo.test);
 
     //User
 
@@ -62,7 +63,7 @@ module.exports = (app) => {
     app.get('/user/payment', paymentInfo.userPayment);
     app.get('/user/payment/addOrder', paymentInfo.addOrder);
 
-
+    app.get('/user/cart', paymentInfo.userCart);
     //product
     app.get('/package', product.getProductPackage)
     app.get('/productDetails', product.getProductDetails)
