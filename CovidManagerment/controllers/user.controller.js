@@ -67,14 +67,18 @@ module.exports = {
             oldPassword = req.body.oldPassword,
             newPassword = req.body.newPassword,
             repeatPassword = req.body.repeatPassword;
+            // res.send({password})
         if (newPassword === repeatPassword) { // matching password
             if (oldPassword != newPassword) { // repeat password
-                if (password === oldPassword) {
+                
+                if (password == oldPassword) {
+                    // res.send("test")
                     let result = await pool.query(`UPDATE "User"
                     SET "password"='${newPassword}'
                     WHERE "userID"=${userID}`);
-                    res.redirect('/user/userInfo') // send back to changePassword with success message
+                    res.redirect(`/user/userInfo?userID=${userID}`) // send back to changePassword with success message
                 } else {
+                    
                     res.render(`user/changePassword`, {
                         user: user,
                         layout: "user"
