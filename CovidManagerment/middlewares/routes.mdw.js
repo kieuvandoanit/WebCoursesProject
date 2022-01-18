@@ -36,10 +36,13 @@ module.exports = (app) => {
     app.get('/manager/notification/:username', paymentInfo.notification);
     app.get('/manager/peopleEachState', manager.peopleEachState);
     app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
+    app.get('/manager/statisticsPackageProduct', manager.statisticsPackageProduct);
+    app.get('/manager/statisticsUsedProduct', manager.statisticsUsedProduct);
     app.get('/manager/sortByYOB', manager.sortByYOB);
-    app.post('/manager/sortByYOB', manager.findPatient)
+    app.post('/manager/sortByYOB', manager.findPatient);
     app.get('/manager/sortByStatus', manager.sortByStatus);
-    app.post('/manager/sortByStatus', manager.findPatient)
+    app.post('/manager/sortByStatus', manager.findPatient);
+    
 
     //Giang
     // restrict.isManager

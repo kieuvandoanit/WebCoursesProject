@@ -169,6 +169,25 @@ module.exports = {
         }
         return 0;
     },
+    async statisticsPackageProduct() {
+        let numberOfPackage = await pool.query(`SELECT "OrdersDetail"."PackageID", "OrdersDetail"."Quantity"
+        FROM public."OrdersDetail" INNER JOIN public."Order"  ON "OrdersDetail"."OrdersID" = "Order"."orderID" `);
+
+        //console.log(numberOfPackage.rows)
+        if (numberOfPackage.rowCount >= 1) {
+            return numberOfPackage.rows ;
+        }
+        return 0;
+    },
+    async statisticsUsedProduct() {
+        let numberOfProduct = await pool.query(`select "Product_name", "Quantity" from public."OrdersPackageDetail" INNER JOIN public."Product" ON "OrdersPackageDetail"."ProductID" = "Product"."ProductID"`);
+
+        //console.log(numberOfPackage.rows)
+        if (numberOfProduct.rowCount >= 1) {
+            return numberOfProduct.rows ;
+        }
+        return 0;
+    },
     async sortByYOB() {
         let sort = await pool.query(`select * from "Patient" order by "DOB" asc`);
 

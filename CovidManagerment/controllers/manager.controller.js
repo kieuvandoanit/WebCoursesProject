@@ -325,6 +325,67 @@ module.exports = {
             res.send("Không có thông tin");
         }
     },
+    statisticsPackageProduct: async(req, res, next) => {
+        let numberOfPackage = await managerModel.statisticsPackageProduct();
+        let PackageID1 = numberOfPackage[0].PackageID;
+        let PackageID2 = numberOfPackage[1].PackageID;
+        let PackageID3 = numberOfPackage[2].PackageID;
+        let PackageID4 = numberOfPackage[3].PackageID;
+        let PackageID5 = numberOfPackage[4].PackageID;
+        let Quantity1 = numberOfPackage[0].Quantity;
+        let Quantity2 = numberOfPackage[1].Quantity;
+        let Quantity3 = numberOfPackage[2].Quantity;
+        let Quantity4 = numberOfPackage[3].Quantity;
+        let Quantity5 = numberOfPackage[4].Quantity;
+        if (numberOfPackage !== 0) {
+            res.render("manager/statisticalsPackage", {
+                PackageID1: PackageID1,
+                PackageID2: PackageID2,
+                PackageID3: PackageID3,
+                PackageID4: PackageID4,
+                PackageID5: PackageID5,
+                Quantity1: Quantity1,
+                Quantity2: Quantity2,
+                Quantity3: Quantity3,
+                Quantity4: Quantity4,
+                Quantity5: Quantity5,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
+    statisticsUsedProduct: async(req, res, next) => {
+        let numberOfProduct = await managerModel.statisticsUsedProduct();
+        let Product1 = numberOfProduct[0].Product_name;
+        let Product2 = numberOfProduct[1].Product_name;
+        let Product3 = numberOfProduct[2].Product_name;
+        let Product4 = numberOfProduct[3].Product_name;
+        let Product5 = numberOfProduct[4].Product_name;
+        let Quantity1 = numberOfProduct[0].Quantity;
+        let Quantity2 = numberOfProduct[1].Quantity;
+        let Quantity3 = numberOfProduct[2].Quantity;
+        let Quantity4 = numberOfProduct[3].Quantity;
+        let Quantity5 = numberOfProduct[4].Quantity;
+        console.log(numberOfProduct)
+        if (numberOfProduct !== 0) {
+            res.render("manager/statisticsUsedProduct", {
+                Product1: Product1,
+                Product2: Product2,
+                Product3: Product3,
+                Product4: Product4,
+                Product5: Product5,
+                Quantity1: Quantity1,
+                Quantity2: Quantity2,
+                Quantity3: Quantity3,
+                Quantity4: Quantity4,
+                Quantity5: Quantity5,
+                layout: "manager"
+            })
+        } else {
+            res.send("Không có thông tin");
+        }
+    },
     sortByYOB: async(req, res, next) => {
         let patient = await managerModel.sortByYOB();
         if (patient !== 0) {
