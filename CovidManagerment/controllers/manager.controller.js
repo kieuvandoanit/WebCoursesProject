@@ -1,6 +1,8 @@
 const { query } = require('express');
 const { getAllRefPatient } = require('../model/manager.model');
-const managerModel = require('../model/manager.model')
+const managerModel = require('../model/manager.model');
+const axios = require('axios');
+const https = require('https');
 
 module.exports = {
     homepage: async(req, res, next) => {
@@ -247,7 +249,23 @@ module.exports = {
         }
     },
     addPatientHandle: async(req, res, next) => {
-
+        //add user
+        let userName = req.body.username;
+        let password = '123456';
+        let addUser = await managerModel.addUser(userName, password)
+        //add user ben he thong thanh toan
+        const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+        let addUserPayment = await axios.post('https://localhost:3443/api/createAccount',{
+            username: userName,
+            password: password
+        },{
+            httpsAgent: agent
+        });
+        //add patient
+        let user = await managerModel.getUser(userName, password);
+        let userID = user.userID;
         let PatientName = req.body.PatientName;
         let DOB = req.body.DOB;
         let province = req.body.province;
@@ -257,12 +275,8 @@ module.exports = {
         let patient_ref = req.body.patient_ref;
         let hospitalID = req.body.hospitalID;
         let Status = req.body.Status;
-        let userID = req.body.userID;
-        let userName = req.body.username;
-        // if(patient_ref==-1){
-        //     alert('hello')
-        //     patient_ref=-1
-        // }
+        
+        // let userName = req.body.username;
         let result = await managerModel.addPatient(PatientName, DOB, province, ward, District, Status, userID, hospitalID, patient_ref, identityCard, userName);
         if (result !== 0) {
             res.redirect("/manager")

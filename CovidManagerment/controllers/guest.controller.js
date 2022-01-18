@@ -1,7 +1,19 @@
 const guestModel = require('../model/guest.model');
 module.exports={
     login: async(req, res, next) =>{
-        res.render("guest/login")
+        // kiem tra xem co tk admin chua
+        let checkAdmin = await guestModel.checkAdmin();
+        if(checkAdmin.rowCount === 0){
+            //tao admin
+
+            let addAdmin = await guestModel.createAdmin();
+            res.render("guest/login",{
+                info:"Tài khoản admin mới được khởi tạo. Username: admin, password: 123"
+            })
+        }else{
+            res.render("guest/login")
+        }
+        
     },
     loginHandle: async(req, res, next) =>{
         let username = req.body.username;
@@ -23,7 +35,12 @@ module.exports={
                 res.redirect('/manager');
             }
             if(String(permission) === "3"){
-                res.redirect(`/user/userInfo?userID=${userID}`)
+                if(password === '123456'){
+                    // redirect den trang doi mat khau
+                    res.redirect(`/user/changePassword/${userID}`);
+                }
+                res.redirect(`/user/userInfo?userID=${userID}`);
+
             }
         }else{
             res.redirect('/');

@@ -106,6 +106,18 @@ module.exports = {
         }
         return 0;
     },
+    async addUser(username, password){
+        query = `INSERT INTO public."User"("userName", "password", "permission", "active") VALUES('${username}','${password}', '3', '1')`;
+        result = await pool.query(query)
+        return result;
+    },
+    async getUser(username, password){
+        let user = await pool.query(`SELECT * FROM public."User" WHERE "userName" = '${username}' AND "password" = '${password}'`);
+        if(user.rowCount === 1){
+            return user.rows[0];
+        }
+        return 0;
+    },
     async addPatient(PatientName, DOB, province, ward, District, Status, userID, hospitalID, patient_ref, identityCard, username) {
         let query = ''
 
@@ -113,17 +125,13 @@ module.exports = {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","identityCard")
                 VALUES('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${identityCard}')`
-            query2 = `INSERT INTO public."User"("userID", "userName", "password", "permission", "active") VALUES('${userID}','${username}','123456', '3', '2')`
         } else {
             query = `INSERT INTO public."Patient"(
                 "PatientName", "DOB", "province", "ward", "District","Status","userID","hospitalID","patient_ref","identityCard")
                 VALUES ('${PatientName}', ${DOB}, '${province}', '${ward}', '${District}','${Status}','${userID}','${hospitalID}','${patient_ref}','${identityCard}')`
-            query2 = `INSERT INTO public."User"("userID","userName", "password", "permission", "active") VALUES('${userID}','${username}','123456', '3', '2')`
         }
-        //console.log(patient_ref)
         result = await pool.query(query)
-        result2 = await pool.query(query2)
-        if (result.rowCount >= 1 && result2.rowCount >= 1) {
+        if (result.rowCount >= 1) {
             return result.rowCount
         }
         return 0;
