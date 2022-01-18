@@ -175,5 +175,8 @@ module.exports = {
             layout: "product"
         })
         return;
+    },
+    test: async (req, res, next) => {
+        res.send(req.session.cartInfo)
     }
 }

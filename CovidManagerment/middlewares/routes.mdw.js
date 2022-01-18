@@ -81,4 +81,8 @@ module.exports = (app) => {
     app.post('/cart', product.addToCart)
     app.post('/cartUpdate', product.cartUpdate)
     app.post('/removeFromCart', product.removeFromCart)
+
+
+
+    app.get('/product/test',product.test)
 }
