@@ -9,9 +9,10 @@ module.exports = {
             info = req.query.info,
             hospital;
         if (patient) {
-            hospital = await userModel.getHospital(patient.hopitalID);
+            hospital = await userModel.getHospital(patient.hospitalID);
             patientManagement = await userModel.getHistoryPatient(userID);
-            patient.DOB = patient.DOB.toISOString().split('T')[0];
+            kitHistory = await userModel.getKitHistory(userID);
+            //patient.DOB = patient.DOB.toISOString().split('T')[0];
         }
         if (!info) {
             res.render("user/userInfo", {
@@ -32,6 +33,7 @@ module.exports = {
             res.render("user/kitHistory", {
                 user: user,
                 patient: patient,
+                kitHistory: kitHistory,
                 layout: "user"
             })
         } else if (info === "paymentHistory") {

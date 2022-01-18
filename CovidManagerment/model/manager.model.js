@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 const { addProductHandle } = require('../controllers/manager.controller');
-=======
 const { peopleEachState } = require('../controllers/manager.controller');
->>>>>>> 58dac956ad8e081596614c894941474fbd65fb0f
 const pool = require('../utils/database')
 
 module.exports = {

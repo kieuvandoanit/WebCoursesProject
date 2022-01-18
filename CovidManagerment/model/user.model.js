@@ -43,7 +43,7 @@ module.exports = {
         let history = await pool.query(`select o."orderID", pp."package_Name", o."TotalPrice", o."oderDate"
         from public."Order" as o, public."Patient" as pa, public."productPackage" as pp
         where o."patientID"=pa."PatientID" and o."productPackageID"=pp."productPackageID" and pa."userID"=${userID}`);
-        if (history >=1){
+        if (history.rowCount >=1){
             return history.rows;
         }else{
             return 0;

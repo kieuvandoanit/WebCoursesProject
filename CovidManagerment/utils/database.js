@@ -5,14 +5,14 @@ const pool = new Pool({
 
     //     password: "giang1712404",
     //     database: "covidSystem",
-    //password: "postgres",
-    //database: "WebProject_covidManagement",
+    password: "postgres",
+    database: "ProjectCovid",
 
     // password: "giang1712404",
     // database: "covidSystem",
 
-    password: "123456",
-    database: "ProjectCovid",
+    //password: "123456",
+    //database: "ProjectCovid",
 
     // password: "123456",
     // database: "PCovid",
