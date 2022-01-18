@@ -32,14 +32,18 @@
         integrity="sha256-jXCJJT3KKcnNjZ3rfsabCj1EX4j2omR4xxm+H5CtywE=" crossorigin="anonymous"></script>
     <script>
         function removePackage(packageID) {
-            $.post(`/removeFromCart`, { packageID: packageID }, function(data, status) {
-                location.reload()      
+            $.post(`/removeFromCart`, { packageID: packageID }, function (data, status) {
+                location.reload()
             })
         }
 
         function updateCart(packageID, productID, method) {
             $.post(`/cartUpdate`, { packageID: packageID, productID: productID, method: method }, (data, status) => {
-                $(`#${packageID}${productID}quantity`).html(data.quantity)
+                if (productID > 0) {
+                    $(`#${packageID}${productID}quantity`).html(data.quantity)
+                } else {
+                    $(`#${packageID}quantity`).html(data.quantity)
+                }
             })
         }
 

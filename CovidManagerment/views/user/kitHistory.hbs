@@ -18,7 +18,9 @@
         <thead class="thead-light">
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Mã đơn hàng</th>
             <th scope="col">Tên gói</th>
+            <th scope="col">Số lượng</th>
             <th scope="col">Tổng tiền</th>
             <th scope="col">Ngày mua</th>
 
@@ -28,7 +30,9 @@
             {{#each kitHistory}}
           <tr>
             <td>{{@index}}</td>
+            <td>{{this.orderID}}</td>
             <td>{{this.package_Name}}</td>
+            <td>{{this.Quantity}}</td>
             <td>{{this.TotalPrice}}</td>
             <td>{{this.oderDate}}</td>
           </tr>

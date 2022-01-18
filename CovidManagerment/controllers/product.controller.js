@@ -44,7 +44,6 @@ module.exports = {
                     req.session.cartInfo[index].product[index2].quantity = product[index2].number * req.session.cartInfo[index].quantity
                 }
             }
-            console.log(req.session.cartInfo)
             res.render("product/cart", {
                 user: user,
                 cartInfo: req.session.cartInfo,
@@ -96,19 +95,28 @@ module.exports = {
         if (method === 'inc') {
             for (let index = 0; index < req.session.cartInfo.length; index++) {
                 if (req.session.cartInfo[index].packageID === packageID) {
-                    for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
-                        if (req.session.cartInfo[index].product[index2].ProductID === productID) {
-                            limit = req.session.cartInfo[index].quantity * product.limited_ProductQuantity;
-                            console.log(limit)
-                            console.log(req.session.cartInfo[index])
-                            if (req.session.cartInfo[index].product[index2].quantity < limit) {
-                                req.session.cartInfo[index].product[index2].quantity += 1;
-                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
-                                return;
-                            } else {
-                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
-                                return;
+                    if (productID > 0) {
+                        for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
+                            if (req.session.cartInfo[index].product[index2].ProductID === productID) {
+                                limit = req.session.cartInfo[index].quantity * product.limited_ProductQuantity;
+                                if (req.session.cartInfo[index].product[index2].quantity < limit) {
+                                    req.session.cartInfo[index].product[index2].quantity += 1;
+                                    res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
+                                    return;
+                                } else {
+                                    res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
+                                    return;
+                                }
                             }
+                        }
+                    } else {
+                        if(req.session.cartInfo[index].quantity < product.limited_PackageQuantity) {
+                            req.session.cartInfo[index].quantity += 1;
+                            res.status(200).send({ quantity: req.session.cartInfo[index].quantity })
+                            return;
+                        } else {
+                            res.status(200).send({ quantity: req.session.cartInfo[index].quantity })
+                            return;
                         }
                     }
                 }
@@ -116,17 +124,29 @@ module.exports = {
         } else if (method === 'des') {
             for (let index = 0; index < req.session.cartInfo.length; index++) {
                 if (req.session.cartInfo[index].packageID === packageID) {
-                    for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
-                        if (req.session.cartInfo[index].product[index2].ProductID === productID) {
-                            if (req.session.cartInfo[index].product[index2].quantity > 1) {
-                                req.session.cartInfo[index].product[index2].quantity -= 1;
-                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
-                                return;
-                            } else {
-                                res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
-                                return;
+                    if (productID > 0) {
+                        for (let index2 = 0; index2 < req.session.cartInfo[index].product.length; index2++) {
+                            if (req.session.cartInfo[index].product[index2].ProductID === productID) {
+                                if (req.session.cartInfo[index].product[index2].quantity > 1) {
+                                    req.session.cartInfo[index].product[index2].quantity -= 1;
+                                    res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
+                                    return;
+                                } else {
+                                    res.status(200).send({ quantity: req.session.cartInfo[index].product[index2].quantity })
+                                    return;
+                                }
                             }
                         }
+                    } else {
+                        if (req.session.cartInfo[index].quantity > 1){
+                            req.session.cartInfo[index].quantity -= 1;
+                            res.status(200).send({ quantity: req.session.cartInfo[index].quantity })
+                            return;
+                        } else {
+                            res.status(200).send({ quantity: req.session.cartInfo[index].quantity })
+                            return;
+                        }
+                        
                     }
                 }
             }
@@ -147,7 +167,7 @@ module.exports = {
         let packageName = req.body.packageName,
             package = await productModel.searchPackage(packageName),
             userID = req.body.userID;
-            user = await userModel.getUser(userID);
+        user = await userModel.getUser(userID);
         res.render("product/listPackage", {
             packageName: packageName,
             user: user,
