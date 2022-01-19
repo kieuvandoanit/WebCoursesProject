@@ -48,23 +48,30 @@ module.exports = (app) => {
 
     // restrict.isManager
     app.get('/manager/getProduct', manager.getProduct)
-    app.get('/manager/getPackage', manager.getPackage)
-    app.get('/manager/deleteProduct/:id', manager.DeleteProduct)
-    app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
     app.post('/manager/getProduct', manager.findProduct)
-    app.post('/manager/getPackage', manager.findPackage)
+    app.get('/manager/deleteProduct/:id', manager.DeleteProduct)
     app.get('/manager/getProductByPriceASC', manager.orderProductByPriceASC)
+    app.post('/manager/getProductByPriceASC', manager.findProduct)
     app.get('/manager/addProduct', manager.addProduct)
     app.post('/manager/addProductHandle', manager.addProductHandle)
+    
     app.get('/manager/filterProductByCategory', manager.FilterProductByCategory)
+    app.post('/manager/filterProductByCategory', manager.findProduct)
+
     app.post('/manager/editProductAction/:id', manager.editProductAction)
-        // app.post('/manager/editProductAction/:id', manager.editProductAction)
     app.get('/manager/editProduct/:id', manager.updateProduct)
+    
+    app.get('/manager/getPackage', manager.getPackage)
+    app.post('/manager/getPackage', manager.findPackage)
+    
     app.get('/manager/viewPackageAction/:id', manager.DetailPackage)
     app.post('/manager/editPackageAction/:id', manager.editPackageAction)
     app.get('/manager/DeleteProductFromPackage/:id', manager.DeleteProductFromPackage)
+    app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
     app.get('/manager/addPackage', manager.addPackage)
     app.post('/manager/addPackageHandle', manager.addPackageHandle)
+
+
     app.get('/manager/changeHospital/:patientID', manager.changeHospital)
     app.post('/manager/changeHospital/:patientID',manager.changeHospitalHandle)
         //User

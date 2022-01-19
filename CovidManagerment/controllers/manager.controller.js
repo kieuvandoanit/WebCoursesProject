@@ -428,7 +428,7 @@ module.exports = {
     getProduct: async(req, res, next) => {
         let lisProduct = await managerModel.getAllProduct();
         if (lisProduct !== 0) {
-            res.render("manager/getProduct", {
+            res.render("manager/getAllProduct", {
                 Product: lisProduct,
                 layout: "manager"
             })
@@ -468,7 +468,7 @@ module.exports = {
     findProduct: async(req, res, next) => {
         // res.send('Hello')
         let Product = await managerModel.searchedProduct(req.body.productName);
-        res.render("manager/getSearchedProduct", {
+        res.render("manager/getAllProduct", {
             Product: Product,
             layout: "manager"
         })
@@ -516,12 +516,18 @@ module.exports = {
     },
     addProductHandle: async(req, res, next) => {
         let productName = req.body.productName;
+        console.log(productName);
+        
         let price = req.body.price;
         let Unit = req.body.Unit;
         let Category = req.body.Category;
-        let Image_link = req.body.Image_link;
-        let result = await managerModel.addProductHandle(productName, price, Unit, Category, Image_link);
-        // res.send('Hello')
+        let imageLink = req.body.Image_link;
+        
+        let result = await managerModel.addProductHandle(productName, price, Unit, Category);
+        let productID = await managerModel.getProductIDBy(productName);
+        console.log(productID[0].ProductID);
+        await managerModel.insertProductImage(imageLink, productID[0].ProductID);
+
         if (result !== 0) {
             res.redirect("/manager/getProduct")
         } else {

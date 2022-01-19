@@ -15,10 +15,13 @@
 </div>
 <div class="col-md">
     <a href="/manager/getProductByPriceASC" class="btn btn-info btn-xs pull-left"><b></b> Sắp xếp giá tăng dần</a>
+
+  
 </div>
 <div class="col-md">
    <a href="/manager/filterProductByCategory" class="btn btn-info btn-xs pull-left"><b></b> Lọc theo danh mục</a>
-  
+
+
 </div>
 <div class="col-md-4">
   <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới</a>
@@ -35,8 +38,10 @@
             <th scope="col"> Danh mục </th>
             <th scope="col"> Giá cả</th>
             <th scope="col"> Đơn vị</th>
-            {{!-- <th style="text-align:center" scope="col"> Chi tiết</th> --}}
-            <th scope="col"> Chi tiết</th>
+
+            <th style="text-align:center" scope="col"> Chi tiết</th>
+            <th scope="col"> Chỉnh sửa</th>
+
             <th scope="col"> Xóa</th>
         </tr>
     </thead>
@@ -44,13 +49,14 @@
         {{#each Product}}
         <tr>
             <th scope="row">{{this.ProductID}}</th>
-            {{!-- <td>{{this.Product_name}}</td> --}}
             <td>{{this.Product_name}}</td>
             <td>{{this.Category}}</td>
             <td>{{this.price}}</td>
             <td>{{this.Unit}}</td>
-            {{!-- <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td> --}}
-            <td><a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
+
+            <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td>
+            <td><a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
+
             <td><a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
         </tr>
         {{/each}}
