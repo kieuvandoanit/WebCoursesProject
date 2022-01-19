@@ -70,6 +70,7 @@ module.exports = (app) => {
         //User
 
     app.get('/user/userInfo', user.accountMain)
+    app.get('/user/debt',user.viewDebt)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
 
