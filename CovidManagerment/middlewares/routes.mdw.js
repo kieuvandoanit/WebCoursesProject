@@ -18,6 +18,7 @@ module.exports = (app) => {
     app.get('/admin/listHopital', admin.listHopital)
     app.get('/admin/addHopital', admin.addHopital)
     app.get('/admin/updateHopital/:id', admin.updateHopital)
+    app.get('/admin/deleteHopital/:id', admin.deleteHopital)
     app.post('/admin/updateStatus/:id', admin.updateStatusHandle)
     app.post('/admin/createAcountHandle', admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id', admin.updateHopitalHandle)
@@ -76,6 +77,7 @@ module.exports = (app) => {
         //User
 
     app.get('/user/userInfo', user.accountMain)
+    app.get('/user/debt',user.viewDebt)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
 

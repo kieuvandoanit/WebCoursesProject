@@ -1,5 +1,7 @@
-const userModel = require('../model/user.model'),
-    pool = require('../utils/database');
+const userModel = require('../model/user.model');
+const pool = require('../utils/database');
+const axios = require('axios');
+const https = require('https');
 
 module.exports = {
     accountMain: async (req, res, next) => {
@@ -96,5 +98,29 @@ module.exports = {
                 layout: "user"
             }) // Error, password not matching
         }
+    },
+    viewDebt: async (req, res, next) => {
+        let username = req.session.user.username;
+        const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+        let getDebt = await axios.get(`https://localhost:3443/api/getDebtOne/${username}`,{
+            httpsAgent: agent
+        });
+        let info = "";
+        let debt = getDebt.data.accountBalance;
+        if(debt < 0){
+            info = "Tài khoản đang nợ: ";
+            debt = -debt;
+        }else{
+            info = "Tài khoản đang dư: ";
+        }
+        res.render('user/debt',{
+            layout: 'user',
+            username: username,
+            debt: debt,
+            info: info
+        })
+        
     }
 }

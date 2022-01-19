@@ -62,5 +62,9 @@ module.exports ={
             return result.rowCount
         }
         return 0;
+    },
+    async deleteHopital(hopitalID){
+        result = await pool.query(`DELETE FROM public."Hopital" WHERE "hopitalID"=${hopitalID};`);
+        return result;
     }
 }

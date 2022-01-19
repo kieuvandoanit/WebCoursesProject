@@ -30,7 +30,10 @@
                 <td>{{this.hopitalName}}</td>
                 <td>{{this.current_Quantity}}/{{this.Capacity}}</td>
                 <td>{{this.ward}}, {{this.District}}, {{this.province}}</td>
-                <td class="text-center"><a class='btn btn-warning btn-xs' href="/admin/updateHopital/{{this.hopitalID}}"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
+                <td class="text-center">
+                    <a class='btn btn-success btn-xs' href="/admin/updateHopital/{{this.hopitalID}}"><span class="glyphicon glyphicon-edit"></span> Sửa</a>
+                    <a class='btn btn-danger btn-xs' href="/admin/deleteHopital/{{this.hopitalID}}"><span class="glyphicon glyphicon-edit"></span> Xóa</a>
+                </td>
             </tr>
             {{/each}}
     </table>
