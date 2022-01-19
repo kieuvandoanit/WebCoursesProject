@@ -1,4 +1,4 @@
-
+<br>
 <div class="row">
 <div class="col-md-4">
   <form method = "post" action="">
@@ -22,9 +22,10 @@
   <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới</a>
 </div>
 </div>
+<br>
 {{#each Product}}
 <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{this.image_Link}}" alt="Card image cap">
+  <img class="card-img-top" src="{{this.image1}}" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">{{this.Product_name}}</h5>
     {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> --}}
@@ -35,6 +36,7 @@
     <li class="list-group-item">Dạnh mục: {{this.Category}}</li>
   </ul>
   <div class="card-body">
+    <a href="/manager/detailProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a>
     <a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a>
     <a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a>
   </div>

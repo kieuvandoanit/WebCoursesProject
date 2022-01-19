@@ -1,0 +1,28 @@
+<br>
+<div class="row">
+
+</div>
+<br>
+<h1>Hình ảnh</h1>
+{{#each Product}}
+<div >
+    <p> Tên sản phẩm: {{this.Product_name}}</p>
+    <p> Giá: {{this.price}}</p>
+    <p>Đơn giá: {{this.Unit}}</p>
+    <p>Danh mục: {{this.Category}}</p>
+  <img class="card-img-top" src="{{this.image1}}" alt="Ảnh 1">
+  <img class="card-img-top" src="{{this.image2}}" alt="Ảnh 2">
+  <img class="card-img-top" src="{{this.image3}}" alt="Ảnh 3">
+  
+</div>
+{{/each}}
+
+<style>
+    .card{
+        display: flex;
+    }
+</style>
+
+
+<script>
+</script>

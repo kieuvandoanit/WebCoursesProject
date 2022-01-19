@@ -60,6 +60,8 @@ module.exports = (app) => {
 
     app.post('/manager/editProductAction/:id', manager.editProductAction)
     app.get('/manager/editProduct/:id', manager.updateProduct)
+
+    app.get('/manager/detailProduct/:id', manager.detailProduct)
     
     app.get('/manager/getPackage', manager.getPackage)
     app.post('/manager/getPackage', manager.findPackage)

@@ -427,6 +427,7 @@ module.exports = {
     },
     getProduct: async(req, res, next) => {
         let lisProduct = await managerModel.getAllProduct();
+        console.log(lisProduct)
         if (lisProduct !== 0) {
             res.render("manager/getAllProduct", {
                 Product: lisProduct,
@@ -491,16 +492,6 @@ module.exports = {
         })
 
     },
-    // orderProductByPriceDESC: async(req, res, next) => {
-    //     // res.send('Hello')
-    //     let Product = await managerModel.orderProductByPriceDESC();
-    //     res.render("manager/getProductOrderByPrice", {
-    //         Product: Product,
-    //         layout: "manager"
-    //     })
-
-    // },
-    // res.redirect("/manager/getProduct")
     FilterProductByCategory: async(req, res, next) => {
         let Product = await managerModel.FilterProductByCategory();
         res.render("manager/filterProductByCategory", {
@@ -523,10 +514,10 @@ module.exports = {
         let Category = req.body.Category;
         let imageLink = req.body.Image_link;
         
-        let result = await managerModel.addProductHandle(productName, price, Unit, Category);
+        let result = await managerModel.addProductHandle(productName, price, Unit, Category, imageLink);
         let productID = await managerModel.getProductIDBy(productName);
         console.log(productID[0].ProductID);
-        await managerModel.insertProductImage(imageLink, productID[0].ProductID);
+        //await managerModel.insertProductImage(imageLink, productID[0].ProductID);
 
         if (result !== 0) {
             res.redirect("/manager/getProduct")
@@ -540,10 +531,11 @@ module.exports = {
         let price = req.body.price;
         let Unit = req.body.Unit;
         let Category = req.body.Category;
-        let Image_link = req.body.Image_link;
+        let image1 = req.body.image1;
+        let image2 = req.body.image2;
+        let image3 = req.body.image3;
         let ProductID = req.params.id;
-        let result = await managerModel.updateProduct(ProductID, productName, price, Unit, Category, Image_link);
-        // res.send(result)
+        let result = await managerModel.updateProduct(ProductID, productName, price, Unit, Category, image1,image2,image3);
         if (result !== 0) {
             res.redirect("/manager/getProduct")
         } else {
@@ -553,18 +545,32 @@ module.exports = {
 
     updateProduct: async(req, res, next) => {
         let ProductID = req.params.id;
-        let Product = await managerModel.getOneProduct(ProductID);
-        let Image = await managerModel.getOneImageOfProduct(ProductID);
+        let Product = await managerModel.getProductBy(ProductID);
+        console.log(Product)
         if (Product !== 0) {
             res.render("manager/updateProduct", {
                 Product: Product[0],
-                Image: Image[0],
                 layout: "manager"
             })
         } else {
             res.send("Không tìm thấy thông tin");
         }
 
+    },
+    detailProduct: async(req,res,next)=>{
+        let productID = req.params.id;
+        let Product = await managerModel.getProductBy(productID);
+
+        console.log(Product)
+
+        if (Product !== 0) {
+        res.render("manager/detailProduct", {
+            Product:Product,
+            layout: "manager"
+        })
+        } else {
+            res.send("Không tìm thấy thông tin");
+        }
     },
     DetailPackage: async(req, res, next) => {
         let PackageID = req.params.id;
