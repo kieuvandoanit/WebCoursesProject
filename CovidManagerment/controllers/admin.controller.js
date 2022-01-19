@@ -94,7 +94,13 @@ module.exports ={
             res.redirect("/admin/listHopital")
         }else{
             res.redirect("/admin/updateHopital/"+hopitalID);
+            
         }
+    },
+    deleteHopital: async(req, res, next) => {
+        let hopitalID = req.params.id;
+        let result = await adminModel.deleteHopital(hopitalID);
+        res.redirect("/admin/listHopital")
     },
     addHopitalHandle: async(req, res, next) =>{
         let hopitalName = req.body.hopitalName;

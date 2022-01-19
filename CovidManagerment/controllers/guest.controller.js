@@ -25,16 +25,40 @@ module.exports={
             let username = result.userName;
             let permission = result.permission;
 
-            let user = {userID: userID, username: username, permission: permission};
-            req.session.user = user;
+            
 
             if(String(permission) === "1"){
+                let user = {userID: userID, username: username, permission: permission};
+                req.session.user = user;
                 res.redirect('/admin');
             }
             if(String(permission) === "2"){
+
+                // insert vao history
+                let date = new Date();
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                let hour = date.getHours();
+                let minutes = date.getMinutes();
+                let second = date.getSeconds();
+                let timenow = `${year}-${month}-${day} ${hour}:${minutes}:${second}`;
+
+                let result = await guestModel.insertHistory(userID, timenow);
+                let getHistory = await guestModel.getHistory(userID, timenow);
+                let historyID = 0;
+                if(getHistory !== 0){
+                    historyID = getHistory.HistoryID;
+                }
+                
+                
+                let user = {userID: userID, username: username, permission: permission, historyID: historyID};
+                req.session.user = user;
                 res.redirect('/manager');
             }
             if(String(permission) === "3"){
+                let user = {userID: userID, username: username, permission: permission};
+                req.session.user = user;
                 if(password === '123456'){
                     // redirect den trang doi mat khau
                     res.redirect(`/user/changePassword/${userID}`);
@@ -47,6 +71,21 @@ module.exports={
         }
     },
     logout: async(req, res, next) => {
+        let permistion = req.session.user.permission;
+        if(req.session.user.permission === 2){
+            // update logout time
+            let historyID = req.session.user.historyID;
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minutes = date.getMinutes();
+            let second = date.getSeconds();
+            let timenow = `${year}-${month}-${day} ${hour}:${minutes}:${second}`;
+
+            let updateLogout = await guestModel.logoutTime(historyID, timenow);
+        }
         req.session.destroy();
         res.redirect('/');
     }
