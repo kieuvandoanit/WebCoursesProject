@@ -215,11 +215,11 @@ module.exports = {
         return 0;
     },
     async getAllProduct() {
-        let Product = await pool.query(`SELECT * FROM public."Product" WHERE "isDelete" = 0`);
+        let Product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' `);
 
         if (Product.rowCount >= 1) {
             return Product.rows;
-            // console.log(Product)
+            
         }
         return 0;
     },
@@ -242,7 +242,7 @@ module.exports = {
     },
     // search by name or ID
     async searchedProduct(text) {
-        let product = await pool.query(`SELECT * FROM public."Product" WHERE "Product_name" like '%${text}%' or "ProductID" = ${text}`);
+        let product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' and "Product_name" like '%${text}%'`);
         if (product.rowCount >= 1) {
             return product.rows;
         }
@@ -257,7 +257,7 @@ module.exports = {
         return 0;
     },
     async orderProductByPriceASC() {
-        let Product = await pool.query(`SELECT * FROM public."Product" where "isDelete"= 0 order by Price ASC`);
+        let Product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' order by Price ASC`);
         if (Product.rowCount >= 1) {
             return Product.rows;
             // console.log(Product)
@@ -273,7 +273,7 @@ module.exports = {
         return 0;
     },
     async FilterProductByCategory() {
-        let Product = await pool.query(`SELECT * FROM public."Product" p where "isDelete"= 0 group by "Category","ProductID"`);
+        let Product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' order by "Category" ASC`);
         if (Product.rowCount >= 1) {
             return Product.rows;
             // console.log(Product)
@@ -290,14 +290,27 @@ module.exports = {
         }
         return 0;
     },
-    async addProductHandle(productName, price, Unit, Category, image) {
-        result1 = await pool.query(`INSERT INTO public."Product"("Product_name", "price", "Unit", "Category")
-            VALUES ('${productName}', ${price}, '${Unit}', '${Category}')`);
-        ProductID = await pool.query(`SELECT max("ProductID") FROM public."Product"`)
-        result2 = await pool.query(`INSERT INTO public."Image" ("image_Link", "ProductID") 
-            VALUES('${image}', ${ProductID})`);
-        if (result1.rowCount >= 1 && result2.rowCount >= 1) {
-            return result1.rowCount
+    async addProductHandle(productName, price, Unit, Category) {
+        result = await pool.query(`INSERT INTO public."Product"("Product_name", "price", "Unit","isDelete", "Category") VALUES ('${productName}', '${price}', '${Unit}', '0' ,'${Category}')`);
+        
+        if (result.rowCount >= 1 ) {
+            return result.rows
+        }
+        return 0;
+    },
+    //Lấy ID của product có tên là productName
+    async getProductIDBy(productName){
+        productID = await pool.query(`SELECT ("ProductID") FROM public."Product" where "Product_name" = '${productName}'`)
+        //console.log(productID)
+        if (productID.rowCount >= 1) {
+            return productID.rows
+        }
+        return 0;
+    },
+    async insertProductImage(imageLink ,productID){
+        image = await pool.query(`INSERT INTO public."Image" ("image_Link", "ProductID") VALUES('${imageLink}','${productID}')`)
+        if (image.rowCount >= 1) {
+            return image.rows
         }
         return 0;
     },

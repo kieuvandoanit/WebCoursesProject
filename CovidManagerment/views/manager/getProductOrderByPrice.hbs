@@ -1,10 +1,7 @@
-<style>
-</style>
 
 <div class="row">
 <div class="col-md-4">
   <form method = "post" action="">
-    {{!-- /manager/findPatient --}}
     <div class="input-group">
       <div class="form-outline">
         <input id="search-input" type="text" name="productName" id="form1" class="form-control" />
@@ -13,40 +10,43 @@
     </div>
   </form>
 </div>
- <div class="col-md">
-    <a href="/manager/getProduct" class="btn btn-primary btn-xs pull-right"> Clear</a>
+<div class="col-md">
+    <a href="/manager/getProductByPriceASC" class="btn btn-info btn-xs pull-left"><b></b> Sắp xếp giá tăng dần</a>
+  
 </div>
-<div class="col-md-6">
+<div class="col-md">
+   <a href="/manager/filterProductByCategory" class="btn btn-info btn-xs pull-left"><b></b> Lọc theo danh mục</a>
+
+</div>
+<div class="col-md-4">
   <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới</a>
 </div>
 </div>
+{{#each Product}}
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{this.image_Link}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{this.Product_name}}</h5>
+    {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> --}}
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Giá sản phẩm: {{this.price}}</li>
+    <li class="list-group-item">Đơn vị: {{this.Unit}}</li>
+    <li class="list-group-item">Dạnh mục: {{this.Category}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a>
+    <a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a>
+  </div>
+</div>
+{{/each}}
 
-<table class="table">
-    {{!-- <a href="/manager/addProduct" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới sản phẩm</a> --}}
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">ID</th>
-            <th style="text-align:center" scope="col"> Tên sản phẩm</th>
-            <th scope="col"> Giá cả</th>
-            <th scope="col"> Đơn vị</th>
-            {{!-- <th style="text-align:center" scope="col"> Chi tiết</th> --}}
-            <th scope="col"> Chỉnh sửa</th>
-            <th scope="col"> Xóa</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each Product}}
-        <tr>
-            <th scope="row">{{this.ProductID}}</th>
-            <td>{{this.Product_name}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.Unit}}</td>
-            {{!-- <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td> --}}
-            <td><a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
-            <td><a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+<style>
+    .card{
+        display: flex;
+    }
+</style>
+
+
 <script>
 </script>
