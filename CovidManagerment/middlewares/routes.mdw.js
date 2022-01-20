@@ -11,110 +11,110 @@ const paymentInfo = require('../controllers/paymentInfo.controller');
 module.exports = (app) => {
     app.get('/', guest.login)
     app.post('/', guest.loginHandle)
-    app.get('/logout', guest.logout)
-    app.get('/admin', admin.homepage)
-    app.get('/admin/createAccount', admin.createAcount)
-    app.get('/admin/viewHistoryAction/:id', admin.viewHistoryAction)
-    app.get('/admin/listHopital', admin.listHopital)
-    app.get('/admin/addHopital', admin.addHopital)
-    app.get('/admin/updateHopital/:id', admin.updateHopital)
-    app.get('/admin/deleteHopital/:id', admin.deleteHopital)
-    app.post('/admin/updateStatus/:id', admin.updateStatusHandle)
-    app.post('/admin/createAcountHandle', admin.addAcountHandle)
-    app.post('/admin/updateHopitalHandle/:id', admin.updateHopitalHandle)
-    app.post('/admin/addHopitalHandle', admin.addHopitalHandle)
+    app.get('/logout',restrict.user, guest.logout)
+
+    app.get('/admin',restrict.isAdmin, admin.homepage)
+    app.get('/admin/createAccount',restrict.isAdmin, admin.createAcount)
+    app.get('/admin/viewHistoryAction/:id',restrict.isAdmin, admin.viewHistoryAction)
+    app.get('/admin/listHopital',restrict.isAdmin, admin.listHopital)
+    app.get('/admin/addHopital',restrict.isAdmin, admin.addHopital)
+    app.get('/admin/updateHopital/:id',restrict.isAdmin, admin.updateHopital)
+    app.get('/admin/deleteHopital/:id',restrict.isAdmin, admin.deleteHopital)
+    app.post('/admin/updateStatus/:id',restrict.isAdmin, admin.updateStatusHandle)
+    app.post('/admin/createAcountHandle',restrict.isAdmin, admin.addAcountHandle)
+    app.post('/admin/updateHopitalHandle/:id',restrict.isAdmin, admin.updateHopitalHandle)
+    app.post('/admin/addHopitalHandle',restrict.isAdmin, admin.addHopitalHandle)
 
     // manager 
-    app.get('/manager', manager.homepage)
-    app.get('/manager/addPatient', manager.addPatient)
-    app.post('/manager/addPatientHandle', manager.addPatientHandle)
-    app.get('/manager/viewDetailPatient/:id', manager.viewDetailPatient)
-    app.post('/manager', manager.findPatient)
-    app.post('/manager/viewDetailPatient/:id', manager.updatePatientStatus)
-    app.get('/manager/payment', paymentInfo.homepage);
-    app.get('/manager/payment/change', paymentInfo.changeLimit);
-    app.post('/manager/payment/change', paymentInfo.changeLimitHandle);
-    app.get('/manager/notification/:username', paymentInfo.notification);
-    app.get('/manager/peopleEachState', manager.peopleEachState);
-    app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
-    app.get('/manager/statisticsPackageProduct', manager.statisticsPackageProduct);
-    app.get('/manager/statisticsUsedProduct', manager.statisticsUsedProduct);
-    app.get('/manager/statisticsDebtPayment', manager.statisticsDebtPayment);
-    app.get('/manager/sortByYOB', manager.sortByYOB);
-    app.post('/manager/sortByYOB', manager.findPatient);
-    app.get('/manager/sortByStatus', manager.sortByStatus);
-    app.post('/manager/sortByStatus', manager.findPatient);
+    app.get('/manager',restrict.isManager, manager.homepage)
+    app.get('/manager/addPatient',restrict.isManager, manager.addPatient)
+    app.post('/manager/addPatientHandle',restrict.isManager, manager.addPatientHandle)
+    app.get('/manager/viewDetailPatient/:id',restrict.isManager, manager.viewDetailPatient)
+    app.post('/manager',restrict.isManager, manager.findPatient)
+    app.post('/manager/viewDetailPatient/:id',restrict.isManager, manager.updatePatientStatus)
+    app.get('/manager/payment',restrict.isManager, paymentInfo.homepage);
+    app.get('/manager/payment/change',restrict.isManager, paymentInfo.changeLimit);
+    app.post('/manager/payment/change',restrict.isManager, paymentInfo.changeLimitHandle);
+    app.get('/manager/notification/:username',restrict.isManager, paymentInfo.notification);
+    app.get('/manager/peopleEachState',restrict.isManager, manager.peopleEachState);
+    app.get('/manager/statisticsChangeStatus',restrict.isManager, manager.statisticsChangeStatus);
+    app.get('/manager/statisticsPackageProduct',restrict.isManager, manager.statisticsPackageProduct);
+    app.get('/manager/statisticsUsedProduct',restrict.isManager, manager.statisticsUsedProduct);
+    app.get('/manager/statisticsDebtPayment',restrict.isManager, manager.statisticsDebtPayment);
+    app.get('/manager/sortByYOB',restrict.isManager, manager.sortByYOB);
+    app.post('/manager/sortByYOB',restrict.isManager, manager.findPatient);
+    app.get('/manager/sortByStatus',restrict.isManager, manager.sortByStatus);
+    app.post('/manager/sortByStatus',restrict.isManager, manager.findPatient);
     
 
 
     // restrict.isManager
-    app.get('/manager/getProduct', manager.getProduct)
-    app.post('/manager/getProduct', manager.findProduct)
-    app.get('/manager/deleteProduct/:id', manager.DeleteProduct)
-    app.get('/manager/getProductByPriceASC', manager.orderProductByPriceASC)
-    app.post('/manager/getProductByPriceASC', manager.findProduct)
-    app.get('/manager/addProduct', manager.addProduct)
-    app.post('/manager/addProductHandle', manager.addProductHandle)
+    app.get('/manager/getProduct',restrict.isManager, manager.getProduct)
+    app.post('/manager/getProduct',restrict.isManager, manager.findProduct)
+    app.get('/manager/deleteProduct/:id',restrict.isManager, manager.DeleteProduct)
+    app.get('/manager/getProductByPriceASC',restrict.isManager, manager.orderProductByPriceASC)
+    app.post('/manager/getProductByPriceASC',restrict.isManager, manager.findProduct)
+    app.get('/manager/addProduct',restrict.isManager, manager.addProduct)
+    app.post('/manager/addProductHandle',restrict.isManager, manager.addProductHandle)
     
-    app.get('/manager/filterProductByCategory', manager.FilterProductByCategory)
-    app.post('/manager/filterProductByCategory', manager.findProduct)
+    app.get('/manager/filterProductByCategory',restrict.isManager, manager.FilterProductByCategory)
+    app.post('/manager/filterProductByCategory',restrict.isManager, manager.findProduct)
 
-    app.post('/manager/editProductAction/:id', manager.editProductAction)
-    app.get('/manager/editProduct/:id', manager.updateProduct)
+    app.post('/manager/editProductAction/:id',restrict.isManager, manager.editProductAction)
+    app.get('/manager/editProduct/:id',restrict.isManager, manager.updateProduct)
 
-    app.get('/manager/detailProduct/:id', manager.detailProduct)
+    app.get('/manager/detailProduct/:id',restrict.isManager, manager.detailProduct)
     
-    app.get('/manager/getPackage', manager.getPackage)
-    app.post('/manager/getPackage', manager.findPackage)
+    app.get('/manager/getPackage',restrict.isManager, manager.getPackage)
+    app.post('/manager/getPackage',restrict.isManager, manager.findPackage)
     
-    app.get('/manager/viewPackageAction/:id', manager.DetailPackage)
-    app.get('/manager/editPackageAction/:id', manager.editPackageAction)
-    app.get('/manager/editInfoPackage/:packageID', manager.editInfoPackage)
-    app.post('/manager/editInfoPackage/:packageID', manager.updateInfoPackage)
+    app.get('/manager/viewPackageAction/:id',restrict.isManager, manager.DetailPackage)
+    app.get('/manager/editPackageAction/:id',restrict.isManager, manager.editPackageAction)
+    app.get('/manager/editInfoPackage/:packageID',restrict.isManager, manager.editInfoPackage)
+    app.post('/manager/editInfoPackage/:packageID',restrict.isManager, manager.updateInfoPackage)
 
-    app.get('/manager/package/deleteProduct', manager.deleteProductFromPackage)
+    app.get('/manager/package/deleteProduct',restrict.isManager, manager.deleteProductFromPackage)
 
-    app.get('/manager/addProductIntoPackage/:packageID', manager.addProductIntoPackage)
-    app.post('/manager/addProductIntoPackage/:packageID', manager.addProductIntoPackageHandle)
+    app.get('/manager/addProductIntoPackage/:packageID',restrict.isManager, manager.addProductIntoPackage)
+    app.post('/manager/addProductIntoPackage/:packageID',restrict.isManager, manager.addProductIntoPackageHandle)
     
 
 
-    app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
+    app.get('/manager/DeletePackageAction/:id',restrict.isManager, manager.DeletePackage)
     
-    app.get('/manager/addPackage', manager.addPackage)
-    app.post('/manager/addPackageHandle', manager.addPackageHandle)
+    app.get('/manager/addPackage',restrict.isManager, manager.addPackage)
+    app.post('/manager/addPackageHandle',restrict.isManager, manager.addPackageHandle)
 
 
-    app.get('/manager/changeHospital/:patientID', manager.changeHospital)
-    app.post('/manager/changeHospital/:patientID',manager.changeHospitalHandle)
+    app.get('/manager/changeHospital/:patientID',restrict.isManager, manager.changeHospital)
+    app.post('/manager/changeHospital/:patientID',restrict.isManager,manager.changeHospitalHandle)
         //User
 
-    app.get('/user/userHistoryPayment',user.paymentHistory)
-    app.get('/user/userInfo', user.accountMain)
-    app.get('/user/debt',user.viewDebt)
-    app.get('/user/addMoney', user.addMoneyView)
-    app.get('/user/loginPaymentSystem',user.addMoney)
-    app.post('/user/loginPaymentSystem',user.addMoneyHandleLogin)
-    app.post('/user/addMoney', user.addMoneyHandle)
-    app.get('/user/changePassword/:id', user.updatePassword)
-    app.post('/user/changePassword/:id', user.handleUpdatePassword)
+    app.get('/user/userHistoryPayment',restrict.user, user.paymentHistory)
+    app.get('/user/userInfo',restrict.user, user.accountMain)
+    app.get('/user/debt',restrict.user, user.viewDebt)
+    app.get('/user/addMoney',restrict.user, user.addMoneyView)
+    app.get('/user/loginPaymentSystem',restrict.user,user.addMoney)
+    app.post('/user/loginPaymentSystem',restrict.user, user.addMoneyHandleLogin)
+    app.post('/user/addMoney',restrict.user, user.addMoneyHandle)
+    app.get('/user/changePassword',restrict.user, user.updatePassword)
+    app.post('/user/changePassword',restrict.user, user.handleUpdatePassword)
 
-    app.get('/payment/login', paymentInfo.login);
-    app.post('/payment/login', paymentInfo.loginHandle);
+    app.get('/payment/login',restrict.user, paymentInfo.login);
+    app.post('/payment/login',restrict.user, paymentInfo.loginHandle);
     app.get('/user/payment', paymentInfo.userPayment);
-    app.get('/user/payment/addOrder', paymentInfo.addOrder);
+    app.get('/user/payment/addOrder',restrict.user, paymentInfo.addOrder);
 
-    app.get('/user/cart', paymentInfo.userCart);
+    app.get('/user/cart',restrict.user, paymentInfo.userCart);
     //product
-    app.get('/package', product.getProductPackage)
-    app.post('/package', product.searchPackage)
-    app.get('/productDetails', product.getProductDetails)
-    app.get('/cart', product.sessionProduct)
-    app.post('/cart', product.addToCart)
-    app.post('/cartUpdate', product.cartUpdate)
-    app.post('/removeFromCart', product.removeFromCart)
+    app.get('/package',restrict.user, product.getProductPackage)
+    app.post('/package',restrict.user, product.searchPackage)
+    app.get('/productDetails',restrict.user, product.getProductDetails)
+    app.get('/cart',restrict.user, product.sessionProduct)
+    app.post('/cart',restrict.user, product.addToCart)
+    app.post('/cartUpdate',restrict.user, product.cartUpdate)
+    app.post('/removeFromCart',restrict.user, product.removeFromCart)
 
 
     app.get('/api/user/deleteNotification/:username', user.deleteNotification);
-    app.get('/product/test',product.test)
 }

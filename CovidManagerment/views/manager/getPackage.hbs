@@ -18,6 +18,7 @@
 </div>
 </div>
 <br>
+<div class="row">
 {{#each Package}}
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
@@ -31,10 +32,11 @@
   </ul>
   <div class="card-body">
     <a href="/manager/viewPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chi tiết</a>
-    <a href="/manager/editPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-warning">Chỉnh sửa</a>
+    <a href="/manager/editPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-warning">Sửa</a>
     <a href="/manager/DeletePackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-danger">Xóa</a>
   </div>
 </div>
 {{/each}}
+</div>
 <script>
 </script>

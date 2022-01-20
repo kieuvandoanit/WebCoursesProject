@@ -63,7 +63,8 @@ module.exports = {
     },
 
     updatePassword: async (req, res, next) => {
-        user = await userModel.getUser(req.params.id);
+        let userID = req.session.user.userID;
+        user = await userModel.getUser(userID);
         res.render("user/changePassword", {
             user: user,
             layout: "user"
@@ -71,7 +72,7 @@ module.exports = {
     },
 
     handleUpdatePassword: async (req, res, next) => {
-        let userID = req.params.id,
+        let userID = req.session.user.userID,
             user = await userModel.getUser(userID),
             password = user.password,
             oldPassword = req.body.oldPassword,
