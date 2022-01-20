@@ -363,6 +363,24 @@ module.exports = {
         }
         return 0;
     },
+
+
+    async getOneProduct(ProductID) {
+        let Product = await pool.query(`SELECT * FROM public."Product" WHERE "ProductID"=${ProductID}`);
+        if (Product.rowCount >= 1) {
+            return Product.rows;
+        }
+        return 0;
+        
+    },
+    async getOneImageOfProduct(ProductID) {
+        let Image = await pool.query(`SELECT * FROM public."Image" WHERE "ProductID"=${ProductID}`);
+        if (Image.rowCount >= 1) {
+            return Image.rows;
+        }
+        return 0;
+    },
+
     async getHospital(){
         let result = await pool.query(`select "hopitalName", "hopitalID" from public."Hopital"`);
         return result;
