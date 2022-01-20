@@ -6,23 +6,21 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     accountMain: async (req, res, next) => {
-        let userID = req.query.userID,
-            user = await userModel.getUser(userID),
-            patient = await userModel.getPatient(userID),
-            info = req.query.info,
-            hospital;
+        let userID = req.query.userID;
+        let user = await userModel.getUser(userID);
+        let patient = await userModel.getPatient(userID);
+        let info = req.query.info;
+        let hospital;
         if (patient) {
             hospital = await userModel.getHospital(patient.hospitalID);
             patientManagement = await userModel.getHistoryPatient(userID);
             kitHistory = await userModel.getKitHistory(userID);
-            //patient.DOB = patient.DOB.toISOString().split('T')[0];
         }
         if (!info) {
             res.render("user/userInfo", {
                 user: user,
                 patient: patient,
                 hospital: hospital,
-                //balance: balance,
                 layout: "user"
             })
         } else if (info === "managedHistory") {

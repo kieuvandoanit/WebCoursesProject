@@ -84,5 +84,14 @@ module.exports={
             "OrdersDetailID", "ProductID", "Quantity", "Price", "Unit")
             VALUES (${orderDetailID}, ${productID}, ${quantity}, ${price}, '${unit}')`);
         return result;
+    },
+    async getLimit(){
+        let result = await pool.query(`SELECT "paymentLimitID", value
+            FROM public."PaymentLimit";`);
+        if(result.rowCount >= 1){
+            return result.rows[0];
+        }else{
+            return 0;
+        }
     }
 }

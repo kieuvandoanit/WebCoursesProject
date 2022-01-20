@@ -1,5 +1,3 @@
-const { addProductHandle } = require('../controllers/manager.controller');
-const { peopleEachState } = require('../controllers/manager.controller');
 const pool = require('../utils/database')
 
 module.exports = {
