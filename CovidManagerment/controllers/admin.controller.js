@@ -1,5 +1,5 @@
 const adminModel = require('../model/admin.model')
-
+//Commit duy
 module.exports ={
     homepage: async(req, res, next) =>{
         let manager = await adminModel.getAllAcountManager();

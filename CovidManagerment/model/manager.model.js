@@ -231,7 +231,7 @@ module.exports = {
         return 0;
     },
     async getAllPackage() {
-        let Package = await pool.query(`SELECT * FROM public."productPackage" WHERE "isDelete" = 0`);
+        let Package = await pool.query(`SELECT * FROM public."productPackage" WHERE "isDelete" = 0 ORDER BY "productPackageID"`);
 
         if (Package.rowCount >= 1) {
             return Package.rows;
@@ -249,7 +249,7 @@ module.exports = {
     },
     // search by name or ID
     async searchedProduct(text) {
-        let product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' and "Product_name" like '%${text}%'`);
+        let product = await pool.query(`SELECT * FROM public."Product"  where "isDelete" = '0' and "Product_name" like '%${text}%'`);
         if (product.rowCount >= 1) {
             return product.rows;
         }
@@ -257,7 +257,7 @@ module.exports = {
     },
     // search theo tên còn chưa load được
     async searchedPackage(text) {
-        let Package = await pool.query(`SELECT * FROM public."productPackage" WHERE "package_Name" like '%${text}%' or "productPackageID" = ${text}`);
+        let Package = await pool.query(`SELECT * FROM public."productPackage" WHERE "package_Name" like '%${text}%' `);
         if (Package.rowCount >= 1) {
             return Package.rows;
         }
@@ -296,6 +296,7 @@ module.exports = {
         }
         return 0;
     },
+
     //Lấy ID của product có tên là productName
     async getProductIDBy(productName){
         productID = await pool.query(`SELECT ("ProductID") FROM public."Product" where "Product_name" = '${productName}'`)
@@ -305,25 +306,19 @@ module.exports = {
         }
         return 0;
     },
-    // async insertProductImage(imageLink ,productID){
-    //     image = await pool.query(`INSERT INTO public."Image" ("image_Link", "ProductID") VALUES('${imageLink}','${productID}')`)
-    //     if (image.rowCount >= 1) {
-    //         return image.rows
-    //     }
-    //     return 0;
-    // },
-    async addPackage(package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time) {
-        result = await pool.query(`INSERT INTO public."productPackage"("package_Name", "limited_ProductQuantity", "limited_PackageQuantity", "limited_Time")
-            VALUES ('${package_Name}', ${limited_ProductQuantity}, ${limited_ProductQuantity}, ${limited_Time})`);
+
+    async addPackage(package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time, image) {
+        result = await pool.query(`INSERT INTO public."productPackage"("package_Name", "limited_ProductQuantity", "limited_PackageQuantity", "limited_Time","isDelete","image")
+            VALUES ('${package_Name}', ${limited_ProductQuantity}, ${limited_PackageQuantity}, ${limited_Time},'0','${image}')`);
         if (result.rowCount >= 1) {
             return result.rowCount
         }
         return 0;
     },
-    async updatePackage(productPackageID, package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time) {
-        result = await pool.query(`UPDATE  public."productPackage" SET "package_Name"='${package_Name}', "limited_ProductQuantity"=${limited_ProductQuantity}, "limited_PackageQuantity" = ${limited_PackageQuantity},  "limited_Time"= ${limited_Time} WHERE "productPackageID"=${productPackageID} `);
+    async updatePackage(PackageID, package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time, image) {
+        result = await pool.query(`UPDATE  public."productPackage" SET "package_Name"='${package_Name}', "limited_ProductQuantity"= '${limited_ProductQuantity}', "limited_PackageQuantity" = '${limited_PackageQuantity}',  "limited_Time"= '${limited_Time}', "image" = '${image}' WHERE "productPackageID"= '${PackageID}' `);
         if (result.rowCount >= 1) {
-            return result.rowCount
+            return result.rows
         }
         return 0;
     },
@@ -335,6 +330,24 @@ module.exports = {
         }
         return 0;
     },
+
+    async getNumberProductInPackage(packageID) {
+        result = await pool.query(`SELECT sum("number") FROM public."Package_Product" where "Package_Product"."packageID" = '${packageID}'`);
+        if (result.rowCount >= 1) {
+            return result.rows
+        }
+        return 0;
+    },
+
+    async insertProductIntoPackage(packageID, productID, quantity) {
+        result = await pool.query(`INSERT INTO public."Package_Product"("packageID", "productID", "number", "isDelete")
+            VALUES ('${packageID}', '${productID}', '${quantity}' , '0');`);
+        if (result.rowCount >= 1) {
+            return result.rows
+        }
+        return 0;
+    },
+
     async DeleteProductOutPackage(product_PackageID) {
         result = await pool.query(`UPDATE public."Package_Product" SET "IsDelete"=1 where "Package_ProductID"= ${product_PackageID}`);
         if (result.rowCount >= 1) {
@@ -357,7 +370,7 @@ module.exports = {
         return 0;
     },
     async getListProductOfOnePackage(PackageID) {
-        let Products = await pool.query(`SELECT * FROM public."Package_Product" WHERE "Package_ProductID"=${PackageID} and "IsDelete" = 0`);
+        let Products = await pool.query(`SELECT * FROM public."Package_Product" INNER JOIN public."Product" ON "Package_Product"."productID" = "Product"."ProductID" WHERE "packageID"='${PackageID}' and  "Product"."isDelete" = 0 ORDER BY "Package_ProductID"`);
         if (Products.rowCount >= 1) {
             return Products.rows;
         }
