@@ -42,7 +42,7 @@ module.exports = {
     async getKitHistory(userID){
         let history = await pool.query(`select o."orderID", pp."package_Name", od."Quantity", o."TotalPrice", o."oderDate"
         from public."Order" as o, public."Patient" as pa, public."productPackage" as pp, public."OrdersDetail" as od
-        where o."patientID"=pa."PatientID" and o."productPackageID"=pp."productPackageID" and o."orderID"=od."OrdersID" and pa."userID"=${userID}`);
+        where o."patientID"=pa."PatientID" and od."PackageID"=pp."productPackageID" and o."orderID"=od."OrdersID" and pa."userID"=${userID}`);
         if (history.rowCount >=1){
             return history.rows;
         }else{

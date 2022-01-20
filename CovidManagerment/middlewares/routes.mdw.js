@@ -86,8 +86,13 @@ module.exports = (app) => {
     app.post('/manager/changeHospital/:patientID',manager.changeHospitalHandle)
         //User
 
+    app.get('/user/userHistoryPayment',user.paymentHistory)
     app.get('/user/userInfo', user.accountMain)
     app.get('/user/debt',user.viewDebt)
+    app.get('/user/addMoney', user.addMoneyView)
+    app.get('/user/loginPaymentSystem',user.addMoney)
+    app.post('/user/loginPaymentSystem',user.addMoneyHandleLogin)
+    app.post('/user/addMoney', user.addMoneyHandle)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
 

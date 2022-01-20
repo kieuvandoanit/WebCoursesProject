@@ -51,6 +51,11 @@
             $.post(`/placeOrder`, { userID: userID }, (data, status) => {
             })
         }
+        function addToCart(packageID) {
+            $.post(`/cart`, { packageID: packageID}, function (data, status) {
+                location.reload()
+            })
+        }
     </script>
     {{!--
     <script src="/public/javascript/bootnavbar.js"></script> --}}
