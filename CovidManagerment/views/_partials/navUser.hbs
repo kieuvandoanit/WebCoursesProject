@@ -23,14 +23,14 @@
           <a class="dropdown-item selected" href="/user/userInfo?userID={{user.userID}}&info=kitHistory">Lịch Sử Tiêu
             Thụ Gói Nhu Yếu
             Phẩm</a>
-          <a class="dropdown-item" href="/user/userInfo?userID={{user.userID}}&info=paymentHistory">Lịch Sử Thanh
+          <a class="dropdown-item" href="/user/userHistoryPayment">Lịch Sử Thanh
             Toán</a>
         </ul>
       </li>
     </ul>
     <form id="formLogout" method="POST" action="/account/logout"></form>
     <ul class="navbar-nav ml-auto">
-      <a class="navbar-brand" href="/cart?userID={{user.userID}}">
+      <a class="navbar-brand" href="/cart">
         <i class="fa fa-shopping-cart"></i>
       </a>
       {{#if isUser}}
@@ -50,11 +50,15 @@
             <i class="fa fa-user" aria-hidden="true"></i>
             Hồ Sơ Người Dùng
           </a>
+          <a class="dropdown-item" href="/user/debt">
+            <i class="fa fa-money" aria-hidden="true"></i>
+            Xem dư nợ
+          </a>
           <a class="dropdown-item" href="/user/changePassword/{{user.userID}}">
             <i class="fa fa-lock" aria-hidden="true"></i>
             Thay Đổi Mật Khẩu
           </a>
-          <a class="dropdown-item" href="/user/payment/{{user.userID}}">
+          <a class="dropdown-item" href="/user/loginPaymentSystem">
             <i class="fa fa-credit-card" aria-hidden="true"></i>
             Nạp Tài Khoản
           </a>

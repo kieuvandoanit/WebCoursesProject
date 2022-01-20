@@ -1,5 +1,3 @@
-const { addProductHandle } = require('../controllers/manager.controller');
-const { peopleEachState } = require('../controllers/manager.controller');
 const pool = require('../utils/database')
 
 module.exports = {
@@ -215,7 +213,16 @@ module.exports = {
         return 0;
     },
     async getAllProduct() {
-        let Product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' `);
+        let Product = await pool.query(`SELECT * FROM public."Product" where "isDelete" = '0' order by "ProductID"`);
+
+        if (Product.rowCount >= 1) {
+            return Product.rows;
+            
+        }
+        return 0;
+    },
+    async getProductBy(ProductID) {
+        let Product = await pool.query(`SELECT * FROM public."Product" where "ProductID" = '${ProductID}' `);
 
         if (Product.rowCount >= 1) {
             return Product.rows;
@@ -256,42 +263,33 @@ module.exports = {
         }
         return 0;
     },
-    async orderProductByPriceASC() {
-        let Product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' order by Price ASC`);
-        if (Product.rowCount >= 1) {
-            return Product.rows;
-            // console.log(Product)
-        }
-        return 0;
-    },
-    async orderProductByPriceDESC() {
-        let Product = await pool.query(`SELECT * FROM public."Product" where "isDelete"= 0 order by Price DESC`);
-        if (Product.rowCount >= 1) {
-            return Product.rows;
-            // console.log(Product)
-        }
-        return 0;
-    },
-    async FilterProductByCategory() {
-        let Product = await pool.query(`SELECT * FROM public."Product" INNER JOIN public."Image" ON "Product"."ProductID" = "Image"."ProductID" where "isDelete" = '0' order by "Category" ASC`);
-        if (Product.rowCount >= 1) {
-            return Product.rows;
-            // console.log(Product)
-        }
-        return 0;
-    },
-    async updateProduct(ProductID, productName, price, Unit, Category, image) {
-        result1 = await pool.query(`UPDATE public."Product" SET "Product_name"='${productName}', "price"=${price}, "Unit"='${Unit}', "Category"='${Category}' WHERE "ProductID"=${ProductID}`);
-        currentImage = await pool.query(`select "image_Link" from public."Product" WHERE "ProductID"=${ProductID}`);
-        result2 = await pool.query(`UPDATE public."Image" SET "image_Link"='${image}' WHERE "ProductID"=${ProductID} and "image_Link" = '${currentImage}'`);
 
-        if (result1.rowCount >= 1 && result2.rowCount >= 1) {
+    async orderProductByPriceASC() {
+        let Product = await pool.query(`SELECT * FROM public."Product" where "isDelete" = '0' order by Price ASC`);
+        if (Product.rowCount >= 1) {
+            return Product.rows;
+        }
+        return 0;
+    },
+    
+    async FilterProductByCategory() {
+        let Product = await pool.query(`SELECT * FROM public."Product"  where "isDelete" = '0' order by "Category" ASC`);
+        if (Product.rowCount >= 1) {
+            return Product.rows;
+            // console.log(Product)
+        }
+        return 0;
+    },
+    async updateProduct(ProductID, productName, price, Unit, Category, image1, image2, image3) {
+        result1 = await pool.query(`UPDATE public."Product" SET "Product_name"='${productName}', "price"=${price}, "Unit"='${Unit}', "Category"='${Category}', "image1" = '${image1}', "image2" = '${image2}', "image3" = '${image3}' WHERE "ProductID"=${ProductID}`);
+
+        if (result1.rowCount >= 1) {
             return result1.rowCount;
         }
         return 0;
     },
-    async addProductHandle(productName, price, Unit, Category) {
-        result = await pool.query(`INSERT INTO public."Product"("Product_name", "price", "Unit","isDelete", "Category") VALUES ('${productName}', '${price}', '${Unit}', '0' ,'${Category}')`);
+    async addProductHandle(productName, price, Unit, Category, image) {
+        result = await pool.query(`INSERT INTO public."Product"("Product_name", "price", "Unit","isDelete", "Category","image1","image2","image3") VALUES ('${productName}', '${price}', '${Unit}', '0' ,'${Category}','${image}','','')`);
         
         if (result.rowCount >= 1 ) {
             return result.rows
@@ -307,13 +305,13 @@ module.exports = {
         }
         return 0;
     },
-    async insertProductImage(imageLink ,productID){
-        image = await pool.query(`INSERT INTO public."Image" ("image_Link", "ProductID") VALUES('${imageLink}','${productID}')`)
-        if (image.rowCount >= 1) {
-            return image.rows
-        }
-        return 0;
-    },
+    // async insertProductImage(imageLink ,productID){
+    //     image = await pool.query(`INSERT INTO public."Image" ("image_Link", "ProductID") VALUES('${imageLink}','${productID}')`)
+    //     if (image.rowCount >= 1) {
+    //         return image.rows
+    //     }
+    //     return 0;
+    // },
     async addPackage(package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time) {
         result = await pool.query(`INSERT INTO public."productPackage"("package_Name", "limited_ProductQuantity", "limited_PackageQuantity", "limited_Time")
             VALUES ('${package_Name}', ${limited_ProductQuantity}, ${limited_ProductQuantity}, ${limited_Time})`);
@@ -366,6 +364,7 @@ module.exports = {
         return 0;
     },
 
+
     async getOneProduct(ProductID) {
         let Product = await pool.query(`SELECT * FROM public."Product" WHERE "ProductID"=${ProductID}`);
         if (Product.rowCount >= 1) {
@@ -381,6 +380,7 @@ module.exports = {
         }
         return 0;
     },
+
     async getHospital(){
         let result = await pool.query(`select "hopitalName", "hopitalID" from public."Hopital"`);
         return result;

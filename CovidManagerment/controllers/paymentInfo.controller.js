@@ -86,17 +86,56 @@ module.exports = {
         }
     },
     userPayment: async(req, res, next) => {
+        // res.send(req.session.cartInfo)
+        let totalOrder = 0;
+
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+        let second = date.getSeconds();
+        let timenow = `${year}-${month}-${day} ${hour}:${minutes}:${second}`;
+
+        let cartInfo = req.session.cartInfo;
+
+        for(let j = 0; j < req.session.cartInfo.length; j++){
+            for(let i = 0; i < req.session.cartInfo[j].product.length; i++){
+                totalOrder = totalOrder + req.session.cartInfo[j].product[i].price * req.session.cartInfo[j].product[i].quantity; 
+            }
+        }
+        
+        // res.send({totalOrder})
         res.render('user/payment',{
             layout: 'user',
+            totalOrder: totalOrder,
+            dateOrder: timenow,
+            cartInfo : cartInfo
         })
     },
     addOrder: async(req, res, next) => {
-        let totalPrice = 50000;
-        let paymentFor= "Noi dung thanh toan";
-        let limit = 100000;
+        let totalOrder = 0;
+
+        let paymentForTemp = "";
+
+        let cartInfo = req.session.cartInfo;
+
+        for(let j = 0; j < req.session.cartInfo.length; j++){
+            for(let i = 0; i < req.session.cartInfo[j].product.length; i++){
+                totalOrder = totalOrder + req.session.cartInfo[j].product[i].price * req.session.cartInfo[j].product[i].quantity; 
+            }
+            paymentForTemp = paymentForTemp +', '+ cartInfo[j].packageName
+        }
+        
+        let paymentFor= "Thanh toán cho gói " + paymentForTemp;
+        //get limit
+
+        let limitPayment = await paymentInfo.getLimit();
+        let limit = limitPayment.limit;
 
 
-        let token = req.session.userPayment.token;
+        let token = req.session.userPayment.token.accessToken;
 
 
         let date = new Date();
@@ -109,81 +148,61 @@ module.exports = {
         let orderDate = `${year}-${month}-${day} ${hour}:${minutes}:${second}`;
 
 
-        let order = [
-            {
-                packageID: 123,
-                quantity: 1,
-                product:[
-                    {
-                        productID: 1,
-                        quantity: 1,
-                        price: 1000,
-                        unit: 'KG'
-                    },
-                    {
-                        productID: 2,
-                        quantity: 1,
-                        price: 1400,
-                        unit: 'KG'
-                    }
-                ]
-            },
-            {
-                packageID: 1232,
-                quantity: 1,
-                product:[
-                    {
-                        productID: 3,
-                        quantity: 1,
-                        price: 1000,
-                        unit: 'KG'
-                    },
-                    {
-                        productID: 4,
-                        quantity: 1,
-                        price: 1400,
-                        unit: 'KG'
-                    }
-                ]
-            }
-        ]
         //kiem tra tk co du de thanh toan khong
-        let checkPayment = axios.post('http://localhost:3001/api/payment',{
-                totalPrice: totalPrice,
+        let checkPayment = await axios.post('http://localhost:3001/api/payment',{
+                totalPrice: totalOrder,
                 paymentFor: paymentFor,
                 limit: limit
             },
             { headers: { Authorization: `Bearer ${token}` } }
         );
+
+        // res.send(checkPayment.data)
         if(checkPayment.data.result === 1){
             let statusPayment = "Đã thanh toán";
+            
+            //lay patientID
+            let userID = req.session.user.userID;
+            let patient = await paymentInfoModel.getPatient(userID);
+            let patientID = patient.PatientID;
             //add order
-            let addOrder = await paymentInfoModel.addOrder(patientID, totalPrice, orderDate, statusPayment);
-            if(addOrder.rowCount === 1){
+
+            let addOrder = await paymentInfoModel.addOrder(patientID, totalOrder, orderDate, statusPayment);
+            if(addOrder === 1){
                 //get orderID moi them
-
+                let order = await paymentInfoModel.getOrder(patientID, totalOrder, orderDate, statusPayment);
+                let orderID = order.orderID;
                 //add orderPackage
-                let addOrderDetail = await paymentInfoModel.addOrderDetail(orderID, packageID, quantity);
-                if(addOrderDetail.rowCount === 1){
-                    //get order detail id
+                for(let j = 0; j < req.session.cartInfo.length; j++){
+                    let packageID = req.session.cartInfo[j].packageID;
+                    let quantity = req.session.cartInfo[j].quantity;
+                    let addOrderDetail = await paymentInfoModel.addOrderDetail(orderID, packageID, quantity);
 
-                    // add productDetail
-                    let addOrderPackageDetail = await paymentInfoModel.addOrderPackageDetail(orderDetailID, productID, quantity, price, unit);
-                    
+                    for(let i = 0; i < req.session.cartInfo[j].product.length; i++){
+                        //get order detail id
+                        let orderDetail = await paymentInfoModel.getOrderDetail(orderID, packageID, quantity);
+                        if(orderDetail != 0){
+                            let orderDetailID = orderDetail.OrdersDetailID;
+                            // add productDetail
+                            let productID = req.session.cartInfo[j].product[i].ProductID;
+                            let quantity = req.session.cartInfo[j].product[i].quantity;
+                            let price = req.session.cartInfo[j].product[i].price;
+                            let unit = req.session.cartInfo[j].product[i].unit;
+                            let addOrderPackageDetail = await paymentInfoModel.addOrderPackageDetail(orderDetailID, productID, quantity, price, unit);
+                        }
+                    }
                 }
+                res.redirect(`/user/userInfo?userID=${req.session.user.userID}&info=kitHistory`)    
             }
-            
-
-            
-
-
         }else if(checkPayment.data.result === -1){
             // Tai khoan khong du de thuc hien giao dich. Vui long nap tien
+            
             // Chuyen den man hinh nap tien
+            res.redirect('/user/addMoney');
 
         }else{
             // Qua trinh thanh toan bi loi. Vui long thuc hien lai
-
+            res.redirect('/user/payment');
 
         }
         

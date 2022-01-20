@@ -185,5 +185,47 @@ module.exports={
     apiDebt: async(req, res, next) => {
         let result = await userModel.getDebt();
         res.json(result.rows);
+    }, 
+    apiGetDebt: async(req, res, next) => {
+        let username = req.params.username;
+        let result = await userModel.getOneDebt(username);
+        res.json(result);
+    },
+    apiGetHistoryPaymentOne: async(req, res, next) => {
+        let username = req.params.username;
+        //get userID
+        let user = await userModel.getUserByUsername(username);
+        if(user !== 0){
+            let userID = user.userID;
+            // get history payment
+            let historyPayment = await userModel.getHistoryPaymentOne(userID);
+            if(historyPayment != 0){
+                res.json(historyPayment);
+            }else{
+                res.json({result: "khong co"})
+            }
+        }else{
+            res.json({result: "khong co"})
+        }
+        
+    },
+    apiGetHistoryPayment: async(req, res, next) => {
+        let result = await userModel.getHistoryPayment();
+        if(result !== 0){
+            res.json(result)
+        }else{
+            res.json(0)
+        }
+    },
+    apiAddMonney: async(req, res, next)=>{
+        let money = req.body.money;
+        let userID = req.userID;
+
+        let result = await userModel.updateMoney(userID, money);
+        if(result.rowCount === 1){
+            res.json({result: 1});
+        }else{
+            res.json({result: 0});
+        }
     }
 }

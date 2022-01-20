@@ -52,6 +52,42 @@ module.exports={
         let result = await pool.query(`SELECT "userName", "accountBalance", "accountNumber"
         FROM public."User" WHERE "accountBalance" < 0`);
         return result;
+    },
+    async getOneDebt(username){
+        let result = await pool.query(`SELECT "accountBalance", "accountNumber"
+        FROM public."User" WHERE "userName" = '${username}'`);
+        if(result.rowCount >= 1){
+            return result.rows[0];
+        }else{
+            return 0;
+        }
+    },
+    async getUserByUsername(username){
+        let result = await pool.query(`SELECT "userID", "userName", password, permission, "accountBalance", "accountNumber"
+            FROM public."User" WHERE "userName" = '${username}'`);
+        if(result.rowCount >= 1){
+            return result.rows[0];
+        }else{
+            return 0;
+        }
+    },
+    async getHistoryPaymentOne(userID){
+        let result = await pool.query(`SELECT "totalPrice", "paymentDate", "paymentFor"
+        FROM public."historyPayment" WHERE "userID" = ${userID}`);
+        if(result.rowCount > 0){
+            return result.rows;
+        }else{
+            return 0;
+        }
+    },
+    async getHistoryPayment(){
+        let result = await pool.query(`SELECT "totalPrice", "paymentDate", "paymentFor", "userName"
+        FROM public."historyPayment" p INNER JOIN public."User" u ON p."userID" = u."userID"`);
+        if(result.rowCount > 0){
+            return result.rows;
+        }else{
+            return 0;
+        }
     }
 
 }

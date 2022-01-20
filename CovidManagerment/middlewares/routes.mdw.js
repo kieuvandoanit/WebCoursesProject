@@ -18,6 +18,7 @@ module.exports = (app) => {
     app.get('/admin/listHopital', admin.listHopital)
     app.get('/admin/addHopital', admin.addHopital)
     app.get('/admin/updateHopital/:id', admin.updateHopital)
+    app.get('/admin/deleteHopital/:id', admin.deleteHopital)
     app.post('/admin/updateStatus/:id', admin.updateStatusHandle)
     app.post('/admin/createAcountHandle', admin.addAcountHandle)
     app.post('/admin/updateHopitalHandle/:id', admin.updateHopitalHandle)
@@ -59,6 +60,8 @@ module.exports = (app) => {
 
     app.post('/manager/editProductAction/:id', manager.editProductAction)
     app.get('/manager/editProduct/:id', manager.updateProduct)
+
+    app.get('/manager/detailProduct/:id', manager.detailProduct)
     
     app.get('/manager/getPackage', manager.getPackage)
     app.post('/manager/getPackage', manager.findPackage)
@@ -75,7 +78,13 @@ module.exports = (app) => {
     app.post('/manager/changeHospital/:patientID',manager.changeHospitalHandle)
         //User
 
+    app.get('/user/userHistoryPayment',user.paymentHistory)
     app.get('/user/userInfo', user.accountMain)
+    app.get('/user/debt',user.viewDebt)
+    app.get('/user/addMoney', user.addMoneyView)
+    app.get('/user/loginPaymentSystem',user.addMoney)
+    app.post('/user/loginPaymentSystem',user.addMoneyHandleLogin)
+    app.post('/user/addMoney', user.addMoneyHandle)
     app.get('/user/changePassword/:id', user.updatePassword)
     app.post('/user/changePassword/:id', user.handleUpdatePassword)
 
