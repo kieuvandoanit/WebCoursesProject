@@ -126,7 +126,7 @@ module.exports = {
         if (newPassword === repeatPassword) { // matching password
             if (oldPassword != newPassword) { // repeat password
                 
-                if (password == oldPassword) {
+                if (password == md5(oldPassword)) {
                     // res.send("test")
                     let passwordHash = md5(newPassword);
                     let result = await pool.query(`UPDATE "User"

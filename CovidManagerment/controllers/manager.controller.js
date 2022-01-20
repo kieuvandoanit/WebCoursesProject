@@ -255,6 +255,7 @@ module.exports = {
         //add user
         let userName = req.body.username;
         let password = md5('123456');
+        let passwordTemp = '123456';
         let addUser = await managerModel.addUser(userName, password)
         //add user ben he thong thanh toan
         const agent = new https.Agent({  
@@ -262,7 +263,7 @@ module.exports = {
           });
         let addUserPayment = await axios.post('https://localhost:3443/api/createAccount',{
             username: userName,
-            password: password
+            password: passwordTemp
         },{
             httpsAgent: agent
         });
@@ -409,7 +410,19 @@ module.exports = {
                 layout: "manager"
             })
         } else {
-            res.send("Không có thông tin");
+            res.render("manager/statisticalsPackage", {
+                PackageID1: PackageID1,
+                PackageID2: PackageID2,
+                PackageID3: PackageID3,
+                PackageID4: PackageID4,
+                PackageID5: PackageID5,
+                Quantity1: Quantity1,
+                Quantity2: Quantity2,
+                Quantity3: Quantity3,
+                Quantity4: Quantity4,
+                Quantity5: Quantity5,
+                layout: "manager"
+            })
         }
     },
     statisticsUsedProduct: async(req, res, next) => {
@@ -464,17 +477,6 @@ module.exports = {
                 Quantity5 = 0;
             }
         }
-        // let Product1 = numberOfProduct[0].Product_name;
-        // let Product2 = numberOfProduct[1].Product_name;
-        // let Product3 = numberOfProduct[2].Product_name;
-        // let Product4 = numberOfProduct[3].Product_name;
-        // let Product5 = numberOfProduct[4].Product_name;
-        // let Quantity1 = numberOfProduct[0].Quantity;
-        // let Quantity2 = numberOfProduct[1].Quantity;
-        // let Quantity3 = numberOfProduct[2].Quantity;
-        // let Quantity4 = numberOfProduct[3].Quantity;
-        // let Quantity5 = numberOfProduct[4].Quantity;
-        // console.log(numberOfProduct)
         if (numberOfProduct !== 0) {
             res.render("manager/statisticsUsedProduct", {
                 Product1: Product1,
@@ -490,7 +492,19 @@ module.exports = {
                 layout: "manager"
             })
         } else {
-            res.send("Không có thông tin");
+            res.render("manager/statisticsUsedProduct", {
+                Product1: Product1,
+                Product2: Product2,
+                Product3: Product3,
+                Product4: Product4,
+                Product5: Product5,
+                Quantity1: Quantity1,
+                Quantity2: Quantity2,
+                Quantity3: Quantity3,
+                Quantity4: Quantity4,
+                Quantity5: Quantity5,
+                layout: "manager"
+            })
         }
     },
     sortByYOB: async(req, res, next) => {
@@ -524,7 +538,10 @@ module.exports = {
                 layout: "manager"
             })
         } else {
-            res.send("Không có thông tin");
+            res.render("manager/getAllProduct", {
+                // Product: lisProduct,
+                layout: "manager"
+            })
         }
     },
     getPackage: async(req, res, next) => {
@@ -535,7 +552,10 @@ module.exports = {
                 layout: "manager"
             })
         } else {
-            res.send("Không có thông tin");
+            res.render("manager/getPackage", {
+                // Package: Package,
+                layout: "manager"
+            })
         }
     },
     DeleteProduct: async(req, res, next) => {
@@ -567,7 +587,7 @@ module.exports = {
     findPackage: async(req, res, next) => {
         // res.send('Hello')
         let Package = await managerModel.searchedPackage(req.body.packageName);
-        res.render("manager/getSearchedPackage", {
+        res.render("manager/getPackage", {
             Package: Package,
             layout: "manager"
         })
@@ -659,7 +679,10 @@ module.exports = {
             layout: "manager"
         })
         } else {
-            res.send("Không tìm thấy thông tin");
+            res.render("manager/detailProduct", {
+                // Product:Product,
+                layout: "manager"
+            })
         }
     },
     DetailPackage: async(req, res, next) => {
@@ -674,7 +697,10 @@ module.exports = {
                 layout: "manager"
             })
         } else {
-            res.send("Không tìm thấy thông tin");
+            res.render("manager/detailPackage", {
+                // listProduct: listProduct,
+                layout: "manager"
+            })
         }
 
     },

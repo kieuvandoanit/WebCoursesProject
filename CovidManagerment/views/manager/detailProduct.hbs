@@ -7,12 +7,12 @@
 {{#each Product}}
 <div >
     <p> Tên sản phẩm: {{this.Product_name}}</p>
-    <p> Giá: {{this.price}}</p>
-    <p>Đơn giá: {{this.Unit}}</p>
+    <p> Giá: {{currency this.price}}</p>
+    <p>Đơn vị: {{this.Unit}}</p>
     <p>Danh mục: {{this.Category}}</p>
-  <img class="card-img-top" src="{{this.image1}}" alt="Ảnh 1">
-  <img class="card-img-top" src="{{this.image2}}" alt="Ảnh 2">
-  <img class="card-img-top" src="{{this.image3}}" alt="Ảnh 3">
+  <img class="card-img-top" style="width: 300px; height: auto;" src="{{this.image1}}" alt="Ảnh 1">
+  <img class="card-img-top" style="width: 300px; height: auto;" src="{{this.image2}}" alt="Ảnh 2">
+  <img class="card-img-top" style="width: 300px; height: auto;" src="{{this.image3}}" alt="Ảnh 3">
   
 </div>
 {{/each}}

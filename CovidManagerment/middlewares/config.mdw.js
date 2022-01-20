@@ -31,6 +31,9 @@ module.exports = (app) => {
                 if(a === b){
                     return output;
                 }
+            },
+            currency: (a) => {
+                return a.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
             }
         }
     }));

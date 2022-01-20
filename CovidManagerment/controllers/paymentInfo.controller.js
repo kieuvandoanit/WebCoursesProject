@@ -134,8 +134,8 @@ module.exports = {
         let paymentFor= "Thanh toán cho gói " + paymentForTemp;
         //get limit
 
-        let limitPayment = await paymentInfo.getLimit();
-        let limit = limitPayment.limit;
+        let limitPayment = await paymentInfoModel.getLimit();
+        let limit = limitPayment.value;
 
 
         let token = req.session.userPayment.token.accessToken;

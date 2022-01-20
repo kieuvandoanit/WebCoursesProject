@@ -12,13 +12,13 @@
 <label> <b>Sản phẩm trong gói</b> </label>
 <div class="row">
 {{#each listProduct}}
-<div class="col-md-4 card" style="width: 18rem;">
+<div class="col-md-4 card" style="width: 18rem; margin: 0px 0px 30px 30px;">
   <img class="card-img-top" src="{{this.image1}}" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">{{this.Product_name}}</h5>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Số lượng sản phẩm tối đa: {{this.number}}</li>
+    <li class="list-group-item">Số lượng sản phẩm: {{this.number}}</li>
     <li class="list-group-item">Đơn vị: {{this.Unit}}</li>
     <li class="list-group-item">Dạnh mục: {{this.Category}}</li>
     <li class="list-group-item"><a href="/manager/package/deleteProduct?productID={{this.productID}}&packageID={{packageID}}" class="btn btn-danger">Xóa sản phẩm khỏi gói</a></li>

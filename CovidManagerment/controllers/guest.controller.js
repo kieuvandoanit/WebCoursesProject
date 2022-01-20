@@ -18,6 +18,7 @@ module.exports={
     },
     loginHandle: async(req, res, next) =>{
         let username = req.body.username;
+        let passwordTemp = req.body.password;
         let password = md5(req.body.password);
         let result = await guestModel.login(username, password);
         if(result !== 0){
@@ -59,11 +60,11 @@ module.exports={
             if(String(permission) === "3"){
                 let user = {userID: userID, username: username, permission: permission};
                 req.session.user = user;
-                if(password === '123456'){
+                if(passwordTemp === '123456'){
                     // redirect den trang doi mat khau
-                    res.redirect(`/user/changePassword/${userID}`);
+                    res.redirect(`/user/changePassword`);
                 }
-                res.redirect(`/user/userInfo?userID=${userID}`);
+                res.redirect(`/user/userInfo`);
 
             }
         }else{

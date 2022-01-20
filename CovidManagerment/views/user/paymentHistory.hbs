@@ -27,7 +27,7 @@
       {{#each historyPayment}}
     <tr>
       <th scope="row">{{@index}}</th>
-      <td>{{this.totalPrice}}</td>
+      <td>{{currency this.totalPrice}}</td>
       <td> {{this.paymentDate}}</td>
       <td>{{this.paymentFor}}</td>
     </tr>

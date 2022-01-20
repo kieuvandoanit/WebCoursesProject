@@ -39,7 +39,7 @@
         <tr>
             <th scope="row">{{this.ProductID}}</th>
             <td>{{this.Product_name}}</td>
-            <td>{{this.price}}</td>
+            <td>{{currency this.price}}</td>
             <td>{{this.Unit}}</td>
             {{!-- <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td> --}}
             <td><a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td>
