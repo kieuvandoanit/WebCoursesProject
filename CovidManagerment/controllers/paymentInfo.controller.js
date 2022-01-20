@@ -19,9 +19,12 @@ module.exports = {
                 }
             }
         }
+        //lay han muc thanh toan 
+        let limit = await paymentInfoModel.getLimit();
         res.render("manager/paymentInfo",{
             layout: 'manager',
-            listUser: listUser
+            listUser: listUser,
+            limit: limit.value
         })
     },
     changeLimit: async(req, res, next) => {

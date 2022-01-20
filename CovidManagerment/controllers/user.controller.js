@@ -9,8 +9,16 @@ module.exports = {
         let userID = req.query.userID;
         let user = await userModel.getUser(userID);
         let patient = await userModel.getPatient(userID);
+        let notificationTemp = await userModel.getNotification(userID);
+        let notification;
+        if(notificationTemp != 0){
+            notification = notificationTemp.info;
+        }else{
+            notification = "Không có thông báo!"
+        }
         let info = req.query.info;
         let hospital;
+
         if (patient) {
             hospital = await userModel.getHospital(patient.hospitalID);
             patientManagement = await userModel.getHistoryPatient(userID);
@@ -48,6 +56,7 @@ module.exports = {
             res.render("user/notification", {
                 user: user,
                 patient: patient,
+                notification: notification,
                 layout: "user"
             })
         }
@@ -198,5 +207,12 @@ module.exports = {
                 historyPayment: getHistoryPayment.data
             })
         // }
+    },
+    deleteNotification: async (req, res, next) => {
+        
+        let username = req.params.username;
+        console.log(req.params);
+        await userModel.deleteNotification(username);
+        res.json({result: "thanh cong"});
     }
 }

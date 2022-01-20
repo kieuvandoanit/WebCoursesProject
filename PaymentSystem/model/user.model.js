@@ -62,6 +62,15 @@ module.exports={
             return 0;
         }
     },
+    async getOneDebtByUserID(userID){
+        let result = await pool.query(`SELECT "accountBalance", "accountNumber","userName"
+        FROM public."User" WHERE "userID" = '${userID}'`);
+        if(result.rowCount >= 1){
+            return result.rows[0];
+        }else{
+            return 0;
+        }
+    },
     async getUserByUsername(username){
         let result = await pool.query(`SELECT "userID", "userName", password, permission, "accountBalance", "accountNumber"
             FROM public."User" WHERE "userName" = '${username}'`);

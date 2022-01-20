@@ -39,6 +39,7 @@ module.exports = (app) => {
     app.get('/manager/statisticsChangeStatus', manager.statisticsChangeStatus);
     app.get('/manager/statisticsPackageProduct', manager.statisticsPackageProduct);
     app.get('/manager/statisticsUsedProduct', manager.statisticsUsedProduct);
+    app.get('/manager/statisticsDebtPayment', manager.statisticsDebtPayment);
     app.get('/manager/sortByYOB', manager.sortByYOB);
     app.post('/manager/sortByYOB', manager.findPatient);
     app.get('/manager/sortByStatus', manager.sortByStatus);
@@ -71,11 +72,13 @@ module.exports = (app) => {
     app.get('/manager/editInfoPackage/:packageID', manager.editInfoPackage)
     app.post('/manager/editInfoPackage/:packageID', manager.updateInfoPackage)
 
+    app.get('/manager/package/deleteProduct', manager.deleteProductFromPackage)
+
     app.get('/manager/addProductIntoPackage/:packageID', manager.addProductIntoPackage)
     app.post('/manager/addProductIntoPackage/:packageID', manager.addProductIntoPackageHandle)
     
 
-    app.get('/manager/DeleteProductFromPackage/:id', manager.DeleteProductFromPackage)
+
     app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
     
     app.get('/manager/addPackage', manager.addPackage)
@@ -112,6 +115,6 @@ module.exports = (app) => {
     app.post('/removeFromCart', product.removeFromCart)
 
 
-
+    app.get('/api/user/deleteNotification/:username', user.deleteNotification);
     app.get('/product/test',product.test)
 }

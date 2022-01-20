@@ -1,6 +1,7 @@
 const guestModel = require('../model/guest.model');
 const userModel = require('../model/user.model');
 const md5 = require('md5');
+const axios = require('axios')
 
 module.exports={
     checkBalance: async(req, res, next) =>{
@@ -223,6 +224,15 @@ module.exports={
 
         let result = await userModel.updateMoney(userID, money);
         if(result.rowCount === 1){
+            let checkDebt = await userModel.getOneDebtByUserID(userID);
+            // console.log(checkDebt)
+            if(checkDebt != 0){
+                let username = checkDebt.userName;
+                if(checkDebt.accountBalance >= 0){
+                    //call api xoa thong bao
+                    await axios.get('http://localhost:3000/api/user/deleteNotification/'+username);
+                }
+            }
             res.json({result: 1});
         }else{
             res.json({result: 0});

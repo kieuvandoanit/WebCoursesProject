@@ -48,5 +48,19 @@ module.exports = {
         }else{
             return 0;
         }
+    },
+    async getNotification(userID){
+        let noti = await pool.query(`SELECT "notificationID", info, "userID", "userName"
+        FROM public."Notification" WHERE "userID" = ${userID}`);
+        if(noti.rowCount >= 1){
+            return noti.rows[0];
+        }else{
+            return 0;
+        }  
+    },
+    async deleteNotification(username){
+        await pool.query(`DELETE FROM public."Notification"
+            WHERE "userName" = '${username}'`);
+        return 0;
     }
 }

@@ -8,7 +8,7 @@ module.exports = {
     homepage: async(req, res, next) => {
         let patient = await managerModel.getAllPatient();
         res.render("manager/getAllPatient", {
-            title: "1712389_NguyenQuangDuy",
+
             patient: patient,
 
             layout: "manager"
@@ -18,7 +18,6 @@ module.exports = {
         // res.send('Hello')
         let patient = await managerModel.getPatient(req.body.patientName);
         res.render("manager/getAllPatient", {
-            title: "1712389_NguyenQuangDuy",
             patient: patient,
 
             layout: "manager"
@@ -343,17 +342,57 @@ module.exports = {
         }
     },
     statisticsPackageProduct: async(req, res, next) => {
+        let PackageID1,PackageID2, PackageID3, PackageID4, PackageID5;
+        let Quantity1,Quantity2, Quantity3, Quantity4, Quantity5;
         let numberOfPackage = await managerModel.statisticsPackageProduct();
-        let PackageID1 = numberOfPackage[0].PackageID;
-        let PackageID2 = numberOfPackage[1].PackageID;
-        let PackageID3 = numberOfPackage[2].PackageID;
-        let PackageID4 = numberOfPackage[3].PackageID;
-        let PackageID5 = numberOfPackage[4].PackageID;
-        let Quantity1 = numberOfPackage[0].Quantity;
-        let Quantity2 = numberOfPackage[1].Quantity;
-        let Quantity3 = numberOfPackage[2].Quantity;
-        let Quantity4 = numberOfPackage[3].Quantity;
-        let Quantity5 = numberOfPackage[4].Quantity;
+        if(numberOfPackage === 0){
+            PackageID1 = 0
+            PackageID2 = 0
+            PackageID3 = 0
+            PackageID4 = 0
+            PackageID5 = 0
+            Quantity1 = 0
+            Quantity2 = 0
+            Quantity3 = 0
+            Quantity4 = 0
+            Quantity5 = 0
+        }else{
+            if(numberOfPackage[0]){
+                PackageID1 = numberOfPackage[0].PackageID;
+                Quantity1 = numberOfPackage[0].Quantity;
+            }else{
+                PackageID1 = 0;
+                Quantity1 = 0;
+            }
+            if(numberOfPackage[1]){
+                PackageID2 = numberOfPackage[1].PackageID;
+                Quantity2 = numberOfPackage[1].Quantity;
+            }else{
+                PackageID2 = 0;
+                Quantity2 = 0;
+            }
+            if(numberOfPackage[2]){
+                PackageID3 = numberOfPackage[2].PackageID;
+                Quantity3 = numberOfPackage[2].Quantity;
+            }else{
+                PackageID3 = 0;
+                Quantity3 = 0;
+            }
+            if(numberOfPackage[3]){
+                PackageID4 = numberOfPackage[3].PackageID;
+                Quantity4 = numberOfPackage[3].Quantity;
+            }else{
+                PackageID4 = 0;
+                Quantity4 = 0;
+            }
+            if(numberOfPackage[4]){
+                PackageID5 = numberOfPackage[4].PackageID;
+                Quantity5 = numberOfPackage[4].Quantity;
+            }else{
+                PackageID5 = 0;
+                Quantity5 = 0;
+            }
+        }
         if (numberOfPackage !== 0) {
             res.render("manager/statisticalsPackage", {
                 PackageID1: PackageID1,
@@ -374,17 +413,67 @@ module.exports = {
     },
     statisticsUsedProduct: async(req, res, next) => {
         let numberOfProduct = await managerModel.statisticsUsedProduct();
-        let Product1 = numberOfProduct[0].Product_name;
-        let Product2 = numberOfProduct[1].Product_name;
-        let Product3 = numberOfProduct[2].Product_name;
-        let Product4 = numberOfProduct[3].Product_name;
-        let Product5 = numberOfProduct[4].Product_name;
-        let Quantity1 = numberOfProduct[0].Quantity;
-        let Quantity2 = numberOfProduct[1].Quantity;
-        let Quantity3 = numberOfProduct[2].Quantity;
-        let Quantity4 = numberOfProduct[3].Quantity;
-        let Quantity5 = numberOfProduct[4].Quantity;
-        console.log(numberOfProduct)
+        let Product1,Product2, Product3, Product4, Product5;
+        let Quantity1,Quantity2, Quantity3, Quantity4, Quantity5;
+        if(numberOfProduct === 0){
+            Product1 = 0
+            Product2 = 0
+            Product3 = 0
+            Product4 = 0
+            Product5 = 0
+            Quantity1 = 0
+            Quantity2 = 0
+            Quantity3 = 0
+            Quantity4 = 0
+            Quantity5 = 0
+        }else{
+            if(numberOfProduct[0]){
+                Product1 = numberOfProduct[0].Product_name;
+                Quantity1 = numberOfProduct[0].Quantity;
+            }else{
+                Product1 = 0;
+                Quantity1 = 0;
+            }
+            if(numberOfProduct[1]){
+                Product2 = numberOfProduct[1].Product_name;
+                Quantity2 = numberOfProduct[1].Quantity;
+            }else{
+                Product2 = 0;
+                Quantity2 = 0;
+            }
+            if(numberOfProduct[2]){
+                Product3 = numberOfProduct[2].Product_name;
+                Quantity3 = numberOfProduct[2].Quantity;
+            }else{
+                Product3 = 0;
+                Quantity3 = 0;
+            }
+            if(numberOfProduct[3]){
+                Product4 = numberOfProduct[3].Product_name;
+                Quantity4 = numberOfProduct[3].Quantity;
+            }else{
+                Product4 = 0;
+                Quantity4 = 0;
+            }
+            if(numberOfProduct[4]){
+                Product5 = numberOfProduct[4].Product_name;
+                Quantity5 = numberOfProduct[4].Quantity;
+            }else{
+                Product5 = 0;
+                Quantity5 = 0;
+            }
+        }
+        // let Product1 = numberOfProduct[0].Product_name;
+        // let Product2 = numberOfProduct[1].Product_name;
+        // let Product3 = numberOfProduct[2].Product_name;
+        // let Product4 = numberOfProduct[3].Product_name;
+        // let Product5 = numberOfProduct[4].Product_name;
+        // let Quantity1 = numberOfProduct[0].Quantity;
+        // let Quantity2 = numberOfProduct[1].Quantity;
+        // let Quantity3 = numberOfProduct[2].Quantity;
+        // let Quantity4 = numberOfProduct[3].Quantity;
+        // let Quantity5 = numberOfProduct[4].Quantity;
+        // console.log(numberOfProduct)
         if (numberOfProduct !== 0) {
             res.render("manager/statisticsUsedProduct", {
                 Product1: Product1,
@@ -591,12 +680,13 @@ module.exports = {
     editPackageAction: async(req, res, next) => {
         let PackageID = req.params.id;
         let listProduct = await managerModel.getListProductOfOnePackage(PackageID);
-        let packageID =listProduct[0].packageID
-        //console.log(packageID)
+        // let packageID =listProduct[0].packageID
+        console.log(listProduct)
 
         if (PackageID !== 0) {
+            // res.send("Hi")
             res.render("manager/editPackage",{
-                packageID:packageID,
+                packageID:PackageID,
                 listProduct: listProduct,
                 layout: "manager"
             })
@@ -695,7 +785,6 @@ module.exports = {
         let productID = req.body.productID
         let quantityInput = parseInt(req.body.quantity)
 
-        let insert = await managerModel.insertProductIntoPackage(PackageID, productID, quantityInput)
         
         if(numberProductInPackage + quantityInput > litmitedProductQuantiy){
             let error = 'Số lượng giới hạn sản phẩm trong gói là ' + litmitedProductQuantiy
@@ -708,18 +797,9 @@ module.exports = {
             })
         }
         else {
-            res.redirect("/manager/viewPackageAction/" + PackageID,)
+            let insert = await managerModel.insertProductIntoPackage(PackageID, productID, quantityInput)
+            res.redirect("/manager/editPackageAction/" + PackageID,)
         } 
-    },
-
-    DeleteProductFromPackage: async(req, res, next) => {
-        let PackageProductID = req.params.id;
-        let result = await managerModel.DeleteProductOutPackage(PackageProductID);
-        if (result.rowCount === 1) {
-            res.redirect('/manager/detailPackage/' + PackageProductID)
-        } else {
-            res.send("Lỗi");
-        }
     },
 
     addPackage: async(req, res, next) => {
@@ -779,5 +859,31 @@ module.exports = {
             res.redirect('/manager');
         }
         
+    },
+    deleteProductFromPackage: async(req, res, next) => {
+        let productID = req.query.productID;
+        let packageID = req.query.packageID;
+    
+        let result = await managerModel.deleteProductFromPackage(productID, packageID);
+        res.redirect('/manager/editPackageAction/'+packageID);
+    },
+    statisticsDebtPayment: async(req, res, next) => {
+        const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+        //get du no
+        let debt = await axios.get('https://localhost:3443/api/getDebt',{
+            httpsAgent: agent
+        });
+        //get thanh toan
+        let payment = await axios.get('https://localhost:3443/api/getHistoryPayment',{
+            httpsAgent: agent
+        });
+        res.render("manager/debtPayment",{
+            layout: "manager",
+            debt: debt.data,
+            payment: payment.data
+        })
+        // res.send(payment.data)
     }
 }

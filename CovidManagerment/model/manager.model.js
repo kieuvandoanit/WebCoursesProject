@@ -186,7 +186,7 @@ module.exports = {
         return 0;
     },
     async statisticsUsedProduct() {
-        let numberOfProduct = await pool.query(`select "Product_name", "Quantity" from public."OrdersPackageDetail" INNER JOIN public."Product" ON "OrdersPackageDetail"."ProductID" = "Product"."ProductID"`);
+        let numberOfProduct = await pool.query(`select "Product_name", SUM("Quantity") AS "Quantity" from public."OrdersPackageDetail" INNER JOIN public."Product" ON "OrdersPackageDetail"."ProductID" = "Product"."ProductID" GROUP BY "Product_name"`);
 
         //console.log(numberOfPackage.rows)
         if (numberOfProduct.rowCount >= 1) {
@@ -422,6 +422,11 @@ module.exports = {
     },
     async updateHospitalQuantity(hopital, number){
         let result = await pool.query(`UPDATE public."Hopital" SET  "current_Quantity"=${number} WHERE "hopitalID"=${hopital}`)
+        return result;
+    },
+    async deleteProductFromPackage(productID, packageID){
+        let result = await pool.query(`DELETE FROM public."Package_Product"
+        WHERE "productID" = ${productID} AND "packageID"=${packageID}`);
         return result;
     }
 }

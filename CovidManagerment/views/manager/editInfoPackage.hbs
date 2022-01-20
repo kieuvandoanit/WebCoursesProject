@@ -3,23 +3,22 @@
   {{#each Package}}
   <div class="form-group">
     <label for="package_Name"> Tên gói sản phẩm</label>
-    <input type="text" class="form-control" name="packageName" id="package_Name"  placeholder="{{this.package_Name}}">
+    <input type="text" class="form-control" name="packageName" id="package_Name"  value="{{this.package_Name}}">
   </div>
   <div class="form-group">
     <label for="limited_ProductQuantity"> Giới hạn số sản phẩm </label>
-    <input type="text" class="form-control" name="limitedProductQuantity" id="limited_ProductQuantity"  placeholder="{{this.limited_ProductQuantity}}">
-  </div>
+    <input type="text" class="form-control" name="limitedProductQuantity" id="limited_ProductQuantity"  value="{{this.limited_ProductQuantity}}">
   <div class="form-group">
     <label for="limited_PackageQuantity"> Giới hạn của gói</label>
-    <input type="text" class="form-control" name="limitedPackageQuantity" id="limited_PackageQuantity" placeholder="{{this.limited_PackageQuantity}}">
+    <input type="text" class="form-control" name="limitedPackageQuantity" id="limited_PackageQuantity" value="{{this.limited_PackageQuantity}}">
   </div>
   <div class="form-group">
     <label for="limited_Time"> Thời gian hết hạn</label>
-    <input type="text" class="form-control" name="limitedTime" id="limited_Time" placeholder="{{this.limited_Time}}">
+    <input type="text" class="form-control" name="limitedTime" id="limited_Time" value="{{this.limited_Time}}">
   </div>
   <div class="form-group">
     <label for="imageLink"> Link Ảnh gói nhu yếu phẩm</label>
-    <input type="text" class="form-control" name="imageLink" id="imageLink" placeholder="{{this.image}}">
+    <input type="text" class="form-control" name="imageLink" id="imageLink" value="{{this.image}}">
   </div>
 
   <button type="submit" class="btn btn-primary">Cập nhật</button>

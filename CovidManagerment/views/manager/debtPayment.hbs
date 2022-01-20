@@ -1,0 +1,48 @@
+{{!-- <h2>Thống kê dư nợ và thanh toán</h2> --}}
+
+<h4 style="color: blue; text-align: center;">Thống kê dư nợ</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Số nợ</th>
+      <th scope="col">Số tài khoản</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each debt}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.userName}}</td>
+      <td>{{this.accountBalance}}</td>
+      <td>{{this.accountNumber}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h4 style="color: blue; text-align: center">Thống kê thanh toán</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tổng thanh toán</th>
+      <th scope="col">Ngày thanh toán</th>
+      <th scope="col">Nội dung</th>
+      <th scope="col">Người dùng</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each payment}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.totalPrice}}</td>
+      <td>{{this.paymentDate}}</td>
+      <td>{{this.paymentFor}}</td>
+      <td>{{this.userName}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
