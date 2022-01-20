@@ -10,7 +10,7 @@ module.exports = {
         res.render("product/listPackage", {
             user: user,
             package: package,
-            layout: "product"
+            layout: "user"
         })
     },
 
@@ -172,7 +172,7 @@ module.exports = {
             packageName: packageName,
             user: user,
             package: package,
-            layout: "product"
+            layout: "user"
         })
         return;
     },
