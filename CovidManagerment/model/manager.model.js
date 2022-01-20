@@ -372,6 +372,7 @@ module.exports = {
             return Product.rows;
         }
         return 0;
+        
     },
     async getOneImageOfProduct(ProductID) {
         let Image = await pool.query(`SELECT * FROM public."Image" WHERE "ProductID"=${ProductID}`);
