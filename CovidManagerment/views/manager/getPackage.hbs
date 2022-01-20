@@ -1,0 +1,40 @@
+<style>
+</style>
+<br>
+
+<div class="row">
+<div class="col-md">
+  <form method = "post" action="">
+    <div class="input-group">
+      <div class="form-outline">
+        <input id="search-input" type="text" name="packageName" id="form1" class="form-control" />
+      </div>
+      <button id="search-button" type="submit" class="btn btn-success">Search</button>
+    </div>
+  </form>
+</div>
+<div class="col-md-6">
+    <a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới </a>
+</div>
+</div>
+<br>
+{{#each Package}}
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{this.package_Name}}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Giá gói sản phẩm: </li>
+    <li class="list-group-item">Giới hạn sản phẩm: {{this.limited_ProductQuantity}} SP</li>
+    <li class="list-group-item">Dạnh mục: </li>
+  </ul>
+  <div class="card-body">
+    <a href="/manager/viewPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-info">Chi tiết</a>
+    <a href="/manager/editPackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-warning">Chỉnh sửa</a>
+    <a href="/manager/DeletePackageAction/{{this.productPackageID}}" type="button" class="btn btn-outline-danger">Xóa</a>
+  </div>
+</div>
+{{/each}}
+<script>
+</script>

@@ -1,0 +1,86 @@
+<style>
+</style>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col"></th>
+      <th style="text-align:center" scope="col">Số ca F0</th>
+      <th style="text-align:center" scope="col">Số ca F1</th>
+      <th style="text-align:center" scope="col">Số ca F2</th>
+      <th style="text-align:center" scope="col">Số ca F3</th>
+      <th style="text-align:center" scope="col">Số ca F4</th>
+      <th style="text-align:center" scope="col">Số ca Khỏi bệnh</th>
+      <th style="text-align:center" scope="col">Tổng số ca</th>
+      
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <th scope="row"></th>
+      <td id = "F0" style="text-align:center" value="{{F0}}">{{F0}}</td>
+      <td id = "F1" style="text-align:center" value="{{F1}}">{{F1}}</td>
+      <td id = "F2" style="text-align:center" value="{{F2}}">{{F2}}</td>
+      <td id = "F3" style="text-align:center" value="{{F3}}">{{F3}}</td>
+      <td id = "F4" style="text-align:center" value="{{F4}}">{{F4}}</td>
+      <td id = "Fine" style="text-align:center" value="{{Fine}}">{{Fine}}</td>
+      <td style="text-align:center">{{sum}}</td>
+      <td><a href="/manager" type="button" class="btn btn-outline-info">Chi tiết</a></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md">
+        <h2 style="text-align:center">Số ca mắc Covid</h2>
+        <canvas id="myChart" width="200" height="200"></canvas>
+    </div>
+</div>
+
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+let F0 = document.getElementById('F0').getAttribute('value');
+let F1 = document.getElementById('F1').getAttribute('value');
+let F2 = document.getElementById('F2').getAttribute('value');
+let F3 = document.getElementById('F3').getAttribute('value');
+let F4 = document.getElementById('F4').getAttribute('value');
+let Fine = document.getElementById('Fine').getAttribute('value');
+
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['F0', 'F1', 'F2', 'F3', 'F4','Khỏi bệnh'],
+        datasets: [{
+            label: 'Số Ca',
+            data: [F0, F1, F2, F3, F4, Fine],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+

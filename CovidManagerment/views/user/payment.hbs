@@ -1,0 +1,41 @@
+<h2>Thông tin đơn hàng</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h5>1) Tổng quan đơn hàng</h5>
+        <p>Tổng giá trị đơn hàng: <span>{{totalOrder}}</span></p>
+        <p>Ngày đặt hàng: <span> {{dateOrder}}</span></p>
+        <p>Trạng thái thanh toán: Chưa thanh toán</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h5>2) Chi tiết đơn hàng</h5>
+        {{#each cartInfo}}
+        <span>Tên gói {{@index}}: {{this.packageName}}</span>
+        <p>Số lượng: {{this.quantity}}</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Giá cả</th>
+                    <th scope="col">Đơn vị</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each this.product}}
+                <tr>
+                    <th scope="row">{{@index}}</th>
+                    <td>{{this.Product_name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.Unit}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{/each}}
+    </div>
+    <a href="/user/payment/addOrder" class="btn btn-primary">Đặt hàng - Thanh toán</a>
+</div>

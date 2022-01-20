@@ -1,0 +1,21 @@
+<h2>Thêm tài khoản người được quản lý:</h2>
+<span style="color: red; font-style: italic;">{{error}}</span>
+<form method="post" acction="">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="username">Tên tài khoản</label>
+      <input type="username" class="form-control" name="username" id="username" placeholder="Tên tài khoản">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="password">Mật khẩu</label>
+      <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
+    </div>
+  </div>
+  {{!-- <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="accountNumber">Số tài khoản</label>
+      <input type="text" class="form-control" name="accountNumber" placeholder="Số tài khoản" id="acountNumber">
+    </div>
+  </div> --}}
+  <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
+</form>

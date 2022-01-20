@@ -1,0 +1,27 @@
+<style>
+</style>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="col-md-5">Username</th>
+      <th scope="col">Lock account</th>
+      <th scope="col">View history action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each manager}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td class="col-md-5">{{this.userName}}</td>
+      <td>
+          <span class="badge badge-{{isActive_Class 1 this.active}}">{{isActive_Info 1 this.active}}</span>
+      </td>
+      <td><a href="/admin/viewHistoryAction/{{this.userID}}" type="button" class="btn btn-outline-info">View</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<script>
+</script>

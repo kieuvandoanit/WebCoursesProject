@@ -1,0 +1,14 @@
+<h2>Cập nhật nơi điều trị</h2>
+<form method="post" action="">
+
+  <div class="form-group">
+    <label for="hopital">Khu điều trị</label>
+    <select class="form-control" id="hopital" name="hopital">
+        {{#each listHopital}}
+        <option value="{{this.hopitalID}}" {{selected this.hopitalID hopital}}>{{this.hopitalName}}</option>
+      {{/each}}
+    </select>
+  </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <p style="color: red;">{{error}}</p>
+</form>

@@ -1,0 +1,43 @@
+<h1 style="text-align: center;">Mua Nhu Yếu Phẩm</h1>
+<div class="form-group row">
+    <div class="input-group py-2">
+        <form class="form-inline py-2" method="POST" action="/package?userID={{user.userID}}">
+            {{#if packageName}}
+            <input class="form-control mr-sm-2" id="packageName" name="packageName" type="search"
+                value="{{packageName}}" aria-label="Search">
+            <input type="hidden" id="userID" name="userID" value="{{user.userID}}">
+            {{else}}
+            <input class="form-control mr-sm-2" id="packageName" name="packageName" type="search" placeholder="Search"
+                aria-label="Search">
+            <input type="hidden" id="userID" name="userID" value="{{user.userID}}">
+            {{/if}}
+            <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</div>
+<tbody>
+    {{#if package}}
+    <div class="row row-cols-1 row-cols-md-1 g-4">
+        {{#each package}}
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card" style="width: 19rem;">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{this.package_Name}}</h5>
+                    <p class="card-text">Giới hạn sản phẩm mỗi người: {{this.limited_ProductQuantity}}</p>
+                    <p class="card-text">Giới hạn gói mỗi người: {{this.limited_PackageQuantity}}</p>
+                    <p class="card-text">Thời gian cho lần đặt tiếp theo: {{this.limited_Time}}</p>
+                    <input type="hidden" id="userID" name="userID" value="{{lookup ../user 'userID'}}">
+                    <input type="hidden" id="productID" name="packageID" value="{{this.productPackageID}}">
+                    <a href="/productDetails?productID={{this.productPackageID}}&userID={{lookup ../user 'userID'}}"
+                        class="btn btn-secondary">Chi Tiết</a>
+                    <button class="btn btn-outline-success" onclick="addToCart({{this.productPackageID}})">Thêm vào
+                        giỏ</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <h6 style="text-align: center;">Không Tìm Thấy Sản Phẩm</h6>
+    {{/if}}
+</tbody>

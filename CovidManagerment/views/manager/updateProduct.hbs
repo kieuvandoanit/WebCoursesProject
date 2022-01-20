@@ -1,0 +1,33 @@
+<h3 style="text-align: center;">Thông tin sản phẩm</h3>
+<form method="post" action="/manager/editProductAction/{{Product.ProductID}}">
+  
+  <div class="form-group">
+    <label for="productName"> Tên sản phẩm</label>
+    <input type="text" class="form-control" name="productName" id="productName" value="{{Product.Product_name}}" placeholder="Nhập tên sản phẩm">
+  </div>
+  <div class="form-group">
+    <label for="price"> price </label>
+    <input type="text" class="form-control" name="price" id="price" value="{{Product.price}}" placeholder="Nhập giá sản phẩm">
+  </div>
+  <div class="form-group">
+    <label for="Unit">Unit</label>
+    <input type="text" class="form-control" name="Unit" id="Unit" value="{{Product.Unit}}" placeholder=" Đơn vị tính">
+  </div>
+  <div class="form-group">
+    <label for="Category"> Category</label>
+    <input type="text" class="form-control" id="Category" name="Category" value="{{Product.Category}}" placeholder="Danh mục">
+  </div>
+    <div class="form-group">
+    <label for="Image_link"> Hình ảnh 1</label>
+    <input type="text" class="form-control" id="image1" name="image1" value="{{Product.image1}}" placeholder="Hình ảnh">
+  </div>
+  <div class="form-group">
+    <label for="Image_link"> Hình ảnh 2</label>
+    <input type="text" class="form-control" id="image2" name="image2" value="{{Product.image2}}" placeholder="Hình ảnh">
+  </div>
+  <div class="form-group">
+    <label for="Image_link"> Hình ảnh 3</label>
+    <input type="text" class="form-control" id="image3" name="image3" value="{{Product.image3}}" placeholder="Hình ảnh">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

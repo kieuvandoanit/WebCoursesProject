@@ -1,0 +1,41 @@
+<script>
+    .custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+    .custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+</script>
+<div class="container">
+    <div class=" custyle">
+    <table class="table table-striped custab">
+    <thead>
+    <a href="/admin/addHopital" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới khu điều trị/cách ly</a>
+        <tr>
+            <th>#</th>
+            <th>Tên</th>
+            <th>Số lượng</th>
+            <th>Địa chỉ</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+            {{#each listHopital}}
+            <tr>
+                <td>{{@index}}</td>
+                <td>{{this.hopitalName}}</td>
+                <td>{{this.current_Quantity}}/{{this.Capacity}}</td>
+                <td>{{this.ward}}, {{this.District}}, {{this.province}}</td>
+                <td class="text-center">
+                    <a class='btn btn-success btn-xs' href="/admin/updateHopital/{{this.hopitalID}}"><span class="glyphicon glyphicon-edit"></span> Sửa</a>
+                    <a class='btn btn-danger btn-xs' href="/admin/deleteHopital/{{this.hopitalID}}"><span class="glyphicon glyphicon-edit"></span> Xóa</a>
+                </td>
+            </tr>
+            {{/each}}
+    </table>
+    </div>
+</div>

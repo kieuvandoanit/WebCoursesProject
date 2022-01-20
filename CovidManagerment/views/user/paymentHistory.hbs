@@ -1,0 +1,36 @@
+{{!-- <h1 style="text-align: center;">Lịch Sử Thanh Toán</h1>
+<tbody>
+    <div class="row row-cols-1 row-cols-md-1 g-3">
+        {{#each paymentHistory}}
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold">Thông Tin Người Dùng</h4>
+                    <p class="card-text"><strong>Tên Người Dùng</strong>: {{user.userName}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</tbody> --}}
+<h2>Lịch sử thanh toán</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tổng tiền</th>
+      <th scope="col">Ngày thanh toán</th>
+      <th scope="col">Nội dung</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each historyPayment}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.totalPrice}}</td>
+      <td> {{this.paymentDate}}</td>
+      <td>{{this.paymentFor}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

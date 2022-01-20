@@ -1,0 +1,19 @@
+<h2>Nạp tiền vào hệ thống</h2>
+<span style="color: green; font-style: italic;">{{status}}</span>
+<span style="color: red; font-style: italic;">{{error}}</span>
+<form method="post" action="">
+  
+  <div class="form-group">
+    <label for="money">Chọn số tiền cần nạp</label>
+    <select class="form-control" id="money" name="money">
+      <option value="10000">10.000VNĐ</option>
+      <option value="20000">20.000VNĐ</option>
+      <option value="50000">50.000VNĐ</option>
+      <option value="100000">100.000VNĐ</option>
+      <option value="200000">200.000VNĐ</option>
+      <option value="500000">500.000VNĐ</option>
+    </select>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Nạp tiền</button>
+</form>

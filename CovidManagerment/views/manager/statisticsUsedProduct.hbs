@@ -1,0 +1,86 @@
+<style>
+</style>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col"></th>
+      <th style="text-align:center" id="Product1" scope="col" value="{{Product1}}">{{Product1}}</th>
+      <th style="text-align:center" id="Product2" scope="col" value="{{Product2}}">{{Product2}}</th>
+      <th style="text-align:center" id="Product3" scope="col" value="{{Product3}}">{{Product3}}</th>
+      <th style="text-align:center" id="Product4" scope="col" value="{{Product4}}">{{Product4}}</th>
+      <th style="text-align:center" id="Product5" scope="col" value="{{Product5}}">{{Product5}}</th>
+      
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <th scope="row"></th>
+      <td id = "F0" style="text-align:center" value="{{Quantity1}}">{{Quantity1}}</td>
+      <td id = "F1" style="text-align:center" value="{{Quantity2}}">{{Quantity2}}</td>
+      <td id = "F2" style="text-align:center" value="{{Quantity3}}">{{Quantity3}}</td>
+      <td id = "F3" style="text-align:center" value="{{Quantity4}}">{{Quantity4}}</td>
+      <td id = "F4" style="text-align:center" value="{{Quantity5}}">{{Quantity5}}</td>
+      
+    </tr>
+    
+  </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md">
+        <h2 style="text-align:center">Thống Kê Tiêu Thụ Gói Nhu Yếu Phẩm</h2>
+        <canvas id="myChart" width="200" height="200"></canvas>
+    </div>
+</div>
+
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+let Product1 = document.getElementById('Product1').getAttribute('value');
+let Product2 = document.getElementById('Product2').getAttribute('value');
+let Product3 = document.getElementById('Product3').getAttribute('value');
+let Product4 = document.getElementById('Product4').getAttribute('value');
+let Product5 = document.getElementById('Product5').getAttribute('value');
+let F0 = document.getElementById('F0').getAttribute('value');
+let F1 = document.getElementById('F1').getAttribute('value');
+let F2 = document.getElementById('F2').getAttribute('value');
+let F3 = document.getElementById('F3').getAttribute('value');
+let F4 = document.getElementById('F4').getAttribute('value');
+
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [Product1, Product2, Product3, Product4, Product5],
+        datasets: [{
+            label: 'Số Lượng Tiêu Thụ Sản Phẩm',
+            data: [F0, F1, F2, F3, F4],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+

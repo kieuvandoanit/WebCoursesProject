@@ -1,0 +1,275 @@
+<h3 style="text-align: center;">Thêm Bệnh Nhân</h3>
+<form id="form" method="post" action="/manager/addPatientHandle">
+  <div class="row">
+    <div class="col-md-6">
+      {{!-- <div class="form-group">
+        <label for="userID">Nhập userID</label>
+        <input type="text" class="form-control" id="userID" name="userID" placeholder="Nhập userID">
+        <span id="userID_error"></span>
+      </div> --}}
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Nhập Username">
+        <span id="username_error"></span>
+      </div>
+      <div class="form-group">
+        <label for="Patientname">Họ và tên Bệnh nhân</label>
+        <input type="text" class="form-control" name="PatientName" id="patientName" placeholder="Nhập Họ và Tên bệnh nhân">
+        <span id="patientName_error"></span>
+      </div>
+      <div class="form-group">
+        <label for="identityCard">Số CMND/Căn Cước</label>
+        <input type="number" class="form-control" name="identityCard" id="identityCard" placeholder="Nhập CMND/Căn Cước">
+        <span id="identityCard_error"></span>
+      </div>
+      <div class="form-group">
+        <label for="DOB">Ngày tháng năm sinh</label>
+        <input type="text" class="form-control" name="DOB" id="DOB" placeholder="Ngày Tháng Năm Sinh">
+        <span id="DOB_error"></span>
+      </div>
+      <div class="form-group">
+        <label for="ward">Phường/Xã</label>
+        <input type="text" class="form-control" id="ward" name="ward" placeholder="Nhập tên phường/xã">
+        <span id="ward_error"></span>
+      </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+          <label for="District">Quận/Huyện</label>
+          <input type="text" class="form-control" id="district" name="District" placeholder="Nhập tên quận/huyện">
+          <span id="district_error"></span>
+        </div>
+        <div class="form-group">
+          <label for="province">Tỉnh/Thành phố</label>
+          <input type="text" class="form-control" id="province" name="province" placeholder="Nhập tên tỉnh/thành phố">
+          <span id="province_error"></span>
+        </div>
+        <div class="form-group">
+          <label for="Status">Trạng thái Bệnh nhân</label>
+          <input type="text" class="form-control" id="status" name="Status" placeholder="Nhập Trạng thái Bệnh nhân">
+          <span id="status_error"></span>
+        </div>
+        <div class="form-group">
+          <label for="hospitalID">ID Nơi điều trị</label>
+          <input type="number" class="form-control" id="hospitalID" name="hospitalID" placeholder="Nhập Trạng thái Bệnh nhân">
+          <span id="hospitalID_error"></span>
+        </div>
+        <div class="form-group">
+          <label for="patient_ref">ID Người liên quan</label>
+          <input type="number" class="form-control" id="patient_ref" name="patient_ref" value="-1" placeholder="Nhập Trạng thái Bệnh nhân">
+          <span id="patient_ref_error"></span>
+        </div>
+    </div>
+  </div>
+
+  <button  type="submit" onclick="validate()" class="btn btn-primary">Submit</button>
+</form>
+
+<style>
+  span{
+    color:red;
+    display: block;
+    padding: 5px 0px;
+  }
+  
+</style>
+
+<script>
+  function getValue(id){
+    return document.getElementById(id).value.trim();
+  }
+
+  function ShowError(key, mess){
+    document.getElementById(key + '_error').innerHTML = mess;
+  }
+
+  function validate(){
+    var flag = true;
+
+    var userID = getValue('userID');
+    var username = getValue('username');
+    var patientName = getValue('patientName');
+    var identityCard = getValue('identityCard');
+    var DOB = getValue('DOB');
+    var ward = getValue('ward');
+    var district = getValue('district');
+    var province= getValue('province');
+    var status = getValue('status');
+    var hospitalID = getValue('hospitalID');
+    var patient_ref = getValue('patient_ref');
+
+
+    //------------------------------------Validate cho userID----------------------------------------
+    if(userID == ''){
+      flag = false; 
+      ShowError('userID','Bạn chưa nhập UserID')
+    }
+
+    else if(userID.length <6){
+      flag = false; 
+      ShowError('userID','userID phải hơn 5 kí tự')
+    }
+
+    else if(!/^([a-zA-Z0-9])+$/.test(userID)){
+      flag = false; 
+      ShowError('userID','userID không đúng định dạng')
+    }
+
+    else{
+      flag = false; 
+      ShowError('userID','')
+    }
+
+//------------------------------------Validate cho username----------------------------------------
+    if(username == ''){
+      flag = false; 
+      ShowError('username','Bạn chưa nhập Username')
+    }
+
+    else if(username.length <6){
+      flag = false; 
+      ShowError('username','Username phải hơn 5 kí tự')
+    }
+
+    else if(!/^([a-zA-Z0-9])+$/.test(username)){
+      flag = false; 
+      ShowError('username','Username không đúng định dạng')
+    }
+
+    else{
+      flag = false; 
+      ShowError('username','')
+    }
+
+//------------------------------------Validate cho patientName----------------------------------------
+    if(patientName == ''){
+      flag = false; 
+      ShowError('patientName','Bạn chưa nhập Tên bệnh nhân')
+    }
+
+    else if(patientName.length <6){
+      flag = false; 
+      ShowError('patientName','Tên bệnh nhân phải hơn 5 kí tự')
+    }
+
+    else{
+      flag = false; 
+      ShowError('patientName','')
+    }
+    
+//------------------------------------Validate cho identityCard----------------------------------------
+    if(identityCard == ''){
+      flag = false; 
+      ShowError('identityCard','Bạn chưa nhập CMND/CC')
+    }
+
+    else if(identityCard.length <9){
+      flag = false; 
+      ShowError('identityCard','CMND/CC phải từ 9 kí tự')
+    }
+
+    else{
+      flag = false; 
+      ShowError('identityCard','')
+    }
+
+//------------------------------------Validate cho DOB----------------------------------------
+    if(DOB == ''){
+      flag = false; 
+      ShowError('DOB','Bạn chưa nhập Năm sinh')
+    }
+
+    else if(DOB.length< 4){
+      flag = false; 
+      ShowError('DOB','Năm sinh phải từ 4 số ')
+    }
+
+    else if(parseInt(DOB)< 1920){
+      flag = false; 
+      ShowError('DOB','Năm sinh phải từ 1920 trở đi')
+    }
+
+    else if(!/^([a-zA-Z0-9])+$/.test(DOB)){
+      flag = false; 
+      ShowError('DOB','Ngày sinh không đúng định dạng')
+    }
+
+    else{
+      flag = false; 
+      ShowError('DOB','')
+    }
+
+//------------------------------------Validate cho ward----------------------------------------
+    if(ward == ''){
+      flag = false; 
+      ShowError('ward','Bạn chưa nhập Tên Phường/Xã')
+    }
+
+    else if(ward.length <6){
+      flag = false; 
+      ShowError('ward','Tên Phường/Xã phải hơn 5 kí tự')
+    }
+
+    else{
+      flag = false; 
+      ShowError('ward','')
+    }
+
+//------------------------------------Validate cho district----------------------------------------
+    if(district == ''){
+      flag = false; 
+      ShowError('district','Bạn chưa nhập Tên Quận/Huyện')
+    }
+
+    else if(district.length <6){
+      flag = false; 
+      ShowError('district','Tên Quận/Huyện phải hơn 5 kí tự')
+    }
+
+    else{
+      flag = false; 
+      ShowError('district','')
+    }
+
+//------------------------------------Validate cho province----------------------------------------
+    if(province == ''){
+      flag = false; 
+      ShowError('province','Bạn chưa nhập Tên Tỉnh/Thành phố')
+    }
+
+    else if(province.length <6){
+      flag = false; 
+      ShowError('province','Tên Tỉnh/Thành phố phải hơn 5 kí tự')
+    }
+
+    else{
+      flag = false; 
+      ShowError('province','')
+    }
+
+//------------------------------------Validate cho status----------------------------------------
+    if(status == ''){
+      flag = false; 
+      ShowError('status','Bạn chưa nhập Trạng thái bện nhân')
+    }
+
+    else{
+      flag = false; 
+      ShowError('status','')
+    }
+
+//------------------------------------Validate cho hospitalID----------------------------------------
+    if(hospitalID == '' ){
+      flag = false; 
+      ShowError('hospitalID','Bạn chưa nhập Mã bệnh viện')
+    }
+
+//------------------------------------Validate cho patient_ref----------------------------------------
+    if(patient_ref == ''){
+      flag = false; 
+      ShowError('patient_ref','Bạn chưa nhập Mã Người Liên Quan')
+    }
+
+    return flag;
+  }
+</script>
