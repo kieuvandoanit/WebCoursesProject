@@ -26,7 +26,7 @@ module.exports = {
     },
 
     sessionProduct: async (req, res, next) => {
-        let userID = req.query.userID,
+        let userID = req.session.user.userID;
             user = await userModel.getUser(userID);
         if (req.session.cart) {
             req.session.cartInfo = [];
@@ -60,9 +60,9 @@ module.exports = {
     },
 
     addToCart: async (req, res, next) => {
-        let packageID = req.body.packageID,
-            userID = req.body.userID,
-            quantity = 1;
+        let packageID = req.body.packageID;
+        let userID = req.session.user.userID;
+        let quantity = 1;
         if (!req.session.cart) {
             req.session.cart = [];
             req.session.cart.push({
