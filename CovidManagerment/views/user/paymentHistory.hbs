@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">Lịch Sử Thanh Toán</h1>
+{{!-- <h1 style="text-align: center;">Lịch Sử Thanh Toán</h1>
 <tbody>
     <div class="row row-cols-1 row-cols-md-1 g-3">
         {{#each paymentHistory}}
@@ -12,4 +12,25 @@
         </div>
         {{/each}}
     </div>
-</tbody>
+</tbody> --}}
+<h2>Lịch sử thanh toán</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tổng tiền</th>
+      <th scope="col">Ngày thanh toán</th>
+      <th scope="col">Nội dung</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each historyPayment}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.totalPrice}}</td>
+      <td> {{this.paymentDate}}</td>
+      <td>{{this.paymentFor}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
