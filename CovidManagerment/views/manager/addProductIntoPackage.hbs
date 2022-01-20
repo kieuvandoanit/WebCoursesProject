@@ -1,0 +1,25 @@
+<h3 style="text-align: center;">Thêm sản phẩm</h3>
+<form method="post" action="">
+  
+  <div class="form-group">
+    <label for="productName"> Tên sản phẩm</label>
+    {{!-- <input type="text" class="form-control" name="productName" id="productName" placeholder="Nhập tên sản phẩm"> --}}
+    <select name="productID" id="productID">
+        {{#each product}}
+        <option value="{{this.ProductID}}"> {{this.Product_name}}</option>
+        {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="price"> Số lượng cần thêm</label>
+    <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Nhập số lượng sản phẩm">
+    <span><p style="color: red;">{{error}}</p></span>
+    <hr>
+    <div style="color: rgb(0, 255, 34)">Số lượng sản phẩm hiện tại trong gói: {{numberProductInPackage}}</div>
+<div style="color: rgb(38, 0, 255)">Số lượng sản phẩm tối đa trong gói: {{litmitedProductQuantiy}}</div>
+    
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

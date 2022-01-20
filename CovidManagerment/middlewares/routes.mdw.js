@@ -67,9 +67,17 @@ module.exports = (app) => {
     app.post('/manager/getPackage', manager.findPackage)
     
     app.get('/manager/viewPackageAction/:id', manager.DetailPackage)
-    app.post('/manager/editPackageAction/:id', manager.editPackageAction)
+    app.get('/manager/editPackageAction/:id', manager.editPackageAction)
+    app.get('/manager/editInfoPackage/:packageID', manager.editInfoPackage)
+    app.post('/manager/editInfoPackage/:packageID', manager.updateInfoPackage)
+
+    app.get('/manager/addProductIntoPackage/:packageID', manager.addProductIntoPackage)
+    app.post('/manager/addProductIntoPackage/:packageID', manager.addProductIntoPackageHandle)
+    
+
     app.get('/manager/DeleteProductFromPackage/:id', manager.DeleteProductFromPackage)
     app.get('/manager/DeletePackageAction/:id', manager.DeletePackage)
+    
     app.get('/manager/addPackage', manager.addPackage)
     app.post('/manager/addPackageHandle', manager.addPackageHandle)
 

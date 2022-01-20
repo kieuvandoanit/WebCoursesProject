@@ -23,24 +23,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Thêm</button>
 </form>
-<label> <b>Sản phẩm trong gói</b> </label>
-<table class="table">
-    <a href="/manager/addProductToPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm sản phẩm vào gói</a> 
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">ID sản phẩm</th>
-            <th style="text-align:center" scope="col"> Số lượng</th>
-            <th scope="col"> Xóa</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each listProduct}}
-        <tr>
-            <th scope="row">{{this.productID}}</th>
-            <td>{{this.number}}</td>
-            <td><a href="/manager/DeleteProductFromPackage/{{this.Package_ProductID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+
 

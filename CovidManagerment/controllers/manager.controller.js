@@ -516,7 +516,7 @@ module.exports = {
         
         let result = await managerModel.addProductHandle(productName, price, Unit, Category, imageLink);
         let productID = await managerModel.getProductIDBy(productName);
-        console.log(productID[0].ProductID);
+        //console.log(productID[0].ProductID);
         //await managerModel.insertProductImage(imageLink, productID[0].ProductID);
 
         if (result !== 0) {
@@ -546,7 +546,7 @@ module.exports = {
     updateProduct: async(req, res, next) => {
         let ProductID = req.params.id;
         let Product = await managerModel.getProductBy(ProductID);
-        console.log(Product)
+        //console.log(Product)
         if (Product !== 0) {
             res.render("manager/updateProduct", {
                 Product: Product[0],
@@ -561,7 +561,7 @@ module.exports = {
         let productID = req.params.id;
         let Product = await managerModel.getProductBy(productID);
 
-        console.log(Product)
+        //console.log(Product)
 
         if (Product !== 0) {
         res.render("manager/detailProduct", {
@@ -576,9 +576,10 @@ module.exports = {
         let PackageID = req.params.id;
         let Package = await managerModel.getOnePackage(PackageID);
         let listProduct = await managerModel.getListProductOfOnePackage(PackageID);
-        if (Package !== 0) {
+
+        //console.log(listProduct)
+        if (listProduct !== 0) {
             res.render("manager/detailPackage", {
-                Package: Package[0],
                 listProduct: listProduct,
                 layout: "manager"
             })
@@ -588,19 +589,127 @@ module.exports = {
 
     },
     editPackageAction: async(req, res, next) => {
-        let productPackageID = req.params.id;
-        let package_Name = req.body.package_Name;
-        let limited_ProductQuantity = req.body.limited_ProductQuantity;
-        let limited_PackageQuantity = req.body.limited_PackageQuantity;
-        let limited_Time = req.body.limited_Time;
-        let Package = await managerModel.updatePackage(productPackageID, package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time);
-        // let Image = await managerModel.getOneImageOfProduct(ProductID);
-        if (Package !== 0) {
-            res.redirect("/manager/getPackage")
+        let PackageID = req.params.id;
+        let listProduct = await managerModel.getListProductOfOnePackage(PackageID);
+        let packageID =listProduct[0].packageID
+        //console.log(packageID)
+
+        if (PackageID !== 0) {
+            res.render("manager/editPackage",{
+                packageID:packageID,
+                listProduct: listProduct,
+                layout: "manager"
+            })
         } else {
             res.redirect("/manager/detailPackage/" + productPackageID);
         }
 
+    },
+
+    editInfoPackage: async(req, res, next) => {
+        let PackageID = req.params.packageID;
+        let Package = await managerModel.getOnePackage(PackageID);
+        // let litmitedProductQuantiy = Package[0].limited_ProductQuantity
+        let listProduct = await managerModel.getListProductOfOnePackage(PackageID);
+
+        //console.log(Package)
+
+        if (PackageID !== 0) {
+            res.render("manager/editInfoPackage",{
+                Package: Package,
+                layout: "manager"
+            })
+        } else {
+            res.redirect("/manager/detailPackage/" + productPackageID);
+        }
+
+    },
+    //Cập nhật thông tin gói sản phẩm
+    updateInfoPackage: async(req, res, next) => {
+        let PackageID = req.params.packageID;
+        // let Package = await managerModel.getOnePackage(PackageID);
+        // let litmitedProductQuantiy = Package[0].limited_ProductQuantity
+        let listProduct = await managerModel.getListProductOfOnePackage(PackageID);
+        let packageName = req.body.packageName
+        let limitedProductQuantity = req.body.limitedProductQuantity
+        let limitedPackageQuantity = req.body.limitedPackageQuantity
+        let limitedTime = req.body.limitedTime
+        let image = req.body.imageLink
+
+        await managerModel.updatePackage(PackageID, packageName, limitedProductQuantity, limitedPackageQuantity, limitedTime, image);
+        // console.log(packageName)
+        // console.log(limitedProductQuantity)
+        // console.log(limitedPackageQuantity)
+        // console.log(limitedTime)
+        // console.log(image)
+
+        if (PackageID != 0 && packageName != 0 && limitedProductQuantity != 0 && limitedPackageQuantity != 0 && limitedTime != 0 && image != 0) {
+            res.redirect("/manager/viewPackageAction/" + PackageID,
+            )
+        } else {
+            res.send("Vui lòng nhập đầy đủ các trường dữ liệu");
+        }
+    },
+
+    addProductIntoPackage: async(req, res, next) => {
+        let PackageID = req.params.packageID;
+        let Package = await managerModel.getOnePackage(PackageID);
+        let litmitedProductQuantiy = parseInt(Package[0].limited_ProductQuantity)
+        
+        //Lay so luong san pham hien co trong goi
+        let numberProductInPackageNay = await managerModel.getNumberProductInPackage(PackageID)
+        let numberProductInPackage = parseInt(numberProductInPackageNay[0].sum)
+
+        let product = await managerModel.getAllProduct()
+
+        //let listProduct = await managerModel.getListProductOfOnePackage(PackageID);
+
+        //console.log(product)
+
+        if (PackageID != 0 ) {
+            res.render("manager/addProductIntoPackage",{
+                layout: "manager",
+                product:product,
+                numberProductInPackage: numberProductInPackage,
+                litmitedProductQuantiy: litmitedProductQuantiy,
+            })
+        } else {
+            res.send("Vui lòng nhập đầy đủ các trường dữ liệu");
+        }
+    },
+
+    addProductIntoPackageHandle: async(req, res, next) => {
+        let PackageID = req.params.packageID;
+
+        //Lay so luong san pham gioi han cua goi
+        let Package = await managerModel.getOnePackage(PackageID);
+        let litmitedProductQuantiy = parseInt(Package[0].limited_ProductQuantity)
+        
+        //Lay so luong san pham hien co trong goi
+        let numberProductInPackageNay = await managerModel.getNumberProductInPackage(PackageID)
+        let numberProductInPackage = parseInt(numberProductInPackageNay[0].sum)
+
+        //Lay danh sach cac san pham
+        let product = await managerModel.getAllProduct()
+
+        let productID = req.body.productID
+        let quantityInput = parseInt(req.body.quantity)
+
+        let insert = await managerModel.insertProductIntoPackage(PackageID, productID, quantityInput)
+        
+        if(numberProductInPackage + quantityInput > litmitedProductQuantiy){
+            let error = 'Số lượng giới hạn sản phẩm trong gói là ' + litmitedProductQuantiy
+            res.render("manager/addProductIntoPackage",{
+                layout: "manager",
+                product:product,
+                numberProductInPackage:numberProductInPackage,
+                litmitedProductQuantiy:litmitedProductQuantiy,
+                error:error,
+            })
+        }
+        else {
+            res.redirect("/manager/viewPackageAction/" + PackageID,)
+        } 
     },
 
     DeleteProductFromPackage: async(req, res, next) => {
@@ -618,13 +727,14 @@ module.exports = {
             layout: "manager"
         })
     },
+
     addPackageHandle: async(req, res, next) => {
         let package_Name = req.body.package_Name;
         let limited_ProductQuantity = req.body.limited_ProductQuantity;
         let limited_PackageQuantity = req.body.limited_PackageQuantity;
         let limited_Time = req.body.limited_Time;
-        // let Image_link = req.body.Image_link;
-        let result = await managerModel.addPackage(package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time);
+        let imageLink = req.body.imageLink;
+        let result = await managerModel.addPackage(package_Name, limited_ProductQuantity, limited_PackageQuantity, limited_Time, imageLink);
         // res.send('Hello')
         if (result !== 0) {
             res.redirect("/manager/getPackage")

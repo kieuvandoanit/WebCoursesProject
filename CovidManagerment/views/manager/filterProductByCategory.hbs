@@ -23,25 +23,29 @@
 </div>
 </div>
 <br>
-{{#each Product}}
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{this.image1}}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{this.Product_name}}</h5>
-    {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> --}}
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Giá sản phẩm: {{this.price}}</li>
-    <li class="list-group-item">Đơn vị: {{this.Unit}}</li>
-    <li class="list-group-item">Dạnh mục: {{this.Category}}</li>
-  </ul>
-  <div class="card-body">
-    <a href="/manager/detailProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a>
-    <a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a>
-    <a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Xóa</a>
-  </div>
+
+<div class="row">
+  {{#each Product}}
+    <div class="card col-md-4" style="width: 19rem;">
+      <img class="card-img-top" src="{{this.image1}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{this.Product_name}}</h5>
+        {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> --}}
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Giá sản phẩm: {{this.price}}</li>
+        <li class="list-group-item">Đơn vị: {{this.Unit}}</li>
+        <li class="list-group-item">Dạnh mục: {{this.Category}}</li>
+      </ul>
+      <div class="card-body">
+        <a href="/manager/detailProduct/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a>
+        <a href="/manager/editProduct/{{this.ProductID}}" type="button" class="btn btn-outline-warning">Chỉnh sửa</a>
+        <a href="/manager/deleteProduct/{{this.ProductID}}" type="button" class="btn btn-outline-danger">Xóa</a>
+      </div>
+    </div>
+    {{/each}}
 </div>
-{{/each}}
+
 
 <style>
     .card{

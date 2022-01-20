@@ -1,49 +1,22 @@
 <h3 style="text-align: center;">Thông tin gói</h3>
-<form method="post" action="/manager/editPackageAction/{{Package.productPackageID}}">
-  
-  <div class="form-group">
-    <label for="package_Name"> Tên gói sản phẩm</label>
-    <input type="text" class="form-control" name="package_Name" id="package_Name" value="{{Package.package_Name}}" placeholder="Nhập tên gói sản phẩm">
-  </div>
-  <div class="form-group">
-    <label for="limited_ProductQuantity"> Giới hạn số sản phẩm </label>
-    <input type="text" class="form-control" name="limited_ProductQuantity" id="limited_ProductQuantity" value="{{Package.limited_ProductQuantity}}" placeholder="Nhập giới hạn sản phẩm">
-  </div>
-  <div class="form-group">
-    <label for="limited_PackageQuantity"> Giới hạn số lượng mua/ thời gian</label>
-    <input type="text" class="form-control" name="limited_PackageQuantity" id="limited_PackageQuantity" value="{{Package.limited_PackageQuantity}}" placeholder=" Nhập giới hạn mua/ thời gian">
-  </div>
-    <div class="form-group">
-    <label for="limited_Time"> Thời gian giới hạn mua</label>
-    <input type="text" class="form-control" name="limited_Time" id="limited_Time" value="{{Package.limited_Time}}" placeholder=" nhập thời gian giới hạn mua">
-  </div>
-  <button type="submit" class="btn btn-primary">Lưu thông tin</button>
-</form>
+
 <label> <b>Sản phẩm trong gói</b> </label>
-{{!-- <div class="col-md-6"><a href="/manager/addPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm mới </a> --}}
-<table class="table">
-    <a href="/manager/addProductToPackage" class="btn btn-primary btn-xs pull-right"><b>+</b> Thêm sản phẩm vào gói</a> 
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">ID sản phẩm</th>
-            {{!-- <th scope="col">Hình ảnh</th> --}}
-            <th style="text-align:center" scope="col"> Số lượng</th>
-            {{!-- <th style="text-align:center" scope="col"> Chi tiết</th> --}}
-            {{!-- <th scope="col"> Chỉnh sửa</th> --}}
-            <th scope="col"> Xóa</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each listProduct}}
-        <tr>
-            <th scope="row">{{this.productID}}</th>
-            {{!-- <td>{{this.Product_name}}</td> --}}
-            {{!-- <td>{{this.Product_name}}</td> --}}
-            <td>{{this.number}}</td>
-            {{!-- <td><a href="/manager/viewProductAction/{{this.ProductID}}" type="button" class="btn btn-outline-info">Chi tiết</a></td> --}}
-            {{!-- <td><a href="/manager/editProduct/{{this.Package_ProductID}}" type="button" class="btn btn-outline-info">Chỉnh sửa</a></td> --}}
-            <td><a href="/manager/DeleteProductFromPackage/{{this.Package_ProductID}}" type="button" class="btn btn-outline-info">Xóa</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+
+<div class="row">
+{{#each listProduct}}
+<div class="col-md-4 card" style="width: 18rem;">
+  <img class="card-img-top" src="{{this.image1}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{this.Product_name}}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Số lượng sản phẩm: {{this.number}}</li>
+    <li class="list-group-item">Đơn vị: {{this.Unit}}</li>
+    <li class="list-group-item">Dạnh mục: {{this.Category}}</li>
+  </ul>
+</div>
+{{/each}}
+
+</div>
+
+
