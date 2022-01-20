@@ -3,10 +3,11 @@ const pool = require('../utils/database');
 const axios = require('axios');
 const https = require('https');
 const jwt = require('jsonwebtoken');
+const md5 = require('md5')
 
 module.exports = {
     accountMain: async (req, res, next) => {
-        let userID = req.query.userID;
+        let userID = req.session.user.userID;
         let user = await userModel.getUser(userID);
         let patient = await userModel.getPatient(userID);
         let notificationTemp = await userModel.getNotification(userID);
@@ -61,7 +62,50 @@ module.exports = {
             })
         }
     },
-
+    notification: async (req, res, next) => {
+        let userID = req.session.user.userID;
+        let user = await userModel.getUser(userID);
+        let patient = await userModel.getPatient(userID);
+        let notificationTemp = await userModel.getNotification(userID);
+        let notification;
+        if(notificationTemp != 0){
+            notification = notificationTemp.info;
+        }else{
+            notification = "Không có thông báo!"
+        }
+        res.render("user/notification", {
+            user: user,
+            patient: patient,
+            notification: notification,
+            layout: "user"
+        })
+    },
+    managedHistory: async (req, res, next) => {
+        let userID = req.session.user.userID;
+        let user = await userModel.getUser(userID);
+        let patient = await userModel.getPatient(userID);
+        if (patient) {
+            patientManagement = await userModel.getHistoryPatient(userID);  
+        }
+        res.render("user/managedHistory", {
+            user: user,
+            patient: patient,
+            patientManagement: patientManagement,
+            layout: "user"
+        })
+    },
+    kitHistory: async (req, res, next) => {
+        let userID = req.session.user.userID;
+        let user = await userModel.getUser(userID);
+        let patient = await userModel.getPatient(userID);
+        kitHistory = await userModel.getKitHistory(userID);
+        res.render("user/kitHistory", {
+            user: user,
+            patient: patient,
+            kitHistory: kitHistory,
+            layout: "user"
+        })
+    },
     updatePassword: async (req, res, next) => {
         let userID = req.session.user.userID;
         user = await userModel.getUser(userID);
@@ -84,8 +128,9 @@ module.exports = {
                 
                 if (password == oldPassword) {
                     // res.send("test")
+                    let passwordHash = md5(newPassword);
                     let result = await pool.query(`UPDATE "User"
-                    SET "password"='${newPassword}'
+                    SET "password"='${passwordHash}'
                     WHERE "userID"=${userID}`);
                     res.redirect(`/user/userInfo?userID=${userID}`) // send back to changePassword with success message
                 } else {

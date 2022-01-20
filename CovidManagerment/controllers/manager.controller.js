@@ -1,6 +1,7 @@
 const { query } = require('express');
 const { getAllRefPatient } = require('../model/manager.model');
 const managerModel = require('../model/manager.model');
+const md5 = require('md5');
 const axios = require('axios');
 const https = require('https');
 
@@ -253,7 +254,7 @@ module.exports = {
     addPatientHandle: async(req, res, next) => {
         //add user
         let userName = req.body.username;
-        let password = '123456';
+        let password = md5('123456');
         let addUser = await managerModel.addUser(userName, password)
         //add user ben he thong thanh toan
         const agent = new https.Agent({  

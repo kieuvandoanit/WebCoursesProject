@@ -1,4 +1,5 @@
 const pool = require("../utils/database");
+const md5 = require('md5');
 
 module.exports={
     async login(username, password){
@@ -14,7 +15,7 @@ module.exports={
         return user;
     },
     async createAdmin(){
-        let password = 123;
+        let password = md5('123');
         let result = await pool.query(`INSERT INTO public."User"(
             "userName", password, permission, active)
             VALUES ('admin', '${password}', 1, 1);`);

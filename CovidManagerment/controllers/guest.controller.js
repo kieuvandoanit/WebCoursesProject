@@ -1,4 +1,5 @@
 const guestModel = require('../model/guest.model');
+const md5 = require('md5');
 module.exports={
     login: async(req, res, next) =>{
         // kiem tra xem co tk admin chua
@@ -17,9 +18,8 @@ module.exports={
     },
     loginHandle: async(req, res, next) =>{
         let username = req.body.username;
-        let password = req.body.password;
+        let password = md5(req.body.password);
         let result = await guestModel.login(username, password);
-        // res.send(result);
         if(result !== 0){
             let userID = result.userID;
             let username = result.userName;

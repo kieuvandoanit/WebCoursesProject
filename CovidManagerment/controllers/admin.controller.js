@@ -1,4 +1,5 @@
 const adminModel = require('../model/admin.model')
+const md5 = require('md5');
 //Commit duy
 module.exports ={
     homepage: async(req, res, next) =>{
@@ -15,7 +16,7 @@ module.exports ={
     },
     addAcountHandle: async(req, res, next) =>{
         let username = req.body.username;
-        let password = req.body.password;
+        let password = md5(req.body.password);
         let result = await adminModel.createAccount(username, password);
 
         if(result.rowCount >= 1){

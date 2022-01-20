@@ -100,6 +100,12 @@ module.exports = (app) => {
     app.get('/user/changePassword',restrict.user, user.updatePassword)
     app.post('/user/changePassword',restrict.user, user.handleUpdatePassword)
 
+    app.get('/user/package', restrict.user, product.getProductPackage);
+    app.get('/user/notification', restrict.user, user.notification);
+    app.get('/user/managedHistory', restrict.user, user.managedHistory);
+    app.get('/user/kitHistory', restrict.user, user.kitHistory);
+
+
     app.get('/payment/login',restrict.user, paymentInfo.login);
     app.post('/payment/login',restrict.user, paymentInfo.loginHandle);
     app.get('/user/payment', paymentInfo.userPayment);
@@ -107,7 +113,7 @@ module.exports = (app) => {
 
     app.get('/user/cart',restrict.user, paymentInfo.userCart);
     //product
-    app.get('/package',restrict.user, product.getProductPackage)
+    // app.get('/package',restrict.user, product.getProductPackage)
     app.post('/package',restrict.user, product.searchPackage)
     app.get('/productDetails',restrict.user, product.getProductDetails)
     app.get('/cart',restrict.user, product.sessionProduct)

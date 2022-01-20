@@ -5,7 +5,7 @@ const productModel = require('../model/product.model'),
 module.exports = {
     getProductPackage: async (req, res, next) => {
         let package = await productModel.getProductPackage(),
-            userID = req.query.userID,
+            userID = req.session.user.userID,
             user = await userModel.getUser(userID);
         res.render("product/listPackage", {
             user: user,
@@ -16,7 +16,7 @@ module.exports = {
 
     getProductDetails: async (req, res, next) => {
         let product = await productModel.getProductDetails(req.query.productID),
-            userID = req.query.userID,
+            userID = req.session.user.userID,
             user = await userModel.getUser(userID);
         res.render("product/packageDetails", {
             product: product,
